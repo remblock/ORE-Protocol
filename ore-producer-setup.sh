@@ -142,7 +142,7 @@ sudo -S systemctl start fail2ban
 #----------------------------------------------------------------------------------------------------#
 
 sudo apt install snapd -y
-sudo snap install canonical-livepatch -y
+sudo snap install canonical-livepatch
 
 #----------------------------------------------------------------------------------------------------#
 # SETUP GRACEFUL SHUTDOWN                                                                            #
