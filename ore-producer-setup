@@ -44,7 +44,7 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
-sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
+sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
@@ -72,6 +72,8 @@ echo -e "plugin = eosio::net_plugin\nplugin = eosio::chain_plugin\nplugin = eosi
 sudo apt install linux-tools-common -y
 sudo apt install linux-tools-4.15.0-88-generic -y
 sudo -S apt update && sudo -S apt upgrade -y
+echo " "
+echo " "
 
 #----------------------------------------------------------------------------------------------------#
 # CHANGING DEFAULT SSH PORT NUMBER                                                                   #
@@ -112,7 +114,7 @@ sudo -S ufw enable
 # INSTALLING FAIL2BAN                                                                                #
 #----------------------------------------------------------------------------------------------------#
 
-sudo -S apt -y install fail2ban
+sudo -S apt install fail2ban -y
 sudo -S systemctl enable fail2ban
 sudo -S systemctl start fail2ban
 
