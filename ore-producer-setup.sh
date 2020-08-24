@@ -193,4 +193,5 @@ echo "ORE-PRODUCER SETUP HAS COMPLETED"
 echo "================================"
 echo ""
 sudo -S service sshd restart
+rm ./ore-producer-setup.sh
 reboot
