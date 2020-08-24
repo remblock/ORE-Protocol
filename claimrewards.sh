@@ -19,16 +19,16 @@ fi
 #****************************************************************************************************#
 
 #----------------------------------------------------------------------------------------------------#
-# CREATE AUTOBOT DIRECTORY                                                                           #
+# CREATE CLAIM REWARDS DIRECTORY                                                                     #
 #----------------------------------------------------------------------------------------------------#
 
-create_dir="/root/remblock/autobot"
+create_dir="/root/remblock/claim"
 
 #----------------------------------------------------------------------------------------------------#
-# CREATE AUTOBOT CONFIG FILE                                                                         #
+# CREATE CLAIM REWARDS CONFIG FILE                                                                   #
 #----------------------------------------------------------------------------------------------------#
 
-config_file="/root/remblock/autobot/config"
+config_file="/root/remblock/claim/config"
 
 #----------------------------------------------------------------------------------------------------#
 # MINUTES TO WAIT BETWEEN EACH EXECUTIONS OF THE SCRIPT                                              #
@@ -69,7 +69,7 @@ if [[ "$1" == "--at" ]]
 then
   at=true
   at now + $minutes_to_wait minutes << DOC &>/dev/null
-  /root/claimreward.sh --at
+  /root/claimrewards.sh --at
 DOC
 fi
 
@@ -88,7 +88,7 @@ fi
 
 if [ ! -f "$config_file" ]
 then
-  echo "#Configuration file for the claim reward script" > "$config_file"
+  echo "#Configuration file for the claim rewards script" > "$config_file"
   echo "#Make the entries as variable=value" >> "$config_file"
   echo  >> "$config_file"
 fi
@@ -337,4 +337,5 @@ $claimamount ORE"
   then
     curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$telegram_chatid -d text="$telegram_message" &>/dev/null
   fi
+ fi
 fi
