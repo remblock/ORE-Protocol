@@ -23,7 +23,7 @@ create_data_dir="/root/data"
 state_dir="/root/data/state"
 blocks_dir="/root/data/blocks"
 create_config_dir="/root/config"
-remnode_log_file="/root/remnode.log"
+nodeos_log_file="/root/nodeos.log"
 config_file="/root/config/config.ini"
 create_snapshot_dir="/root/data/snapshots"
 
