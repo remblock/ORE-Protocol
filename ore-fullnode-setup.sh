@@ -48,7 +48,7 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 echo -e "plugin = eosio::http_plugin\nplugin = eosio::net_plugin\nplugin = eosio::net_api_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::chain_api_plugin\nplugin = eosio::state_history_plugin\n\nhttp-server-address = 0.0.0.0:8888\np2p-peer-address = ore.csx.io:9876\np2p-peer-address = peer.ore.alohaeos.com:9876\np2p-peer-address = peer1-ore.eosphere.io:9876\np2p-peer-address = ore-seed1.openrights.exchange:9876\np2p-peer-address = ore-seed2.openrights.exchange:9876\np2p-peer-address = peer.ore-mainnet.eosblocksmith.io:5060\n\nchain-threads = 8\neos-vm-oc-enable = truem\nwasm-runtime = eos-vm-jit\neos-vm-oc-compile-threads = 8\n\ntrace-history = true\nchain-state-history = true\nverbose-http-errors = true\nhttp-validate-host = false\nhttp-max-response-time-ms = 100\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:80\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nabi-serializer-max-time-ms = 15000\n
-state-history-dir = "/data/shpdata"\nstate-history-endpoint = 0.0.0.0:8080\nhttps-private-key-file = /etc/letsencrypt/live/ore.remblock.io/privkey.pem\nhttps-certificate-chain-file = /etc/letsencrypt/live/ore.remblock.io/fullchain.pem > ./config/config.ini
+state-history-dir = "/data/shpdata"\nstate-history-endpoint = 0.0.0.0:8080\nhttps-private-key-file = /etc/letsencrypt/live/ore.remblock.io/privkey.pem\nhttps-certificate-chain-file = /etc/letsencrypt/live/ore.remblock.io/fullchain.pem" > ./config/config.ini
 sudo -S sed -i "/^#Port 22/s/#Port 22/Port $portnumber/" /etc/ssh/sshd_config && sed -i '/^PermitRootLogin/s/yes/without-password/' /etc/ssh/sshd_config && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 
 #----------------------------------------------------------------------------------------------------#
@@ -122,7 +122,7 @@ nodeos --config-dir $create_config_dir --data-dir $create_data_dir --state-histo
 # INSTALL CLANG 8 AND OTHER NEEDED TOOLS                                                             #
 #----------------------------------------------------------------------------------------------------#
 
-apt update && apt install -y wget gnupg
+apt update -y && apt install -y wget gnupg
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 
 cat <<EOT >>/etc/apt/sources.list
@@ -132,7 +132,7 @@ deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main
 deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main
 EOT
 
-sudo -S apt update && sudo -S apt upgrade -y \
+sudo -S apt update -y && sudo -S apt upgrade -y \
     autoconf2.13        \
     build-essential     \
     bzip2               \
@@ -295,7 +295,7 @@ sudo -S systemctl start fail2ban
 #----------------------------------------------------------------------------------------------------#
 
 sudo apt install snapd -y
-sudo snap install canonical-livepatch
+sudo snap install canonical-livepatch -y
 
 #----------------------------------------------------------------------------------------------------#
 # ADDING SSH PUBLIC KEY TO SERVER                                                                    #
@@ -305,7 +305,7 @@ echo $sshpublickey > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 sudo apt install linux-tools-common -y
 sudo apt install linux-tools-4.15.0-88-generic -y
-sudo -S apt update && sudo -S apt upgrade -y
+sudo -S apt update -y && sudo -S apt upgrade -y
 cpupower frequency-set --governor performance
 echo ""
 echo "====================================="
