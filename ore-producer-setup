@@ -43,8 +43,7 @@ fi
 # CHANGE HOSTNAME FROM DEFAULT                                                                       #
 #----------------------------------------------------------------------------------------------------#
 
-echo "ore.bp1.remblock" > /etc/hosts
-echo "ore.bp1.remblock" > /etc/hostname
+sudo hostnamectl set-hostname ore.bp1.remblock
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALLING EOS PROTOCOL BINARIES                                                                   #
