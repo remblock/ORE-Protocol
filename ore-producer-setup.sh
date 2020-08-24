@@ -85,6 +85,12 @@ sudo -S apt update && sudo -S apt upgrade -y
 
 sudo apt install curl -y
 sudo apt-get install jq -y
+
+#----------------------------------------------------------------------------------------------------#
+# CREATING ORE PROTOCOL WALLET                                                                       #
+#----------------------------------------------------------------------------------------------------#
+
+cleos wallet create -n walletpass --file walletpass
 echo " "
 echo " "
 
