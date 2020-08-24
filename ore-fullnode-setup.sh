@@ -295,7 +295,7 @@ sudo -S systemctl start fail2ban
 #----------------------------------------------------------------------------------------------------#
 
 sudo apt install snapd -y
-sudo snap install canonical-livepatch -y
+sudo snap install canonical-livepatch
 
 #----------------------------------------------------------------------------------------------------#
 # ADDING SSH PUBLIC KEY TO SERVER                                                                    #
