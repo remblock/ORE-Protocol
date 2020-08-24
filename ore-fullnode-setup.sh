@@ -263,7 +263,7 @@ systemctl restart node_shutdown
 
 rm /root/boost_1_70_0.tar.gz
 rm /root/cmake-3.14.5.tar.gz
-rm /root/eosio.cdt_1.6.2-1-ubuntu-18.04_amd64.deb
+rm /root/eosio.cdt_1.6.3-1-ubuntu-18.04_amd64.deb
 echo ""
 
 #----------------------------------------------------------------------------------------------------#
