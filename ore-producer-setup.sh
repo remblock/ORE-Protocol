@@ -77,7 +77,7 @@ echo -e "plugin = eosio::net_plugin\nplugin = eosio::chain_plugin\nplugin = eosi
 
 sudo apt install linux-tools-common -y
 sudo apt install linux-tools-4.15.0-88-generic -y
-sudo -S apt update && sudo -S apt upgrade -y
+sudo -S apt update -y && sudo -S apt upgrade -y
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALL ORE SNAPSHOT DEPENDENCIES                                                                  #
@@ -142,7 +142,7 @@ sudo -S systemctl start fail2ban
 #----------------------------------------------------------------------------------------------------#
 
 sudo apt install snapd -y
-sudo snap install canonical-livepatch
+sudo snap install canonical-livepatch -y
 
 #----------------------------------------------------------------------------------------------------#
 # SETUP GRACEFUL SHUTDOWN                                                                            #
