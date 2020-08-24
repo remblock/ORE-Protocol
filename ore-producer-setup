@@ -78,6 +78,13 @@ echo -e "plugin = eosio::net_plugin\nplugin = eosio::chain_plugin\nplugin = eosi
 sudo apt install linux-tools-common -y
 sudo apt install linux-tools-4.15.0-88-generic -y
 sudo -S apt update && sudo -S apt upgrade -y
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALL ORE SNAPSHOT DEPENDENCIES                                                                  #
+#----------------------------------------------------------------------------------------------------#
+
+sudo apt install curl -y
+sudo apt-get install jq -y
 echo " "
 echo " "
 
