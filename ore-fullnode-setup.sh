@@ -99,7 +99,7 @@ sudo add-apt-repository universe
 sudo add-apt-repository ppa:certbot/certbot -y
 sudo apt-get update
 sudo apt-get install certbot -y
-sudo certbot certonly --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
+sudo certbot certonly --manual --agree-tos --preferred-challenges dns --email $contact --domains $domain
 
 #----------------------------------------------------------------------------------------------------#
 # READJUST CONFIG.INI FILE                                                                           #
