@@ -179,12 +179,12 @@ make -j10
 make -j10 install
 
 #----------------------------------------------------------------------------------------------------#
-# INSTALL EOSIO CDT 1.6.2                                                                            #
+# INSTALL EOSIO CDT 1.6.3                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
 cd ~
-wget https://github.com/EOSIO/eosio.cdt/releases/download/v1.6.2/eosio.cdt_1.6.2-1-ubuntu-18.04_amd64.deb
-apt install -y ./eosio.cdt_1.6.2-1-ubuntu-18.04_amd64.deb
+wget https://github.com/EOSIO/eosio.cdt/releases/download/v1.6.3/eosio.cdt_1.6.3-1-ubuntu-18.04_amd64.deb
+sudo apt install -y ./eosio.cdt_1.6.3-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
 # BUILD HISTORY TOOLS                                                                                #
