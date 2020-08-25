@@ -44,6 +44,23 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
+# GET YES OR NO ANSWER FROM USER                                                                     #
+#----------------------------------------------------------------------------------------------------#
+
+function get_user_answer_yn(){
+  while :
+  do
+    read -p "$1 [y/n]: " answer
+    answer="$(echo $answer | tr '[:upper:]' '[:lower:]')"
+    case "$answer" in
+      yes|y) return 0 ;;
+      no|n) return 1 ;;
+      *) echo  "Invalid Answer [yes/y/no/n expected]";continue;;
+    esac
+  done
+}
+
+#----------------------------------------------------------------------------------------------------#
 # CREATE CONFIG.INI FILE & CHANGING SSH PORT NUMBER                                                  #
 #----------------------------------------------------------------------------------------------------#
 
@@ -93,26 +110,44 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 cd ~
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository universe
-sudo add-apt-repository ppa:certbot/certbot -y
-sudo apt-get update
-sudo apt-get install certbot -y
-sudo certbot certonly --manual --agree-tos --preferred-challenges dns --email $contact --domains $domain
-
-#----------------------------------------------------------------------------------------------------#
-# READJUST CONFIG.INI FILE                                                                           #
-#----------------------------------------------------------------------------------------------------#
-
-cd ~
 ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
 ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-echo "https-private-key-file = $ssl_private_key_path" >> /root/config/config.ini
-echo "https-certificate-chain-file = $ssl_certificate_path" >> /root/config/config.ini
-echo "" >> /root/config/config.ini
+if [ -z "$ssl_certificate_path" || "$ssl_private_key_path"]
+then
+  if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
+  then
+    sudo apt-get install software-properties-common -y
+    sudo add-apt-repository universe
+    sudo add-apt-repository ppa:certbot/certbot -y
+    sudo apt-get update
+    sudo apt-get install certbot -y
+    sudo certbot certonly --manual --agree-tos --preferred-challenges dns --email $contact --domains $domain
+    ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+    ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+    echo "https-private-key-file = $ssl_private_key_path" >> /root/config/config.ini
+    echo "https-certificate-chain-file = $ssl_certificate_path" >> /root/config/config.ini
+    echo "" >> /root/config/config.ini
+  else
+    echo ""
+    read -p "ENTER YOUR SSL CERTIFCATE PATH: " -e ssl_certificate_path
+    echo ""
+    read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
+    echo "https-private-key-file = $ssl_private_key_path" >> /root/config/config.ini
+    echo "https-certificate-chain-file = $ssl_certificate_path" >> /root/config/config.ini
+    echo "" >> /root/config/config.ini
+ fi
+fi
+if [ "$ssl_certificate_path" || "$ssl_private_key_path"]
+then
+  ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+  ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+  echo "https-private-key-file = $ssl_private_key_path" >> /root/config/config.ini
+  echo "https-certificate-chain-file = $ssl_certificate_path" >> /root/config/config.ini
+  echo "" >> /root/config/config.ini
+fi
 
 #----------------------------------------------------------------------------------------------------#
-# START REMNODE IN THE BACKGROUND                                                                    #
+# START NODEOS IN THE BACKGROUND                                                                     #
 #----------------------------------------------------------------------------------------------------#
 
 nodeos --config-dir $create_config_dir --data-dir $create_data_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
