@@ -304,7 +304,9 @@ sudo snap install canonical-livepatch
 echo $sshpublickey > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 sudo apt install linux-tools-common -y
-sudo apt install linux-tools-4.15.0-88-generic -y
+sudo apt install linux-cloud-tools-generic -y
+sudo apt install linux-tools-4.15.0-112-generic -y
+sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 sudo -S apt update -y && sudo -S apt upgrade -y
 cpupower frequency-set --governor performance
 echo ""
