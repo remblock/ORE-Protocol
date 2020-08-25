@@ -310,7 +310,7 @@ ORE Daily Summary
 --------------------------------------
 Date: $(date +"%d-%m-%Y")
 Account Name: "${accountname^}"
-ORE Account Balance: $balanceamount"
+Account Balance: $balanceamount ORE"
   if $auto_reward_alert
   then
     if $reward_failed
