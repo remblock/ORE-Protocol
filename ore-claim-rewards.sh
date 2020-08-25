@@ -296,6 +296,7 @@ sleep 120
 after=$(cleos get currency balance eosio.token $accountname | awk '{print $1}')
 total_reward=$(echo "scale=4; $after - $previous" | bc)
 claimamount=$(echo "$total_reward" | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+balanceamount=$(echo "$after" | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 
 #----------------------------------------------------------------------------------------------------#
 # PREPARE NOTIFICATION TO SEND TO TELEGRAM                                                           #
@@ -305,10 +306,11 @@ if [ ! -z "$telegram_chatid" ]
 then
   telegram_message="
 --------------------------------------
-Daily Summary
+ORE Daily Summary
 --------------------------------------
 Date: $(date +"%d-%m-%Y")
-Account Name: "${accountname^}""
+Account Name: "${accountname^}"
+ORE Account Balance: $balanceamount"
   if $auto_reward_alert
   then
     if $reward_failed
