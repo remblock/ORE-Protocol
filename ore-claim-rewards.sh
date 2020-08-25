@@ -193,7 +193,7 @@ else
   then
     exit 2
   fi
-  if get_user_answer_yn "DO YOU WANT AUTOBOT TO AUTO CLAIM YOUR REWARDS"
+  if get_user_answer_yn "DO YOU WANT TO AUTO CLAIM YOUR REWARDS?"
   then
     auto_reward=true
     echo "auto_reward=true" >> "$config_file"
@@ -232,7 +232,7 @@ else
      auto_reward_alert=true
    fi
  else
-   if get_user_answer_yn "DO YOU WANT TO RECEIVE REWARD NOTIFICATIONS"
+   if get_user_answer_yn "DO YOU WANT TO RECEIVE REWARD NOTIFICATIONS?"
    then
      auto_reward_alert=true
      echo "auto_reward_alert=true" >> "$config_file"
