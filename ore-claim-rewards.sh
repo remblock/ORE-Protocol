@@ -283,7 +283,7 @@ fi
 # CLEOS COMMANDS FOR UNLOCKING YOUR WALLET                                                           #
 #----------------------------------------------------------------------------------------------------#
 
-cleos wallet unlock --password $walletpass > /dev/null 2>&1
+cleos wallet unlock -n walletpass --password $walletpass > /dev/null 2>&1
 
 #----------------------------------------------------------------------------------------------------#
 # CLEOS COMMAND FOR CLAIMING YOUR REWARDS                                                            #
