@@ -69,7 +69,7 @@ if [[ "$1" == "--at" ]]
 then
   at=true
   at now + $minutes_to_wait minutes << DOC &>/dev/null
-  /root/claimrewards.sh --at
+  /root/ore-claim-rewards.sh --at
 DOC
 fi
 
