@@ -57,7 +57,7 @@ sudo -S sed -i "/^#Port 22/s/#Port 22/Port $portnumber/" /etc/ssh/sshd_config &&
 
 sudo -S apt update -y && sudo -S apt upgrade -y
 wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
-sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
+sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
 rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
