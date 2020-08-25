@@ -112,7 +112,7 @@ fi
 cd ~
 ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
 ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-if [ -z "$ssl_certificate_path" || "$ssl_private_key_path"]
+if [ -z "$ssl_certificate_path" ] || [ -z "$ssl_private_key_path" ]
 then
   if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
   then
@@ -137,7 +137,7 @@ then
     echo "" >> /root/config/config.ini
  fi
 fi
-if [ "$ssl_certificate_path" || "$ssl_private_key_path"]
+if [ ! -z "$ssl_certificate_path" ] || [ ! -z "$ssl_private_key_path" ]
 then
   ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
   ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
