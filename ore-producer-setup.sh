@@ -76,7 +76,9 @@ echo -e "plugin = eosio::net_plugin\nplugin = eosio::chain_plugin\nplugin = eosi
 #----------------------------------------------------------------------------------------------------#
 
 sudo apt install linux-tools-common -y
-sudo apt install linux-tools-4.15.0-88-generic -y
+sudo apt install linux-cloud-tools-generic -y
+sudo apt install linux-tools-4.15.0-112-generic -y
+sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 sudo -S apt update -y && sudo -S apt upgrade -y
 
 #----------------------------------------------------------------------------------------------------#
