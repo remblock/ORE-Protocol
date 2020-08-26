@@ -50,7 +50,7 @@ sudo hostnamectl set-hostname ore.bp1.remblock
 #----------------------------------------------------------------------------------------------------#
 
 wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
-sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
+sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
 rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
