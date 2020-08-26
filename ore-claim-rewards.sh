@@ -22,13 +22,13 @@ fi
 # CREATE CLAIM REWARDS DIRECTORY                                                                     #
 #----------------------------------------------------------------------------------------------------#
 
-create_dir="/root/remblock/claim"
+create_dir="/root/remblock/claim-rewards"
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE CLAIM REWARDS CONFIG FILE                                                                   #
 #----------------------------------------------------------------------------------------------------#
 
-config_file="/root/remblock/claim/config"
+config_file="/root/remblock/claim-rewards/config"
 
 #----------------------------------------------------------------------------------------------------#
 # MINUTES TO WAIT BETWEEN EACH EXECUTIONS OF THE SCRIPT                                              #
