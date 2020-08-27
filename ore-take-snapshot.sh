@@ -84,7 +84,7 @@ then
   last_irr_block_num=$(cleos get info | jq '.last_irreversible_block_num')
   
 #----------------------------------------------------------------------------------------------------#
-# NOW WE WAIT FOR LAST IRREVERSIBLE BLOCK TO PASS OUR SNAPSHOT TAKEN                                 #
+# NOW WE WAIT FOR LAST IRREVERSIBLE BLOCK TO PASS OUR TAKEN SNAPSHOT                                 #
 #----------------------------------------------------------------------------------------------------#
 
   while [ $last_irr_block_num -le $head_block_num ]
