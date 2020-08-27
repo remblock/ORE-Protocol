@@ -18,10 +18,6 @@ shcreate=$snapshotsfolder/compressandsendlastsnapshot.sh
 shcreatefull=$snapshotsfolder/compressandsendlastsnapshot_full.sh
 shcreatefullstate=$snapshotsfolder/compressandsendlastsnapshot_fullstate.sh
 
-testsnapshot=0
-testblocks=0
-teststatehistory=0
-
 #****************************************************************************************************#
 #                                     REMOTE SERVER PARAMETERS                                       #
 #****************************************************************************************************#
@@ -33,17 +29,21 @@ remote_user=root@website.geordier.co.uk
 #                                          MISC PARAMETERS                                           #
 #****************************************************************************************************#
 
-sshportno=22
+sshport=22
+testblocks=0
+chainstopped=0
+testsnapshot=0
+teststatehistory=0
+thehour=$(date +"%-H")
 datename=$(date +%Y-%m-%d_%H-%M)
 filename="$compressedfolder$datename"
-chainstopped=0
-#End of Parameters ########################################################
+
+#----------------------------------------------------------------------------------------------------#
+# CREATE THE DIRECTORY IF IT DOES NOT EXIST                                                          #
+#----------------------------------------------------------------------------------------------------#
 
 mkdir -p $compressedfolder
 chmod +x $compressedfolder
-
-thehour=$(date +"%-H")
-#thehour=0
 
 #****************************************************************************************************#
 #                                      TAKE SNAPSHOT OF CHAIN                                        #
