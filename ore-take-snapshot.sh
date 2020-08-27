@@ -82,7 +82,7 @@ then
   echo "Get Head and Irreversible Block Numbers"
   head_block_num=$(cleos get info | jq '.head_block_num')
   last_irr_block_num=$(cleos get info | jq '.last_irreversible_block_num')
-  
+
 #----------------------------------------------------------------------------------------------------#
 # NOW WE WAIT FOR LAST IRREVERSIBLE BLOCK TO PASS OUR TAKEN SNAPSHOT                                 #
 #----------------------------------------------------------------------------------------------------#
@@ -94,7 +94,7 @@ then
     echo "Last Irreversible Block Reached In $ans Blocks"
     sleep 10
   done
-  
+
   echo "Last Irreversible Block Number Passed - Great, lets stop the chain now"
 
 #----------------------------------------------------------------------------------------------------#
