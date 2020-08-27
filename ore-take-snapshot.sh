@@ -22,8 +22,8 @@ shcreatefullstate=$snapshotsfolder/compressandsendlastsnapshot_fullstate.sh
 #                                     REMOTE SERVER PARAMETERS                                       #
 #****************************************************************************************************#
 
-remote_server_folder=/var/www/geordier.co.uk/snapshots
-remote_user=root@website.geordier.co.uk
+remote_server_folder=/var/www/ore.remblock.io/snapshots
+remote_user=root@ore.remblock.io
 
 #****************************************************************************************************#
 #                                          MISC PARAMETERS                                           #
