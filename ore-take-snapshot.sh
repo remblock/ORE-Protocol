@@ -80,51 +80,53 @@ fi
 if [[ $(($thehour%12)) -eq 0 ]] || [[ $testblocks -eq 1 ]]
 then
   echo "Get Head and Irreversible Block Numbers"
-  head_block_num=$(remcli get info | jq '.head_block_num')
-  last_irr_block_num=$(remcli get info | jq '.last_irreversible_block_num')
+  head_block_num=$(cleos get info | jq '.head_block_num')
+  last_irr_block_num=$(cleos get info | jq '.last_irreversible_block_num')
   
 #----------------------------------------------------------------------------------------------------#
 # NOW WE WAIT FOR LAST IRREVERSIBLE BLOCK TO PASS OUR SNAPSHOT TAKEN                                 #
 #----------------------------------------------------------------------------------------------------#
 
-while [ $last_irr_block_num -le $head_block_num ]
-do
-last_irr_block_num=$(remcli get info | jq '.last_irreversible_block_num')
-ans=$(($head_block_num-$last_irr_block_num))
-        echo "Last Irreversible Block Reached In $ans Blocks"
-        sleep 10
-done
-echo "Last Irreversible Block Number Passed - Great, lets stop the chain now"
-~/stop.sh
-chainstopped=1
+  while [ $last_irr_block_num -le $head_block_num ]
+  do
+    last_irr_block_num=$(remcli get info | jq '.last_irreversible_block_num')
+    ans=$(($head_block_num-$last_irr_block_num))
+    echo "Last Irreversible Block Reached In $ans Blocks"
+    sleep 10
+  done
+  echo "Last Irreversible Block Number Passed - Great, lets stop the chain now"
+  ~/stop.sh
+  chainstopped=1
 
 #****************************************************************************************************#
 #                                    COMPRESSING NODEOS BLOCKS                                       #
 #****************************************************************************************************#
 
-echo "#Blocks Log Start #"
-rm -f $shcreatefull
-touch $shcreatefull && chmod +x $shcreatefull
-echo "tar -Scvzf $filename-blockslog.tar.gz $blocksfolder/blocks.log $blocksfolder/blocks.index" >> $shcreatefull
+  rm -f $shcreatefull
+  touch $shcreatefull && chmod +x $shcreatefull
+  echo "tar -Scvzf $filename-blockslog.tar.gz $blocksfolder/blocks.log $blocksfolder/blocks.index" >> $shcreatefull
 
 #****************************************************************************************************#
 #                                    TRANSFERING NODEOS BLOCKS                                       #
 #****************************************************************************************************#
 
-echo "ssh -p $sshportno $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete'" >> $shcreate
-echo "ssh -p $sshportno $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm'" >> $shcreatefull
-echo "rsync -rv -e 'ssh -p $sshportno' --progress $filename-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $shcreatefull
-echo "Sending blocks..."
-$shcreatefull
+  echo "ssh -p $sshportno $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete'" >> $shcreate
+  echo "ssh -p $sshportno $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm'" >> $shcreatefull
+  echo "rsync -rv -e 'ssh -p $sshportno' --progress $filename-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $shcreatefull
+  echo "Sending blocks..."
+  $shcreatefull
 else
-echo "Blocks Log is not due..Aborting"
+  echo "Blocks Log is not due..Aborting"
 fi
 
 #****************************************************************************************************#
 #                                   COMPRESSING NODEOS FULL STATE                                    #
 #****************************************************************************************************#
 
-#Run twice a day by MOD the hour by 12
+#----------------------------------------------------------------------------------------------------#
+# RUN TWICE A DAY BY MOD THE HOUR BY 12                                                              #
+#----------------------------------------------------------------------------------------------------#
+
 if [[ $(($thehour%24)) -eq 0 ]] || [[ $teststatehistory -eq 1 ]]
 then
   echo "#State History Start #"
@@ -136,28 +138,27 @@ then
 #                                    TRANSFERING NODEOS BLOCKS                                       #
 #****************************************************************************************************#
 
-echo "ssh -p $sshportno $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete'" >> $shcreate
-echo "ssh -p $sshportno $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm'" >> $shcreatefullstate
-echo "rsync -rv -e 'ssh -p $sshportno' --progress $filename-statehistory.tar.gz $remote_user:$remote_server_folder/state-history" >> $shcreatefullstate
-echo "Sending state history..."
-$shcreatefullstate
+  echo "ssh -p $sshportno $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete'" >> $shcreate
+  echo "ssh -p $sshportno $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm'" >> $shcreatefullstate
+  echo "rsync -rv -e 'ssh -p $sshportno' --progress $filename-statehistory.tar.gz $remote_user:$remote_server_folder/state-history" >> $shcreatefullstate
+  echo "Sending state history..."
+  $shcreatefullstate
 else
-echo "State History is not due...Aborting"
+  echo "State History is not due...Aborting"
 fi
 
 #****************************************************************************************************#
 #                                    SNAPSHOT CLEAN UP PROCESS                                       #
 #****************************************************************************************************#
 
-echo "Cleaning Up..."
 rm -f $shcreate
 rm -f $shcreatefull
 rm -f $shcreatefullstate
+rm -R $blocksfolder/*.gz
 rm -R $snapshotsfolder/*.gz
 rm -R $snapshotsfolder/*.bin
 rm -R $compressedfolder/*.gz
 rm -R $statehistoryfolder/*.gz
-rm -R $blocksfolder/*.gz
 
 #****************************************************************************************************#
 #                                  START NODEOS IN THE BACKGROUND                                    #
@@ -167,6 +168,6 @@ if [[ $chainstopped -eq 1 ]]
 then
 echo "Starting chain..."
 cd ~
-./start.sh
+cleos --config-dir ./config/ --disable-replay-opts --data-dir ./data/ >> nodeos.log 2>&1 &
+echo "Started ORE-Protocol!"
 fi
-echo "We are done"
