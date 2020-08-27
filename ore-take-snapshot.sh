@@ -166,14 +166,14 @@ fi
 #                                    SNAPSHOT CLEAN UP PROCESS                                       #
 #****************************************************************************************************#
 
-rm -f $sh_create > /dev/null
-rm -f $sh_create_full > /dev/null
-rm -f $sh_create_fullstate > /dev/null
-rm -R $blocks_folder/*.gz > /dev/null
-rm -R $snapshots_folder/*.gz > /dev/null
-rm -R $snapshots_folder/*.bin > /dev/null
-rm -R $compressed_folder/*.gz > /dev/null
-rm -R $state_history_folder/*.gz > /dev/null
+rm -f $sh_create 2> /dev/null
+rm -f $sh_create_full 2> /dev/null
+rm -f $sh_create_fullstate 2> /dev/null
+rm -R $blocks_folder/*.gz 2> /dev/null
+rm -R $snapshots_folder/*.gz 2> /dev/null
+rm -R $snapshots_folder/*.bin 2> /dev/null
+rm -R $compressed_folder/*.gz 2> /dev/null
+rm -R $state_history_folder/*.gz 2> /dev/null
 
 #****************************************************************************************************#
 #                                  START NODEOS IN THE BACKGROUND                                    #
