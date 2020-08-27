@@ -127,7 +127,7 @@ then
   done
 fi
 
-chainstopped=1
+chain_stopped=1
 
 #****************************************************************************************************#
 #                                    COMPRESSING NODEOS BLOCKS                                       #
