@@ -100,7 +100,7 @@ then
 
   while [ $last_irr_block_num -le $head_block_num ]
   do
-    last_irr_block_num=$(remcli get info | jq '.last_irreversible_block_num')
+    last_irr_block_num=$(cleos get info | jq '.last_irreversible_block_num')
     ans=$(($head_block_num-$last_irr_block_num))
     echo "Last Irreversible Block Reached In $ans Blocks"
     sleep 10
