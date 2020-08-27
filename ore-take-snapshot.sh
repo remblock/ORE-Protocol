@@ -53,7 +53,7 @@ chmod +x $compressed_folder
 # RUN EVERY 3 HOURS A DAY BY MODIFY THE HOUR BY 3                                                    #
 #----------------------------------------------------------------------------------------------------#
 
-if [[ $(($thehour%3)) -eq 0 ]] || [[ $testsnapshot -eq 1 ]]
+if [[ $(($the_hour%3)) -eq 0 ]] || [[ $test_snapshot -eq 1 ]]
 then
   echo "# Snapshot Only Start. Hour is $thehour #"
   snapname=$(curl http://127.0.0.1:8888/v1/producer/create_snapshot | jq '.snapshot_name')
