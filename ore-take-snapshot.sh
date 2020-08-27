@@ -88,7 +88,7 @@ if [[ $(($the_hour%12)) -eq 0 ]] || [[ $test_blocks -eq 1 ]]
 then
   echo ""
   echo "Blocks Logs has started the hour is $the_hour !!!"
-  echo "" 
+  echo ""
   echo "Get Head and Irreversible Block Numbers !!!"
   echo ""
   head_block_num=$(cleos get info | jq '.head_block_num')
@@ -102,15 +102,15 @@ then
   do
     last_irr_block_num=$(cleos get info | jq '.last_irreversible_block_num')
     ans=$(($head_block_num-$last_irr_block_num))
-    echo "" 
+    echo ""
     echo "Last Irreversible Block Reached In $ans Blocks !!!"
-    echo ""    
+    echo ""
     sleep 10
   done
   echo ""
   echo "Last Irreversible Block Number Passed - Great, lets stop the chain now !!!"
   echo ""
-  
+
 #----------------------------------------------------------------------------------------------------#
 # GRACEFULLY STOP ORE-PROTOCOL                                                                       #
 #----------------------------------------------------------------------------------------------------#
@@ -137,7 +137,7 @@ chainstopped=1
   echo ""
   echo "Blocks Logs compression has now completed !!!"
   echo ""
-  
+
 #****************************************************************************************************#
 #                                    TRANSFERING NODEOS BLOCKS                                       #
 #****************************************************************************************************#
@@ -146,7 +146,7 @@ chainstopped=1
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm'" >> $sh_create_full
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $sh_create_full
   $sh_create_full
-  echo "" 
+  echo ""
   echo "Blocks Logs transfer has now completed !!!"
   echo ""
 else
