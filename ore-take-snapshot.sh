@@ -187,5 +187,5 @@ if [[ $chain_stopped -eq 1 ]]
 then
   cd ~
   cleos --config-dir ./config/ --disable-replay-opts --data-dir ./data/ >> nodeos.log 2>&1 &
-  echo "Started ORE-Protocol!"
+  echo "Started ORE-Protocol !!!"
 fi
