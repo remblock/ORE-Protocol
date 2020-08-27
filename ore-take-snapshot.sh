@@ -5,10 +5,10 @@
 #****************************************************************************************************#
 
 data_folder=/root/data
-blocks_folder=$datafolder/blocks
-snapshots_folder=$datafolder/snapshots
-state_history_folder=$datafolder/state-history
-compressed_folder=$snapshotsfolder/compressed/
+blocks_folder=$data_folder/blocks
+snapshots_folder=$data_folder/snapshots
+state_history_folder=$data_folder/state-history
+compressed_folder=$snapshots_folder/compressed/
 
 #****************************************************************************************************#
 #                                    SCRIPT CONFIGURATION VARIABLES                                  #
@@ -36,7 +36,7 @@ test_snapshot=0
 test_state_history=0
 the_hour=$(date +"%-H")
 date_name=$(date +%Y-%m-%d_%H-%M)
-file_name="$compressedfolder$datename"
+file_name="$compressed_folder$date_name"
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE THE DIRECTORY IF IT DOES NOT EXIST                                                          #
