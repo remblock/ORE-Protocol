@@ -66,7 +66,7 @@ then
   echo "Sending snapshot only..."
   $sh_create
 else
-  echo "Snapshot is not due..Aborting"
+  echo "Snapshot is not due - Aborting !!!"
 fi
 
 #****************************************************************************************************#
@@ -132,7 +132,7 @@ chainstopped=1
   echo "Sending blocks..."
   $sh_create_full
 else
-  echo "Blocks Log is not due..Aborting"
+  echo "Blocks Log is not due - Aborting !!!"
 fi
 
 #****************************************************************************************************#
@@ -159,7 +159,7 @@ then
   echo "Sending state history..."
   $shcreatefullstate
 else
-  echo "State History is not due...Aborting"
+  echo "State History is not due - Aborting !!!"
 fi
 
 #****************************************************************************************************#
