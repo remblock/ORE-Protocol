@@ -181,8 +181,7 @@ rm -R $state_history_folder/*.gz
 
 if [[ $chain_stopped -eq 1 ]]
 then
-echo "Starting chain..."
-cd ~
-cleos --config-dir ./config/ --disable-replay-opts --data-dir ./data/ >> nodeos.log 2>&1 &
-echo "Started ORE-Protocol!"
+  cd ~
+  cleos --config-dir ./config/ --disable-replay-opts --data-dir ./data/ >> nodeos.log 2>&1 &
+  echo "Started ORE-Protocol!"
 fi
