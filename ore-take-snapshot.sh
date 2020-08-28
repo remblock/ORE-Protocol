@@ -56,23 +56,23 @@ chmod +x $compressed_folder
 if [[ $(($the_hour%3)) -eq 0 ]] || [[ $test_snapshot -eq 1 ]]
 then
   echo ""
-  echo "Snapshot has started the hour is $the_hour !!!"
+  echo "Snapshot is about to start the hour is $the_hour"
   echo ""
   snapname=$(curl http://127.0.0.1:8888/v1/producer/create_snapshot | jq '.snapshot_name')
   rm -f $sh_create
   touch $sh_create && chmod +x $sh_create
   echo "tar -Scvzf $file_name-snaponly.tar.gz $snapname" >> $sh_create
-  echo "Snapshot compression has now completed !!!"
+  echo "Compression of the Snapshot has completed"
   echo ""
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*.gz | head -n -8 | xargs -r rm 2> /dev/null'" >> $sh_create
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-snaponly.tar.gz $remote_user:$remote_server_folder" >> $sh_create
   $sh_create
-  echo "Snapshot transfer has now completed !!!"
+  echo "Transfer of the Snapshot has completed"
   echo ""
 else
   echo ""
-  echo "Snapshot is not due - Aborting !!!"
+  echo "Warning: Snapshot is not due yet skipping"
   echo ""
 fi
 
@@ -86,9 +86,9 @@ fi
 
 if [[ $(($the_hour%12)) -eq 0 ]] || [[ $test_blocks -eq 1 ]]
 then
-  echo "Blocks Logs has started the hour is $the_hour !!!"
+  echo "Blocks Logs is about to start the hour is $the_hour"
   echo ""
-  echo "Get Head and Irreversible Block Numbers !!!"
+  echo "Get Head and Irreversible Block Numbers"
   echo ""
   head_block_num=$(cleos get info | jq '.head_block_num')
   last_irr_block_num=$(cleos get info | jq '.last_irreversible_block_num')
@@ -101,11 +101,11 @@ then
   do
     last_irr_block_num=$(cleos get info | jq '.last_irreversible_block_num')
     ans=$(($head_block_num-$last_irr_block_num))
-    echo "Last Irreversible Block Reached In $ans Blocks !!!"
+    echo "Last Irreversible Block reached in $ans blocks"
     echo ""
     sleep 10
   done
-  echo "Last Irreversible Block Number has been reached, time to stop the chain !!!"
+  echo "Last Irreversible Block number has been reached, time to stop the chain"
   echo ""
 
 #----------------------------------------------------------------------------------------------------#
@@ -131,7 +131,7 @@ chain_stopped=1
   rm -f $sh_create_full
   touch $sh_create_full && chmod +x $sh_create_full
   echo "tar -Scvzf $file_name-blockslog.tar.gz $blocks_folder/blocks.log $blocks_folder/blocks.index" >> $sh_create_full
-  echo "Blocks Logs compression has now completed !!!"
+  echo "Compression of the Blocks Log has completed"
   echo ""
 
 #****************************************************************************************************#
@@ -142,10 +142,10 @@ chain_stopped=1
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_full
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $sh_create_full
   $sh_create_full
-  echo "Blocks Logs transfer has now completed !!!"
+  echo "Transfer of the Blocks Log has completed"
   echo ""
 else
-  echo "Blocks Log is not due - Aborting !!!"
+  echo "Warning: Blocks Log is not due yet skipping"
   echo ""
 fi
 
@@ -159,12 +159,12 @@ fi
 
 if [[ $(($the_hour%24)) -eq 0 ]] || [[ $test_state_history -eq 1 ]]
 then
-  echo "State Histroy has started the hour is $the_hour !!!"
+  echo "State Histroy is about to start the hour is $the_hour"
   echo ""
   rm -f $sh_create_fullstate
   touch $sh_create_fullstate && chmod +x $sh_create_fullstate
   echo "tar -Scvzf $file_name-state_history.tar.gz $state_history_folder  " >> $sh_create_fullstate
-  echo "State History compression has now completed !!!"
+  echo "Compression of the State History has completed"
   echo ""
 
 #****************************************************************************************************#
@@ -175,10 +175,10 @@ then
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_fullstate
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder/state-history" >> $sh_create_fullstate
   $sh_create_fullstate
-  echo "State History transfer has now completed !!!"
+  echo "Transfer of the State History has now completed"
   echo ""
 else
-  echo "State History is not due - Aborting !!!"
+  echo "Warning: State History is not due yet skipping"
   echo ""
 fi
 
