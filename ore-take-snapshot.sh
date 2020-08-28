@@ -61,7 +61,7 @@ then
   snapname=$(curl http://127.0.0.1:8888/v1/producer/create_snapshot | jq '.snapshot_name')
   rm -f $sh_create
   touch $sh_create && chmod +x $sh_create
-  echo "tar -Scvzf $filename-snaponly.tar.gz $snapname" >> $shcreate
+  echo "tar -Scvzf $filename-snaponly.tar.gz $snapname" >> $sh_create
   echo ""
   echo "Snapshot compression has now completed !!!"
   echo ""
