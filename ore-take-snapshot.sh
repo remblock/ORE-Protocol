@@ -181,7 +181,7 @@ then
 #                                    TRANSFERING NODEOS BLOCKS                                       #
 #****************************************************************************************************#
 
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_fullstate
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder/state-history" >> $sh_create_fullstate
   $sh_create_fullstate
