@@ -135,7 +135,7 @@ chain_stopped=1
 
   rm -f $sh_create_full
   touch $sh_create_full && chmod +x $sh_create_full
-  echo "tar -Scvzf $file_name-blockslog.tar.gz $blocksfolder/blocks.log $blocks_folder/blocks.index" >> $sh_create_full
+  echo "tar -Scvzf $file_name-blockslog.tar.gz $blocks_folder/blocks.log $blocks_folder/blocks.index" >> $sh_create_full
   echo ""
   echo "Blocks Logs compression has now completed !!!"
   echo ""
