@@ -144,7 +144,7 @@ chain_stopped=1
 #                                    TRANSFERING NODEOS BLOCKS                                       #
 #****************************************************************************************************#
 
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_full
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $sh_create_full
   $sh_create_full
