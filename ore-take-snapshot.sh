@@ -29,7 +29,7 @@ remote_user=root@ore.remblock.io
 #                                          MISC PARAMETERS                                           #
 #****************************************************************************************************#
 
-ssh_port=22
+ssh_port=18990
 test_blocks=0
 chain_stopped=0
 test_snapshot=0
@@ -67,7 +67,7 @@ then
   echo ""
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*.gz | head -n -8 | xargs -r rm'" >> $sh_create
-  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port '--progress $file_name-snaponly.tar.gz $remote_user:$remote_server_folder" >> $sh_create
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-snaponly.tar.gz $remote_user:$remote_server_folder" >> $sh_create
   $sh_create
   echo ""
   echo "Snapshot transfer has now completed !!!"
@@ -146,7 +146,7 @@ chain_stopped=1
 
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm'" >> $sh_create_full
-  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user '--progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $sh_create_full
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $sh_create_full
   $sh_create_full
   echo ""
   echo "Blocks Logs transfer has now completed !!!"
@@ -183,7 +183,7 @@ then
 
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm'" >> $sh_create_fullstate
-  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port '--progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder/state-history" >> $sh_create_fullstate
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder/state-history" >> $sh_create_fullstate
   $sh_create_fullstate
   echo ""
   echo "State History transfer has now completed !!!"
