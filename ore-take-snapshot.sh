@@ -109,8 +109,7 @@ then
     sleep 10
   done
   echo ""
-  echo "Last Irreversible Block Number Passed - Great, lets stop the chain now !!!"
-  echo ""
+  echo "Last Irreversible Block Number has been reached, time to stop the chain !!!"
 
 #----------------------------------------------------------------------------------------------------#
 # GRACEFULLY STOP ORE-PROTOCOL                                                                       #
