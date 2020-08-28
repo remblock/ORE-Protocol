@@ -71,6 +71,7 @@ then
   echo "Snapshot transfer has now completed !!!"
   echo ""
 else
+  echo ""
   echo "Snapshot is not due - Aborting !!!"
   echo ""
 fi
