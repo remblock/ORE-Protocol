@@ -177,7 +177,7 @@ then
 #                                    TRANSFERING FULL STATE HISTORY                                  #
 #****************************************************************************************************#
 
-  echo $file_name-state_history.tar.gz" > lateststatehistory.php
+  echo "$file_name-state_history.tar.gz" > lateststatehistory.php
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress lateststatehistory.php $remote_user:$remote_server_folder"
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_fullstate
