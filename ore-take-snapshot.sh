@@ -88,7 +88,7 @@ if [[ $(($the_hour%12)) -eq 0 ]] || [[ $test_blocks -eq 1 ]]
 then
   echo "Blocks Logs is about to start the hour is $the_hour"
   echo ""
-  echo "Get Head and Irreversible Block Numbers"
+  echo "Get Head and Irreversible Block Numbers:"
   echo ""
   head_block_num=$(cleos get info | jq '.head_block_num')
   last_irr_block_num=$(cleos get info | jq '.last_irreversible_block_num')
