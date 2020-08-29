@@ -65,6 +65,8 @@ then
   echo ""
   echo "Compression of the Snapshot has completed"
   echo ""
+  echo "$file_name.snaponly.tar.gz" > latestsnapshot.php
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress latestsnapshot.php $remote_user:$remote_server_folder"
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*.gz | head -n -8 | xargs -r rm 2> /dev/null'" >> $sh_create
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-snaponly.tar.gz $remote_user:$remote_server_folder" >> $sh_create
@@ -137,9 +139,11 @@ chain_stopped=1
   echo ""
 
 #****************************************************************************************************#
-#                                    TRANSFERING NODEOS BLOCKS                                       #
+#                                     TRANSFERING BLOCK LOGS                                         #
 #****************************************************************************************************#
 
+  echo "$file_name-blockslog.tar.gz" > latestblocks.php
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress latestblocks.php $remote_user:$remote_server_folder"
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_full
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $sh_create_full
@@ -170,9 +174,11 @@ then
   echo ""
 
 #****************************************************************************************************#
-#                                    TRANSFERING NODEOS BLOCKS                                       #
+#                                    TRANSFERING FULL STATE HISTORY                                  #
 #****************************************************************************************************#
 
+  echo $file_name-state_history.tar.gz" > lateststatehistory.php
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress lateststatehistory.php $remote_user:$remote_server_folder"
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_fullstate
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder/state-history" >> $sh_create_fullstate
@@ -190,9 +196,12 @@ fi
 
 rm -f $sh_create 2> /dev/null
 rm -f $sh_create_full 2> /dev/null
+rm -f latestblocks.php 2> /dev/null
+rm -f latestsnapshot.php 2> /dev/null
 rm -R $blocks_folder/*.gz 2> /dev/null
 rm -f $sh_create_fullstate 2> /dev/null
 rm -R $snapshots_folder/*.gz 2> /dev/null
+rm -f lateststatehistory.php 2> /dev/null
 rm -R $snapshots_folder/*.bin 2> /dev/null
 rm -R $compressed_folder/*.gz 2> /dev/null
 rm -R $state_history_folder/*.gz 2> /dev/null
