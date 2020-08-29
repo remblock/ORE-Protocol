@@ -78,10 +78,10 @@ then
   rm -rf $snapshotsfolder/*.bin
   mkdir -p $last_download_folder/snapshot
   cd $last_download_folder/snapshot
-  $latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.php)
+  $latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
   echo "Downloading snapshot now..."
   wget -Nc https://ore.remblock.io/snapshots/$latest_snapshot -q --show-progress  -O - | sudo tar -Sxz --strip=4
-  echo "Downloaded Snapshot $latest_snapshot"
+  echo "Downloaded $latest_snapshot"
   cp -a $last_download_folder/snapshot/. $snapshots_folder/
   bin_file=$(ls *.bin | head -1)
   echo "bin file downloaded is $bin_file"
@@ -96,10 +96,10 @@ then
   rm -rf $blocks_folder*/
   mkdir -p $last_download_folder/blocks
   cd $last_download_folder/blocks
-  $latest_blocks=$(curl -s https://ore.remblock.io/snapshots/latestblocks.php)
+  $latest_blocks=$(curl -s https://ore.remblock.io/snapshots/latestblocks.txt)
   echo "Downloading blocks now..."
-  wget  -Nc https://ore.remblock.io/snapshots/blocks/$blocks -q --show-progress -O - | sudo tar -Sxz --strip=3
-  echo "Downloaded Blocks $latest_blocks"
+  wget -Nc https://ore.remblock.io/snapshots/blocks/$latest_blocks -q --show-progress -O - | sudo tar -Sxz --strip=3
+  echo "Downloaded $latest_blocks"
   cp -a $last_download_folder/blocks/. $blocks_folder/
 fi
 
@@ -112,10 +112,10 @@ then
   rm -rf $state_folder*/
   mkdir -p $last_download_folder/state-history
   cd $last_download_folder/state-history
-  $latest_state_history=$(curl -s https://ore.remblock.io/snapshots/lateststatehistory.php)
+  $latest_state_history=$(curl -s https://ore.remblock.io/snapshots/lateststatehistory.txt)
   echo "Downloading state history now..."
   wget  -Nc https://ore.remblock.io/snapshots/state-history/$latest_state_history -q --show-progress -O - | sudo tar -Sxz --strip=3
-  echo "Downloaded Blocks $latest_state_history"
+  echo "Downloaded $latest_state_history"
   cp -a $last_download_folder/state-history/. $state_history_folder/
 fi
 rm -R $last_download_folder/*
