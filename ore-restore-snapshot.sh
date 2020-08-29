@@ -121,7 +121,7 @@ fi
 rm -R $last_download_folder/*
 
 #----------------------------------------------------------------------------------------------------#
-# MAIN PART OF THE SCRIPT                                                                            #
+# NODEOS STOP FUNCTION                                                                               #
 #----------------------------------------------------------------------------------------------------#
 
 function StopNode() {
@@ -138,15 +138,27 @@ fi
 echo "Nodeos has stopped..."
 }
 
+#----------------------------------------------------------------------------------------------------#
+# NODEOS START FUNCTION                                                                              #
+#----------------------------------------------------------------------------------------------------#
+
 function StartNode() {
   echo "Starting ORE Protocol - Config: $config_folder Bin File: $snapshots_folder/$bin_file Date Folder: $data_folder"
   nodeos --config-dir $config_folder/ --disable-replay-opts --data-dir $data_folder/ >> $log_file 2>&1 &
 }
 
+#----------------------------------------------------------------------------------------------------#
+# NODEOS START SNAPSHOT FUNCTION                                                                     #
+#----------------------------------------------------------------------------------------------------#
+
 function StartNodeSnapshot() {
     echo "Starting ORE Protocol - Config: $config_folder Bin File: $snapshots_folder/$bin_file Data Folder: $data_folder"
     nodeos --config-dir $config_folder/ --disable-replay-opts --snapshot $snapshots_folder/$bin_file --data-dir $data_folder/ >> $log_file 2>&1 &
 }
+
+#----------------------------------------------------------------------------------------------------#
+# WRITE PERCENTAGE FUNCTION                                                                          #
+#----------------------------------------------------------------------------------------------------#
 
 function WritePercentage() {
 
@@ -155,6 +167,10 @@ sumit=$(awk "BEGIN {print ($diff/$2)*100}")
 percentage=$(awk "BEGIN {print (100 - $sumit) }")
 echo -en "\r$percentage% Chain Sync Completed\c\b"
 }
+
+#----------------------------------------------------------------------------------------------------#
+# CHECK IRREVERSIBLE BLOCK AGAINST EXTERNAL API                                                      #
+#----------------------------------------------------------------------------------------------------#
 
 sync_log=/root/data/snapshots/sync.log
 touch $sync_log
@@ -189,13 +205,15 @@ else
  done
 fi
 
-sleep 3
+#----------------------------------------------------------------------------------------------------#
+# STOP NODEOS AND RESTORE SNAPSHOT                                                                   #
+#----------------------------------------------------------------------------------------------------#
+
 StopNode
 sleep 1
 cd ~
 sleep 1
 StartNodeSnapshot
-
 echo ""
 echo "==================================="
 echo "ORE PROTOCOL SNAPSHOT HAS COMPLETED"
