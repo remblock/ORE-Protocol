@@ -126,7 +126,6 @@ rm -R $last_download_folder/*
 #----------------------------------------------------------------------------------------------------#
 
 function StopNode() {
-echo "Nodeos is stopping..."
 nodeos_pid=$(pgrep nodeos)
 if [ ! -z "$nodeos_pid" ]; then
     if ps -p $nodeos_pid > /dev/null; then
@@ -180,7 +179,11 @@ their_head_block_num=$(cleos -u $external_api get info | jq '.head_block_num')
 our_head_block_num=$(cleos get info | jq '.head_block_num')
 sleep 1
 blockdiff=$(($their_head_block_num-$our_head_block_num))
-echo "Block Height Difference: $block_diff Blocks - Their Head Block Number: $their_head_block_num - Ours: $our_head_block_num"
+echo "
+echo "Head Block Number: $our_head_block_num"
+echo "API Head Block Number: $their_head_block_num"
+echo "Block Height Difference: $block_diff Blocks"
+echo ""
 
 #----------------------------------------------------------------------------------------------------#
 # NOW WE WAIT FOR LAST IRREVERSIBLE BLOCK TO PASS OUR SNAPSHOT TAKEN                                 #
@@ -214,6 +217,7 @@ StopNode
 sleep 1
 cd ~
 sleep 1
+echo ""
 StartNodeSnapshot
 echo ""
 echo "==================================="
