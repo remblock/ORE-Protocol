@@ -65,7 +65,6 @@ then
   echo ""
   echo "Compression of the Snapshot has completed"
   echo ""
-  echo "$file_name.snaponly.tar.gz" > latestsnapshot.txt
   ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "find $remote_server_folder -name latestsnapshot.txt -type f -size -1000k -delete 2> /dev/null"
   ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "cd $remote_server_folder; echo "$date_name.snaponly.tar.gz" > latestsnapshot.txt"
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
@@ -143,7 +142,6 @@ chain_stopped=1
 #                                     TRANSFERING BLOCK LOGS                                         #
 #****************************************************************************************************#
 
-  echo "$file_name-blockslog.tar.gz" > latestblocks.txt
   ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "find $remote_server_folder -name latestblocks.txt -type f -size -1000k -delete 2> /dev/null"
   ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "cd $remote_server_folder; echo "$date_name-blockslog.tar.gz" > latestblocks.txt"
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
@@ -179,7 +177,6 @@ then
 #                                    TRANSFERING FULL STATE HISTORY                                  #
 #****************************************************************************************************#
 
-  echo "$file_name-state_history.tar.gz" > lateststatehistory.txt
   ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "find $remote_server_folder -name lateststatehistory.txt -type f -size -1000k -delete 2> /dev/null"
   ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "cd $remote_server_folder; echo "$date_name-state_history.tar.gz" > lateststatehistory.txt"
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
@@ -200,12 +197,9 @@ fi
 
 rm -f $sh_create 2> /dev/null
 rm -f $sh_create_full 2> /dev/null
-rm -f latestblocks.txt 2> /dev/null
-rm -f latestsnapshot.txt 2> /dev/null
 rm -R $blocks_folder/*.gz 2> /dev/null
 rm -f $sh_create_fullstate 2> /dev/null
 rm -R $snapshots_folder/*.gz 2> /dev/null
-rm -f lateststatehistory.txt 2> /dev/null
 rm -R $snapshots_folder/*.bin 2> /dev/null
 rm -R $compressed_folder/*.gz 2> /dev/null
 rm -R $state_history_folder/*.gz 2> /dev/null
