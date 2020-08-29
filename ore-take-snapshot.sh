@@ -163,7 +163,7 @@ then
   echo ""
   rm -f $sh_create_fullstate
   touch $sh_create_fullstate && chmod +x $sh_create_fullstate
-  echo "tar -Scvzf $file_name-state_history.tar.gz $state_history_folder  " >> $sh_create_fullstate
+  echo "tar -Scvzf $file_name-state_history.tar.gz $state_history_folder" >> $sh_create_fullstate
   echo "Compression of the State History has completed"
   echo ""
 
