@@ -167,7 +167,7 @@ fi
 
 if [[ $(($the_hour%24)) -eq 0 ]] || [[ $test_state_history -eq 1 ]]
 then
-  echo "State Histroy is about to start the hour is $the_hour"
+  echo "State History is about to start the hour is $the_hour"
   echo ""
   rm -f $sh_create_fullstate
   touch $sh_create_fullstate && chmod +x $sh_create_fullstate
