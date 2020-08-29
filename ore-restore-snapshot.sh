@@ -177,13 +177,13 @@ echo -en "\r$percentage% Chain Sync Completed\c\b"
 sync_log=/root/data/snapshots/sync.log
 touch $sync_log
 echo -999999999999 > $sync_log
-their_head_block_num=$(cleos -u $external_api get info | jq '.head_block_num')
+api_head_block_num=$(cleos -u $external_api get info | jq '.head_block_num')
 our_head_block_num=$(cleos get info | jq '.head_block_num')
 sleep 1
-blockdiff=$(($their_head_block_num-$our_head_block_num))
+block_diff=$(($api_head_block_num-$our_head_block_num))
 echo "
 echo "Head Block Number: $our_head_block_num"
-echo "API Head Block Number: $their_head_block_num"
+echo "API Head Block Number: $api_head_block_num"
 echo "Block Height Difference: $block_diff Blocks"
 echo ""
 
@@ -191,21 +191,21 @@ echo ""
 # NOW WE WAIT FOR LAST IRREVERSIBLE BLOCK TO PASS OUR SNAPSHOT TAKEN                                 #
 #----------------------------------------------------------------------------------------------------#
 
-if [[ $our_head_block_num -eq $their_head_block_num ]] 
+if [[ $our_head_block_num -eq $api_head_block_num ]] 
 then
  echo 0 > $sync_log
 else
  while [[ 1 -eq 1 ]]
  do
- their_head_block_num=$(cleos -u $external_api get info | jq '.head_block_num')
+ api_head_block_num=$(cleos -u $external_api get info | jq '.head_block_num')
  our_head_block_num=$(cleos get info | jq '.head_block_num')
- block_diff=$(($their_head_block_num-$our_head_block_num))
+ block_diff=$(($api_head_block_num-$our_head_block_num))
  echo $block_diff > $sync_log
- if [[ $their_head_block_num -le $our_head_block_num ]]
+ if [[ $api_head_block_num -le $our_head_block_num ]]
  then
    break                               
  else
-   WritePercentage $our_head_block_num $their_head_block_num
+   WritePercentage $our_head_block_num $api_head_block_num
    sleep 2
  fi 
  done
