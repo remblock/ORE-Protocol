@@ -109,7 +109,7 @@ then
     echo ""
     sleep 10
   done
-  echo "Last Irreversible Block number has been reached, time to stop the chain"
+  echo "Last Irreversible Block number has been reached"
   echo ""
 
 #----------------------------------------------------------------------------------------------------#
