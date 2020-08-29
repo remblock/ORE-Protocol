@@ -34,7 +34,9 @@ last_download_folder=$snapshotsfolder/lastdownload
 
 mkdir -p $last_download_folder
 cd $last_download_folder
+echo ""
 echo "Clearing last download folder"
+echo ""
 rm -f *.bin
 
 #----------------------------------------------------------------------------------------------------#
