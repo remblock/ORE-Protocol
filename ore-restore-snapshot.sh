@@ -20,7 +20,7 @@ fi
 
 data_folder=/root/data
 log_file=/root/nodeos.log
-configfolder=/root/config
+config_folder=/root/config
 state_folder=$datafolder/state
 blocks_folder=$datafolder/blocks
 external_api=https://ore.eosusa.news
