@@ -40,11 +40,9 @@ rm -f *.bin
 # CHOOSING THE TYPE OF SNAPSHOT                                                                      #
 #----------------------------------------------------------------------------------------------------#
 
+echo "<<< ORE-RESTORE-SNAPSHOT >>>"
 echo ""
-echo "ORE-RESTORE-SNAPSHOT"
-echo ""
-PS2='n'
-PS3='Please choose a menu number from above: '
+PS3='Please choose a number from the menu above: '
 options=("Snapshot Only" "Snapshot and Blocks Log" "Snapshot and Blocks Log and State History" "Quit")
 snap_type_php=""
 select opt in "${options[@]}"
