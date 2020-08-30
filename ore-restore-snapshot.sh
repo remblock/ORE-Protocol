@@ -246,6 +246,7 @@ else
  fi 
  done
 fi
+rm sync.log
 echo ""
 echo "==================================="
 echo "ORE PROTOCOL SNAPSHOT HAS COMPLETED"
