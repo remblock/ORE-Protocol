@@ -84,7 +84,7 @@ do
         latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
         echo ""
         echo "Downloading snapshot now..."
-        wget https://ore.remblock.io/snapshots/$latest_snapshot
+        curl -O https://ore.remblock.io/snapshots/$latest_snapshot
         echo ""
         echo "Downloaded $latest_snapshot"
         sudo tar -Sxz --strip=4 -f $latest_snapshot
@@ -101,7 +101,7 @@ do
         latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
         echo ""
         echo "Downloading snapshot now..."
-        wget https://ore.remblock.io/snapshots/$latest_snapshot
+        curl -O https://ore.remblock.io/snapshots/$latest_snapshot
         echo ""
         echo "Downloaded $latest_snapshot"
         sudo tar -Sxz --strip=4 -f $latest_snapshot
@@ -115,7 +115,7 @@ do
         latest_blocks=$(curl -s https://ore.remblock.io/snapshots/latestblocks.txt)
         echo ""
         echo "Downloading blocks now..."
-        wget https://ore.remblock.io/snapshots/blocks/$latest_blocks
+        curl -O https://ore.remblock.io/snapshots/blocks/$latest_blocks
         echo ""
         echo "Downloaded $latest_blocks"
         sudo tar -Sxz --strip=3 -f $latest_blocks
@@ -131,7 +131,7 @@ do
        latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
        echo ""
        echo "Downloading snapshot now..."
-       wget https://ore.remblock.io/snapshots/$latest_snapshot
+       curl -O https://ore.remblock.io/snapshots/$latest_snapshot
        echo ""
        echo "Downloaded $latest_snapshot"
        sudo tar -Sxz --strip=4 -f $latest_snapshot
@@ -145,7 +145,7 @@ do
        latest_blocks=$(curl -s https://ore.remblock.io/snapshots/latestblocks.txt)
        echo ""
        echo "Downloading blocks now..."
-       wget https://ore.remblock.io/snapshots/blocks/$latest_blocks
+       curl -O https://ore.remblock.io/snapshots/blocks/$latest_blocks
        echo ""
        echo "Downloaded $latest_blocks"
        sudo tar -Sxz --strip=3 -f $latest_blocks
@@ -158,7 +158,7 @@ do
        latest_state_history=$(curl -s https://ore.remblock.io/snapshots/lateststatehistory.txt)
        echo ""
        echo "Downloading state history now..."
-       wget -Nc https://ore.remblock.io/snapshots/state-history/$latest_state_history
+       curl -O https://ore.remblock.io/snapshots/state-history/$latest_state_history
        echo ""
        echo "Downloaded $latest_state_history"
        sudo tar -Sxz --strip=3 -f $latest_state_history
