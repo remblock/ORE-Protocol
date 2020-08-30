@@ -67,29 +67,19 @@ select opt in "${options[@]}"
 do
     case $opt in
         "Snapshot Only")
-        snap_type_php="snap"
-            echo ""
-            echo "Your choice is snapshot only"
-            echo ""
+        snap_type_php="snap"  
         break
             ;;
         "Snapshot and Blocks Log")
-            echo ""
-            echo "Your choice is snapshot and blocks log"
-            echo ""
         snap_type_php="blocks"
         break
             ;;
-       "Snapshot and Blocks Log and State History")
-            echo ""
-            echo "Your choice is snapshot and blocks log and state history"
-            echo ""
+       "Snapshot and Blocks Log and State History")  
         snap_type_php="state-history"
 break
             ;;
-        "Quit")
-            echo ""
-            exit 1
+       "Quit")
+        exit 1
 break
             ;;
         *) echo "Invalid option $REPLY";;
@@ -211,7 +201,6 @@ if [ ! -z "$nodeos_pid" ]; then
         sleep 1
     done
 fi
-echo "Nodeos has stopped..."
 }
 
 #----------------------------------------------------------------------------------------------------#
@@ -219,7 +208,6 @@ echo "Nodeos has stopped..."
 #----------------------------------------------------------------------------------------------------#
 
 function StartNode() {
-  echo "Starting ORE Protocol - Config: $config_folder Bin File: $snapshots_folder/$bin_file Date Folder: $data_folder"
   nodeos --config-dir $config_folder/ --disable-replay-opts --data-dir $data_folder/ >> $log_file 2>&1 &
 }
 
@@ -228,8 +216,7 @@ function StartNode() {
 #----------------------------------------------------------------------------------------------------#
 
 function StartNodeSnapshot() {
-    echo "Starting ORE Protocol - Config: $config_folder Bin File: $snapshots_folder/$bin_file Data Folder: $data_folder"
-    nodeos --config-dir $config_folder/ --disable-replay-opts --snapshot $snapshots_folder/$bin_file --data-dir $data_folder/ >> $log_file 2>&1 &
+  nodeos --config-dir $config_folder/ --disable-replay-opts --snapshot $snapshots_folder/$bin_file --data-dir $data_folder/ >> $log_file 2>&1 &
 }
 
 #----------------------------------------------------------------------------------------------------#
@@ -237,7 +224,6 @@ function StartNodeSnapshot() {
 #----------------------------------------------------------------------------------------------------#
 
 function WritePercentage() {
-
 diff=$(($2-$1))
 sumit=$(awk "BEGIN {print ($diff/$2)*100}")
 percentage=$(awk "BEGIN {print (100 - $sumit) }")
@@ -296,7 +282,7 @@ else
  fi 
  done
 fi
-rm sync.log
+rm $sync_log
 echo ""
 echo "==================================="
 echo "ORE PROTOCOL SNAPSHOT HAS COMPLETED"
