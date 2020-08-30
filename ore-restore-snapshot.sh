@@ -47,6 +47,7 @@ rm -f *.bin
 # CHOOSING THE TYPE OF SNAPSHOT                                                                      #
 #----------------------------------------------------------------------------------------------------#
 
+echo ""
 echo "<<< ORE-RESTORE-SNAPSHOT >>>"
 echo ""
 PS3='Please choose a number from the menu above: '
