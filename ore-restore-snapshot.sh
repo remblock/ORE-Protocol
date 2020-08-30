@@ -67,7 +67,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "Snapshot Only")
-        snap_type_php="snap"  
+        snap_type_php="snap"
         break
             ;;
         "Snapshot and Blocks Log")
@@ -281,11 +281,11 @@ else
  echo $block_diff > $sync_log
  if [[ $api_head_block_num -le $our_head_block_num ]]
  then
-   break                               
+   break       
  else
    WritePercentage $our_head_block_num $api_head_block_num
    sleep 2
- fi 
+ fi
  done
 fi
 rm $sync_log
