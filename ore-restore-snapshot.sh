@@ -34,15 +34,16 @@ last_download_folder=$snapshotsfolder/lastdownload
 
 mkdir -p $last_download_folder
 cd $last_download_folder
-echo ""
-echo "Clearing last download folder"
-echo ""
 rm -f *.bin
 
 #----------------------------------------------------------------------------------------------------#
 # CHOOSING THE TYPE OF SNAPSHOT                                                                      #
 #----------------------------------------------------------------------------------------------------#
 
+echo ""
+echo "ORE-RESTORE-SNAPSHOT"
+echo ""
+PS2='n'
 PS3='Please choose a menu number from above: '
 options=("Snapshot Only" "Snapshot and Blocks Log" "Snapshot and Blocks Log and State History" "Quit")
 snap_type_php=""
@@ -80,7 +81,7 @@ break
 done
 
 #----------------------------------------------------------------------------------------------------#
-# SNAPSHOT OPTION    		                                                                     #
+# SNAPSHOT OPTION    		                                                                             #
 #----------------------------------------------------------------------------------------------------#
 
 if [[ $snap_type_php -eq "snap" ]]
