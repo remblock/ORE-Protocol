@@ -61,7 +61,7 @@ nodeos_pid=$(pgrep nodeos)
 if [ ! -z "$nodeos_pid" ]
 then
   cd ~
-  nodeos --config-dir ./config/ --data-dir ./data/ >> nodeos.log 2>&1 &
+  nodeos --config-dir ./config/ --data-dir ./data/ >> $log_file 2>&1 &
 fi
 
 #----------------------------------------------------------------------------------------------------#
