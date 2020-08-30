@@ -25,7 +25,7 @@ state_folder=$data_folder/state
 blocks_folder=$data_folder/blocks
 external_api=https://ore.eosusa.news
 snapshots_folder=$data_folder/snapshots
-state_history_folder=$data_folder/state-history
+state_history_folder=$data_folder/state
 last_download_folder=$snapshots_folder/lastdownload
 
 #----------------------------------------------------------------------------------------------------#
@@ -99,13 +99,13 @@ then
   echo ""
   echo "Downloading snapshot now..."
   wget https://ore.remblock.io/snapshots/$latest_snapshot
-  sudo tar -Sxz --strip=4 -f $latest_snapshot
   echo ""
   echo "Downloaded $latest_snapshot"
+  sudo tar -Sxz --strip=4 -f $latest_snapshot
+  echo ""
+  echo "Uncompressed $latest_snapshot"
   cp -a $last_download_folder/snapshot/. $snapshots_folder/
   bin_file=$(ls *.bin | head -1)
-  echo ""
-  echo "bin file downloaded is $bin_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -121,13 +121,13 @@ then
   echo ""
   echo "Downloading snapshot now..."
   wget https://ore.remblock.io/snapshots/$latest_snapshot
-  sudo tar -Sxz --strip=4 -f $latest_snapshot
   echo ""
   echo "Downloaded $latest_snapshot"
+  sudo tar -Sxz --strip=4 -f $latest_snapshot
+  echo ""
+  echo "Uncompressed $latest_snapshot"
   cp -a $last_download_folder/snapshot/. $snapshots_folder/
   bin_file=$(ls *.bin | head -1)
-  echo ""
-  echo "bin file downloaded is $bin_file"
   rm -rf $blocks_folder*/
   mkdir -p $last_download_folder/blocks
   cd $last_download_folder/blocks
@@ -135,9 +135,11 @@ then
   echo ""
   echo "Downloading blocks now..."
   wget https://ore.remblock.io/snapshots/blocks/$latest_blocks
-  sudo tar -Sxz --strip=3 -f $latest_blocks
   echo ""
   echo "Downloaded $latest_blocks"
+  sudo tar -Sxz --strip=3 -f $latest_blocks
+  echo ""
+  echo "Uncompressed $latest_blocks"
   cp -a $last_download_folder/blocks/. $blocks_folder/
 fi
 
@@ -154,13 +156,13 @@ then
   echo ""
   echo "Downloading snapshot now..."
   wget https://ore.remblock.io/snapshots/$latest_snapshot
-  sudo tar -Sxz --strip=4 -f $latest_snapshot
   echo ""
   echo "Downloaded $latest_snapshot"
+  sudo tar -Sxz --strip=4 -f $latest_snapshot
+  echo ""
+  echo "Uncompressed $latest_snapshot"
   cp -a $last_download_folder/snapshot/. $snapshots_folder/
   bin_file=$(ls *.bin | head -1)
-  echo ""
-  echo "bin file downloaded is $bin_file"
   rm -rf $blocks_folder*/
   mkdir -p $last_download_folder/blocks
   cd $last_download_folder/blocks
@@ -168,9 +170,11 @@ then
   echo ""
   echo "Downloading blocks now..."
   wget https://ore.remblock.io/snapshots/blocks/$latest_blocks
-  sudo tar -Sxz --strip=3 -f $latest_blocks
   echo ""
   echo "Downloaded $latest_blocks"
+  sudo tar -Sxz --strip=3 -f $latest_blocks
+  echo ""
+  echo "Uncompressed $latest_blocks"
   cp -a $last_download_folder/blocks/. $blocks_folder/
   rm -rf $state_folder*/
   mkdir -p $last_download_folder/state-history
@@ -178,10 +182,12 @@ then
   latest_state_history=$(curl -s https://ore.remblock.io/snapshots/lateststatehistory.txt)
   echo ""
   echo "Downloading state history now..."
-  wget -Nc https://ore.remblock.io/snapshots/state-history/$latest_state_history  
-  sudo tar -Sxz --strip=3 -f $latest_state_history
+  wget -Nc https://ore.remblock.io/snapshots/state-history/$latest_state_history
   echo ""
   echo "Downloaded $latest_state_history"
+  sudo tar -Sxz --strip=3 -f $latest_state_history
+  echo ""
+  echo "Uncompressed $latest_state_history"
   cp -a $last_download_folder/state-history/. $state_history_folder/
 fi
 
