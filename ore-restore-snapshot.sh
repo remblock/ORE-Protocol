@@ -21,12 +21,12 @@ fi
 data_folder=/root/data
 log_file=/root/nodeos.log
 config_folder=/root/config
-state_folder=$datafolder/state
-blocks_folder=$datafolder/blocks
+state_folder=$data_folder/state
+blocks_folder=$data_folder/blocks
 external_api=https://ore.eosusa.news
-snapshots_folder=$datafolder/snapshots
-state_history_folder=$datafolder/state-history
-last_download_folder=$snapshotsfolder/lastdownload
+snapshots_folder=$data_folder/snapshots
+state_history_folder=$data_folder/state-history
+last_download_folder=$snapshots_folder/lastdownload
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALL ORE SNAPSHOT DEPENDENCIES                                                                  #
