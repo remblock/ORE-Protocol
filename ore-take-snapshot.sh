@@ -44,6 +44,11 @@ file_name="$compressed_folder$date_name"
 
 mkdir -p $compressed_folder
 chmod +x $compressed_folder
+
+#----------------------------------------------------------------------------------------------------#
+# RESTART NODEOS IF IT HAS BEEN STOPPED                                                              #
+#----------------------------------------------------------------------------------------------------#
+
 nodeos_pid=$(pgrep nodeos)
 if [ ! -z "$nodeos_pid" ]
 then
