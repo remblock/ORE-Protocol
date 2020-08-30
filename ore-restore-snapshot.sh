@@ -43,7 +43,7 @@ rm -f *.bin
 # CHOOSING THE TYPE OF SNAPSHOT                                                                      #
 #----------------------------------------------------------------------------------------------------#
 
-PS3='Please enter the menu number below: '
+PS3='Please choose a menu number from above: '
 options=("Snapshot Only" "Snapshot and Blocks Log" "Snapshot and Blocks Log and State History" "Quit")
 snap_type_php=""
 select opt in "${options[@]}"
@@ -51,20 +51,27 @@ do
     case $opt in
         "Snapshot Only")
         snap_type_php="snap"
+            echo ""
             echo "Your choice is snapshot only"
+            echo ""
         break
             ;;
         "Snapshot and Blocks Log")
+            echo ""
             echo "Your choice is blocks log and snapshot"
+            echo ""
         snap_type_php="blocks"
         break
             ;;
        "Snapshot and Blocks Log and State History")
+            echo ""
             echo "Your choice is state history and blocks log and snapshot"
+            echo ""
         snap_type_php="state-history"
 break
             ;;
         "Quit")
+            echo ""
             exit 1
 break
             ;;
