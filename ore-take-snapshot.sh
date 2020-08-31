@@ -13,7 +13,7 @@ state_history_folder=$data_folder/state
 compressed_folder=$snapshots_folder/compressed/
 
 #****************************************************************************************************#
-#                                    SCRIPT CONFIGURATION VARIABLES                                  #
+#                                   SCRIPT CONFIGURATION VARIABLES                                   #
 #****************************************************************************************************#
 
 sh_create=$snapshots_folder/compress_and_send_lastsnapshot.sh
