@@ -62,7 +62,6 @@ mv /root/root/data/snapshots/*.bin $snapshots_folder/
 bin_file=$snapshots_folder/*.bin
 echo ""
 echo "Uncompressed $latest_snapshot"
-echo ""
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
