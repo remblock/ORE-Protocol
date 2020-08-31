@@ -109,10 +109,11 @@ do
         gunzip $latest_snapshot
         tar_file=$(ls *.tar | head -1)
         sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
+        rm $tar_file
+        bin_file=$(ls *.bin | head -1)
         echo ""
         echo "Uncompressed $latest_snapshot"
         cp -a $last_download_folder/snapshot/. $snapshots_folder/
-        bin_file=$(ls *.bin | head -1)
         rm -rf $blocks_folder*/
         mkdir -p $last_download_folder/blocks
         cd $last_download_folder/blocks
@@ -122,60 +123,70 @@ do
         curl -O https://ore.remblock.io/snapshots/blocks/$latest_blocks
         echo ""
         echo "Downloaded $latest_blocks"
-        sudo tar -Sxz --strip=3 -f $latest_blocks
+        gunzip $latest_blocks
+        tar_file=$(ls *.tar | head -1)
+        sudo tar -C $last_download_folder/blocks/. -xvf $tar_file
+        rm $tar_file
         echo ""
         echo "Uncompressed $latest_blocks"
         cp -a $last_download_folder/blocks/. $blocks_folder/
         break
              ;;
        "Snapshot and Blocks Log and State History")
-       rm -rf $snapshotsfolder/*.bin
-       mkdir -p $last_download_folder/snapshot
-       cd $last_download_folder/snapshot
-       latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
-       echo ""
-       echo "Downloading snapshot now..."
-       curl -O https://ore.remblock.io/snapshots/$latest_snapshot
-       echo ""
-       echo "Downloaded $latest_snapshot"
-       gunzip $latest_snapshot
-       tar_file=$(ls *.tar | head -1)
-       sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
-       echo ""
-       echo "Uncompressed $latest_snapshot"
-       cp -a $last_download_folder/snapshot/. $snapshots_folder/
-       bin_file=$(ls *.bin | head -1)
-       rm -rf $blocks_folder*/
-       mkdir -p $last_download_folder/blocks
-       cd $last_download_folder/blocks
-       latest_blocks=$(curl -s https://ore.remblock.io/snapshots/latestblocks.txt)
-       echo ""
-       echo "Downloading blocks now..."
-       curl -O https://ore.remblock.io/snapshots/blocks/$latest_blocks
-       echo ""
-       echo "Downloaded $latest_blocks"
-       sudo tar -Sxz --strip=3 -f $latest_blocks
-       echo ""
-       echo "Uncompressed $latest_blocks"
-       cp -a $last_download_folder/blocks/. $blocks_folder/
-       rm -rf $state_history_folder*/
-       mkdir -p $last_download_folder/state-history
-       cd $last_download_folder/state-history
-       latest_state_history=$(curl -s https://ore.remblock.io/snapshots/lateststatehistory.txt)
-       echo ""
-       echo "Downloading state history now..."
-       curl -O https://ore.remblock.io/snapshots/state-history/$latest_state_history
-       echo ""
-       echo "Downloaded $latest_state_history"
-       sudo tar -Sxz --strip=3 -f $latest_state_history
-       echo ""
-       echo "Uncompressed $latest_state_history"
-       cp -a $last_download_folder/state-history/. $state_history_folder/
-       break
+        rm -rf $snapshotsfolder/*.bin
+        mkdir -p $last_download_folder/snapshot
+        cd $last_download_folder/snapshot
+        latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
+        echo ""
+        echo "Downloading snapshot now..."
+        curl -O https://ore.remblock.io/snapshots/$latest_snapshot
+        echo ""
+        echo "Downloaded $latest_snapshot"
+        gunzip $latest_snapshot
+        tar_file=$(ls *.tar | head -1)
+        sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
+        rm $tar_file
+        bin_file=$(ls *.bin | head -1)
+        echo ""
+        echo "Uncompressed $latest_snapshot"
+        cp -a $last_download_folder/snapshot/. $snapshots_folder/
+        rm -rf $blocks_folder*/
+        mkdir -p $last_download_folder/blocks
+        cd $last_download_folder/blocks
+        latest_blocks=$(curl -s https://ore.remblock.io/snapshots/latestblocks.txt)
+        echo ""
+        echo "Downloading blocks now..."
+        curl -O https://ore.remblock.io/snapshots/blocks/$latest_blocks
+        echo ""
+        echo "Downloaded $latest_blocks"
+        gunzip $latest_blocks
+        tar_file=$(ls *.tar | head -1)
+        sudo tar -C $last_download_folder/blocks/. -xvf $tar_file
+        rm $tar_file
+        echo ""
+        echo "Uncompressed $latest_blocks"
+        cp -a $last_download_folder/blocks/. $blocks_folder/
+        rm -rf $state_history_folder*/
+        mkdir -p $last_download_folder/state-history
+        cd $last_download_folder/state-history
+        latest_state_history=$(curl -s https://ore.remblock.io/snapshots/lateststatehistory.txt)
+        echo ""
+        echo "Downloading state history now..."
+        curl -O https://ore.remblock.io/snapshots/state-history/$latest_state_history
+        echo ""
+        echo "Downloaded $latest_state_history"
+        gunzip $latest_state_history
+        tar_file=$(ls *.tar | head -1)
+        sudo tar -C $last_download_folder/state-history/. -xvf $tar_file
+        rm $tar_file
+        echo ""
+        echo "Uncompressed $latest_state_history"
+        cp -a $last_download_folder/state-history/. $state_history_folder/
+        break
             ;;
-       "Quit")
-       exit 1
-       break
+        "Quit")
+        exit 1
+        break
             ;;
        *) echo "Invalid option $REPLY";;
     esac
