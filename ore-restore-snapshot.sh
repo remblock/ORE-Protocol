@@ -124,7 +124,7 @@ do
         cp -a $last_download_folder/blocks/. $blocks_folder/
         break
              ;;
-       "Snapshot and Blocks Log and State History")  
+       "Snapshot and Blocks Log and State History")
        rm -rf $snapshotsfolder/*.bin
        mkdir -p $last_download_folder/snapshot
        cd $last_download_folder/snapshot
@@ -253,7 +253,7 @@ echo ""
 # NOW WE WAIT FOR LAST IRREVERSIBLE BLOCK TO PASS OUR SNAPSHOT TAKEN                                 #
 #----------------------------------------------------------------------------------------------------#
 
-if [[ $our_head_block_num -eq $api_head_block_num ]] 
+if [[ $our_head_block_num -eq $api_head_block_num ]]
 then
  echo 0 > $sync_log
 else
@@ -265,7 +265,7 @@ else
  echo $block_diff > $sync_log
  if [[ $api_head_block_num -le $our_head_block_num ]]
  then
-   break       
+   break
  else
    WritePercentage $our_head_block_num $api_head_block_num
    sleep 2
