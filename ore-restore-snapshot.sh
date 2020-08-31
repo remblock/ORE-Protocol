@@ -189,13 +189,16 @@ rm -R $last_download_folder/*
 
 function StopNode() {
 nodeos_pid=$(pgrep nodeos)
-if [ ! -z "$nodeos_pid" ]; then
-    if ps -p $nodeos_pid > /dev/null; then
-        kill -SIGINT $nodeos_pid
-    fi
-    while ps -p $nodeos_pid > /dev/null; do
-        sleep 1
-    done
+if [ ! -z "$nodeos_pid" ] 
+then
+  if ps -p $nodeos_pid > /dev/null 
+  then
+    kill -SIGINT $nodeos_pid
+  fi
+  while ps -p $nodeos_pid > /dev/null 
+  do
+    sleep 1
+  done
 fi
 }
 
@@ -261,22 +264,22 @@ echo ""
 
 if [[ $our_head_block_num -eq $api_head_block_num ]]
 then
- echo 0 > $sync_log
+  echo 0 > $sync_log
 else
- while [[ 1 -eq 1 ]]
- do
- api_head_block_num=$(cleos -u $external_api get info | jq '.head_block_num')
- our_head_block_num=$(cleos get info | jq '.head_block_num')
- block_diff=$(($api_head_block_num-$our_head_block_num))
- echo $block_diff > $sync_log
- if [[ $api_head_block_num -le $our_head_block_num ]]
- then
-   break
- else
-   WritePercentage $our_head_block_num $api_head_block_num
-   sleep 2
- fi
- done
+  while [[ 1 -eq 1 ]]
+  do
+  api_head_block_num=$(cleos -u $external_api get info | jq '.head_block_num')
+  our_head_block_num=$(cleos get info | jq '.head_block_num')
+  block_diff=$(($api_head_block_num-$our_head_block_num))
+  echo $block_diff > $sync_log
+  if [[ $api_head_block_num -le $our_head_block_num ]]
+  then
+    break
+  else
+    WritePercentage $our_head_block_num $api_head_block_num
+    sleep 2
+  fi
+  done
 fi
 rm $sync_log
 echo ""
