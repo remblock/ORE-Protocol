@@ -45,7 +45,7 @@ gunzip $latest_snapshot
 tar_file=$(ls *.tar | head -1)
 sudo tar -xvf $tar_file
 rm $tar_file
-mv /root/data/snapshots/*.bin $snapshots_folder/
+mv /root/root/data/snapshots/*.bin $snapshots_folder/
 bin_file=$snapshots_folder/*.bin
 echo ""
 echo "Uncompressed $latest_snapshot"
