@@ -63,7 +63,7 @@ fi
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
-nodeos --config-dir $config_folder/ --snapshot $bin_file --data-dir $data_folder/ >> ./nodeos.log 2>&1 &
+nodeos --config-dir $config_folder/ --snapshot $bin_file --data-dir $data_folder/ >> $log_file 2>&1 &
 sleep 4
 while [ : ]
 do
