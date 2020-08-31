@@ -8,12 +8,12 @@
 # CONFIGURATION VARIABLES                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
-data_folder="/root/data"
-log_file="/root/nodeos.log"
-config_folder="/root/config"
-state_folder="$data_folder/state"
-blocks_folder="$data_folder/blocks"
-snapshots_folder="$data_folder/snapshots"
+data_folder=/root/data
+log_file=/root/nodeos.log
+config_folder=/root/config
+state_folder=$data_folder/state
+blocks_folder=$data_folder/blocks
+snapshots_folder=$data_folder/snapshots
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE SNAPSHOT FOLDER IN DATA                                                                     #
