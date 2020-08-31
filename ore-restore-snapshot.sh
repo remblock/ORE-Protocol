@@ -28,6 +28,17 @@ fi
 rm $snapshot_folder/*.bin
 
 #----------------------------------------------------------------------------------------------------#
+# RESTART NODEOS IF IT HAS BEEN STOPPED                                                              #
+#----------------------------------------------------------------------------------------------------#
+
+nodeos_pid=$(pgrep nodeos)
+if [ ! -z "$nodeos_pid" ]
+then
+  cd ~
+  nodeos --config-dir $config_folder/ --data-dir $data_folder/ >> $log_file 2>&1 &
+fi
+
+#----------------------------------------------------------------------------------------------------#
 # MAIN PART OF THE SCRIPT                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
@@ -48,17 +59,6 @@ mv /root/root/data/snapshots/*.bin $snapshots_folder/
 bin_file=$snapshots_folder/*.bin
 echo ""
 echo "Uncompressed $latest_snapshot"
-nodeos_pid=$(pgrep nodeos)
-if [ ! -z "$nodeos_pid" ]
-then
-  if ps -p $nodeos_pid > /dev/null
-  then
-    kill -SIGINT $nodeos_pid
-  fi
-  while ps -p $nodeos_pid > /dev/null; do
-  sleep 1
-  done
-fi
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
