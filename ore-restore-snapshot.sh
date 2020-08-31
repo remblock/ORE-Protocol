@@ -78,7 +78,7 @@ then
   sleep 1
   done
 fi
-nodeos --config-dir $config_folder/ --data-dir $data_folder/ >> $log_file 2>&1 &
+nodeos --config-dir ./config/ --data-dir ./data/ >> nodeos.log 2>&1 &
 sleep 4
 while [ : ]
 do
