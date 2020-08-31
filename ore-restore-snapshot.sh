@@ -24,9 +24,8 @@ then
   mkdir -p $snapshots_folder
   cp -p $0 $snapshots_folder
 fi
-cd $snapshot_folder
-rm -f *.bin
-cd ~
+
+rm $snapshot_folder/*.bin
 
 #----------------------------------------------------------------------------------------------------#
 # MAIN PART OF THE SCRIPT                                                                            #
@@ -63,7 +62,7 @@ fi
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
-nodeos --config-dir $config_folder/ --snapshot $bin_file --data-dir $data_folder/ >> $log_file 2>&1 &
+nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file 2>&1 &
 sleep 4
 while [ : ]
 do
