@@ -13,17 +13,7 @@ log_file=/root/nodeos.log
 config_folder=/root/config
 state_folder=$data_folder/state
 blocks_folder=$data_folder/blocks
-external_api=https://ore.eosusa.news
 snapshots_folder=$data_folder/snapshots
-state_history_folder=$data_folder/state
-last_download_folder=$snapshots_folder/lastdownload
-
-#----------------------------------------------------------------------------------------------------#
-# INSTALL ORE SNAPSHOT DEPENDENCIES                                                                  #
-#----------------------------------------------------------------------------------------------------#
-
-sudo apt install curl -y
-sudo apt-get install jq -y
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE SNAPSHOT FOLDER IN DATA                                                                     #
@@ -44,25 +34,11 @@ cd $last_download_folder
 rm -f *.bin
 
 #----------------------------------------------------------------------------------------------------#
-# RESTART NODEOS IF IT HAS BEEN STOPPED                                                              #
-#----------------------------------------------------------------------------------------------------#
-
-nodeos_pid=$(pgrep nodeos)
-if [ ! -z "$nodeos_pid" ]
-then
-  cd ~
-  nodeos --config-dir ./config/ --data-dir ./data/ >> $log_file 2>&1 &
-fi
-
-#----------------------------------------------------------------------------------------------------#
 # MAIN PART OF THE SCRIPT                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
 echo ""
 echo "<<< ORE-RESTORE-SNAPSHOT >>>"
-rm -rf $snapshotsfolder/*.bin
-mkdir -p $last_download_folder/snapshot
-cd $last_download_folder/snapshot
 latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
 echo ""
 echo "Downloading snapshot now..."
@@ -73,12 +49,9 @@ gunzip $latest_snapshot
 tar_file=$(ls *.tar | head -1)
 sudo tar -xvf $tar_file
 rm $tar_file
-cd /root/root/data/snapshots
-bin_file=$(ls *.bin | head -1)
+bin_file=$create_snapshot_folder/*.bin
 echo ""
 echo "Uncompressed $latest_snapshot"
-cp -a $last_download_folder/snapshot/. $snapshots_folder/
-rm -R $last_download_folder/*
 nodeos_pid=$(pgrep nodeos)
 if [ ! -z "$nodeos_pid" ]
 then
