@@ -60,7 +60,6 @@ fi
 
 echo ""
 echo "<<< ORE-RESTORE-SNAPSHOT >>>"
-echo ""
 rm -rf $snapshotsfolder/*.bin
 mkdir -p $last_download_folder/snapshot
 cd $last_download_folder/snapshot
