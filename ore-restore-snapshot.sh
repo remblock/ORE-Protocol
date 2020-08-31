@@ -25,7 +25,7 @@ then
   cp -p $0 $snapshots_folder
 fi
 
-rm $snapshot_folder/*.bin
+rm $snapshot_folder/*.bin 2> /dev/null
 
 #----------------------------------------------------------------------------------------------------#
 # RESTART NODEOS IF IT HAS BEEN STOPPED                                                              #
