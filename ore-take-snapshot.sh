@@ -45,17 +45,6 @@ file_name="$compressed_folder$date_name"
 mkdir -p $compressed_folder
 chmod +x $compressed_folder
 
-#----------------------------------------------------------------------------------------------------#
-# RESTART NODEOS IF IT HAS BEEN STOPPED                                                              #
-#----------------------------------------------------------------------------------------------------#
-
-nodeos_pid=$(pgrep nodeos)
-if [ ! -z "$nodeos_pid" ]
-then
-  cd ~
-  nodeos --config-dir ./config/ --data-dir ./data/ >> nodeos.log 2>&1 &
-fi
-
 #****************************************************************************************************#
 #                                      TAKE SNAPSHOT OF CHAIN                                        #
 #****************************************************************************************************#
@@ -76,12 +65,12 @@ then
   echo ""
   echo "Compression of the Snapshot has completed"
   echo ""
-  ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "find $remote_server_folder -name latestsnapshot.txt -type f -size -1000k -delete 2> /dev/null"
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestsnapshot.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-snaponly.tar.gz $remote_user:$remote_server_folder" >> $sh_create
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name.snaponly.tar.gz > latestsnapshot.txt'" >> $sh_create
   $sh_create
-  ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "cd $remote_server_folder; echo "$date_name.snaponly.tar.gz" > latestsnapshot.txt"
   echo ""
   echo "Transfer of the Snapshot has completed"
   echo ""
@@ -89,6 +78,17 @@ else
   echo ""
   echo "Warning: Snapshot is not due yet skipping"
   echo ""
+fi
+
+#----------------------------------------------------------------------------------------------------#
+# RESTART NODEOS IF IT HAS BEEN STOPPED                                                              #
+#----------------------------------------------------------------------------------------------------#
+
+nodeos_pid=$(pgrep nodeos)
+if [ ! -z "$nodeos_pid" ]
+then
+  cd ~
+  nodeos --config-dir ./config/ --data-dir ./data/ >> nodeos.log 2>&1 &
 fi
 
 #****************************************************************************************************#
@@ -128,16 +128,17 @@ then
 #----------------------------------------------------------------------------------------------------#
 
   nodeos_pid=$(pgrep nodeos)
-  if [ ! -z "$nodeos_pid" ]; then
-  if ps -p $nodeos_pid > /dev/null; then
-    kill -SIGINT $nodeos_pid
+  if [ ! -z "$nodeos_pid" ]
+  then
+    if ps -p $nodeos_pid > /dev/null; then
+       kill -SIGINT $nodeos_pid
+    fi
+    while ps -p $nodeos_pid > /dev/null; do
+    sleep 1
+    done
   fi
-  while ps -p $nodeos_pid > /dev/null; do
-   sleep 1
-  done
-fi
 
-chain_stopped=1
+  chain_stopped=1
 
 #****************************************************************************************************#
 #                                    COMPRESSING NODEOS BLOCKS                                       #
@@ -153,12 +154,12 @@ chain_stopped=1
 #                                     TRANSFERING BLOCK LOGS                                         #
 #****************************************************************************************************#
 
-  ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "find $remote_server_folder -name latestblocks.txt -type f -size -1000k -delete 2> /dev/null"
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestblocks.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_full
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $sh_create_full
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-blockslog.tar.gz > latestblocks.txt'" >> $sh_create_full
   $sh_create_full
-  ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "cd $remote_server_folder; echo "$date_name-blockslog.tar.gz" > latestblocks.txt"
   echo "Transfer of the Blocks Log has completed"
   echo ""
 else
@@ -188,12 +189,12 @@ then
 #                                    TRANSFERING FULL STATE HISTORY                                  #
 #****************************************************************************************************#
 
-  ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "find $remote_server_folder -name lateststatehistory.txt -type f -size -1000k -delete 2> /dev/null"
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name lateststatehistory.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_fullstate
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder/state-history" >> $sh_create_fullstate
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-state_history.tar.gz > lateststatehistory.txt'" >> $sh_create_fullstate
   $sh_create_fullstate
-  ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user "cd $remote_server_folder; echo "$date_name-state_history.tar.gz" > lateststatehistory.txt"
   echo ""
   echo "Transfer of the State History has now completed"
   echo ""
