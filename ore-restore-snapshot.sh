@@ -44,7 +44,8 @@ gunzip $latest_snapshot
 tar_file=$(ls *.tar | head -1)
 sudo tar -xvf $tar_file
 rm $tar_file
-bin_file=$create_snapshot_folder/*.bin
+mv /root/root/data/snapshots/*.bin $snapshot_folder/
+bin_file=$snapshot_folder/*.bin
 echo ""
 echo "Uncompressed $latest_snapshot"
 nodeos_pid=$(pgrep nodeos)
