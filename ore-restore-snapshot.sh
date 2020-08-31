@@ -152,7 +152,7 @@ do
        echo ""
        echo "Uncompressed $latest_blocks"
        cp -a $last_download_folder/blocks/. $blocks_folder/
-       rm -rf $state_folder*/
+       rm -rf $state_history_folder*/
        mkdir -p $last_download_folder/state-history
        cd $last_download_folder/state-history
        latest_state_history=$(curl -s https://ore.remblock.io/snapshots/lateststatehistory.txt)
