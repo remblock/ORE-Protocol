@@ -88,10 +88,10 @@ do
         echo ""
         echo "Downloaded $latest_snapshot"
         sudo tar -Sxz --strip=4 -f $latest_snapshot
+        bin_file=$(ls *.bin | head -1)
         echo ""
         echo "Uncompressed $latest_snapshot"
         cp -a $last_download_folder/snapshot/. $snapshots_folder/
-        bin_file=$(ls *.bin | head -1)
         break
              ;;
         "Snapshot and Blocks Log")
