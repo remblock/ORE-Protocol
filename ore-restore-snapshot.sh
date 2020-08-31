@@ -19,19 +19,14 @@ snapshots_folder=$data_folder/snapshots
 # CREATE SNAPSHOT FOLDER IN DATA                                                                     #
 #----------------------------------------------------------------------------------------------------#
 
-if [ ! -d "$snapshots_folder" ]
+if [ ! -d $snapshots_folder ]
 then
-  mkdir -p "$snapshots_folder"
-  cp -p "$0" "$snapshots_folder"
+  mkdir -p $snapshots_folder
+  cp -p $0 $snapshots_folder
 fi
-
-#----------------------------------------------------------------------------------------------------#
-# CREATE DOWNLOAD FOLDER IN SNAPSHOTS                                                                #
-#----------------------------------------------------------------------------------------------------#
-
-mkdir -p $last_download_folder
-cd $last_download_folder
+cd $snapshot_folder
 rm -f *.bin
+cd ~
 
 #----------------------------------------------------------------------------------------------------#
 # MAIN PART OF THE SCRIPT                                                                            #
