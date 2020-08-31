@@ -87,7 +87,9 @@ do
         curl -O https://ore.remblock.io/snapshots/$latest_snapshot
         echo ""
         echo "Downloaded $latest_snapshot"
-        sudo tar -Sxz --strip=4 -f $latest_snapshot
+        gunzip $latest_snapshot
+        tar_file=$(ls *.tar | head -1)
+        sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
         bin_file=$(ls *.bin | head -1)
         echo ""
         echo "Uncompressed $latest_snapshot"
@@ -104,7 +106,9 @@ do
         curl -O https://ore.remblock.io/snapshots/$latest_snapshot
         echo ""
         echo "Downloaded $latest_snapshot"
-        sudo tar -Sxz --strip=4 -f $latest_snapshot
+        gunzip $latest_snapshot
+        tar_file=$(ls *.tar | head -1)
+        sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
         echo ""
         echo "Uncompressed $latest_snapshot"
         cp -a $last_download_folder/snapshot/. $snapshots_folder/
@@ -134,7 +138,9 @@ do
        curl -O https://ore.remblock.io/snapshots/$latest_snapshot
        echo ""
        echo "Downloaded $latest_snapshot"
-       sudo tar -Sxz --strip=4 -f $latest_snapshot
+       gunzip $latest_snapshot
+       tar_file=$(ls *.tar | head -1)
+       sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
        echo ""
        echo "Uncompressed $latest_snapshot"
        cp -a $last_download_folder/snapshot/. $snapshots_folder/
