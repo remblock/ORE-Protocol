@@ -62,11 +62,24 @@ mv /root/root/data/snapshots/*.bin $snapshots_folder/
 bin_file=$snapshots_folder/*.bin
 echo ""
 echo "Uncompressed $latest_snapshot"
+echo ""
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
 nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file 2>&1 &
-sleep 60
+sleep 4
+nodeos_pid=$(pgrep nodeos)
+if [ ! -z "$nodeos_pid" ]
+then
+  if ps -p $nodeos_pid > /dev/null; then
+     kill -SIGINT $nodeos_pid
+  fi
+  while ps -p $nodeos_pid > /dev/null; do
+  sleep 1
+  done
+fi
+nodeos --config-dir $config_folder/ --data-dir $data_folder/ >> $log_file 2>&1 &
+sleep 4
 while [ : ]
 do
 	systemdt=$(date '+%Y-%m-%dT%H:%M')
