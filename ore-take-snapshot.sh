@@ -6,6 +6,7 @@
 
 data_folder=/root/data
 log_file=/root/nodeos.log
+config_folder=/root/config
 blocks_folder=$data_folder/blocks
 snapshots_folder=$data_folder/snapshots
 state_history_folder=$data_folder/state-history
@@ -224,7 +225,7 @@ rm -R $state_history_folder/*.gz 2> /dev/null
 if [[ $chain_stopped -eq 1 ]]
 then
   cd ~
-  nodeos  --config-dir ./config/ --disable-replay-opts --data-dir ./data/ >> $log_file 2>&1 &
+  nodeos  --config-dir $config_folder/ --disable-replay-opts --data-dir $data_folder/ >> $log_file 2>&1 &
   echo "Started ORE-Protocol !!!"
   echo ""
 fi
