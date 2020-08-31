@@ -36,7 +36,8 @@ echo ""
 echo "<<< ORE-RESTORE-SNAPSHOT >>>"
 latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
 echo ""
-echo "Downloading snapshot now..."
+echo "Downloading Snapshot now..."
+echo ""
 curl -O https://ore.remblock.io/snapshots/$latest_snapshot
 echo ""
 echo "Downloaded $latest_snapshot"
