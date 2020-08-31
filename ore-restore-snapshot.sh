@@ -65,8 +65,8 @@ echo "Uncompressed $latest_snapshot"
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
-nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file
-sleep 4
+nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file 2>&1 &
+sleep 60
 while [ : ]
 do
 	systemdt=$(date '+%Y-%m-%dT%H:%M')
