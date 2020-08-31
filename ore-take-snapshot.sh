@@ -9,7 +9,7 @@ log_file=/root/nodeos.log
 config_folder=/root/config
 blocks_folder=$data_folder/blocks
 snapshots_folder=$data_folder/snapshots
-state_history_folder=$data_folder/state-history
+state_history_folder=$data_folder/state
 compressed_folder=$snapshots_folder/compressed/
 
 #****************************************************************************************************#
