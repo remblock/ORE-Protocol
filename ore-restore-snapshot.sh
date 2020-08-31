@@ -21,7 +21,7 @@ snapshots_folder="$data_folder/snapshots"
 
 if [ ! -d $snapshots_folder ]
 then
-  mkdir -p $snapshots_folder
+  mkdir $snapshots_folder
 fi
 
 rm $snapshots_folder/*.bin 2> /dev/null
