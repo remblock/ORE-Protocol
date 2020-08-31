@@ -28,15 +28,19 @@ fi
 rm $snapshot_folder/*.bin 2> /dev/null
 
 #----------------------------------------------------------------------------------------------------#
-# RESTART NODEOS IF IT HAS BEEN STOPPED                                                              #
+# GRACEFULLY STOP ORE-PROTOCOL                                                                       #
 #----------------------------------------------------------------------------------------------------#
 
-nodeos_pid=$(pgrep nodeos)
-if [ ! -z "$nodeos_pid" ]
-then
-  cd ~
-  nodeos --config-dir $config_folder/ --data-dir $data_folder/ >> $log_file 2>&1 &
-fi
+  nodeos_pid=$(pgrep nodeos)
+  if [ ! -z "$nodeos_pid" ]
+  then
+    if ps -p $nodeos_pid > /dev/null; then
+       kill -SIGINT $nodeos_pid
+    fi
+    while ps -p $nodeos_pid > /dev/null; do
+    sleep 1
+    done
+  fi
 
 #----------------------------------------------------------------------------------------------------#
 # MAIN PART OF THE SCRIPT                                                                            #
