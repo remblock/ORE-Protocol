@@ -89,7 +89,9 @@ do
         echo "Downloaded $latest_snapshot"
         gunzip $latest_snapshot
         tar_file=$(ls *.tar | head -1)
-        sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
+        sudo tar -xvf $tar_file
+        rm $tar_file
+        cd /root/root/data/snapshots
         bin_file=$(ls *.bin | head -1)
         echo ""
         echo "Uncompressed $latest_snapshot"
@@ -108,8 +110,9 @@ do
         echo "Downloaded $latest_snapshot"
         gunzip $latest_snapshot
         tar_file=$(ls *.tar | head -1)
-        sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
+        sudo tar -xvf $tar_file
         rm $tar_file
+        cd /root/root/data/snapshots
         bin_file=$(ls *.bin | head -1)
         echo ""
         echo "Uncompressed $latest_snapshot"
@@ -144,8 +147,9 @@ do
         echo "Downloaded $latest_snapshot"
         gunzip $latest_snapshot
         tar_file=$(ls *.tar | head -1)
-        sudo tar -C $last_download_folder/snapshot/. -xvf $tar_file
+        sudo tar -xvf $tar_file
         rm $tar_file
+        cd /root/root/data/snapshots
         bin_file=$(ls *.bin | head -1)
         echo ""
         echo "Uncompressed $latest_snapshot"
