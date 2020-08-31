@@ -22,10 +22,9 @@ snapshots_folder="$data_folder/snapshots"
 if [ ! -d $snapshots_folder ]
 then
   mkdir -p $snapshots_folder
-  cp -p $0 $snapshots_folder
 fi
 
-rm $snapshot_folder/*.bin 2> /dev/null
+rm $snapshots_folder/*.bin 2> /dev/null
 
 #----------------------------------------------------------------------------------------------------#
 # GRACEFULLY STOP ORE-PROTOCOL                                                                       #
@@ -66,7 +65,7 @@ echo "Uncompressed $latest_snapshot"
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
-nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file 2>&1 &
+nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file
 sleep 4
 while [ : ]
 do
