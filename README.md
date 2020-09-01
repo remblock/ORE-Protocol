@@ -12,6 +12,20 @@ sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-producer-setup
 
 ***
 
+# ORE-Fullnode-Setup
+
+#### This script will automatically setup your full node.
+
+***
+
+#### Adjust the ore-fullnode-setup script using the code below:
+
+```
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-fullnode-setup.sh && sudo chmod u+x ore-fullnode-setup.sh && nano ./ore-fullnode-setup.sh
+```
+
+***
+
 # ORE-Take-Snapshot
 
 #### This script will automatically take and transfer your snapshots, block logs and state history over to your web server.
