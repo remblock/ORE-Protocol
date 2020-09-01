@@ -89,14 +89,6 @@ sudo apt install curl -y
 sudo apt-get install jq -y
 
 #----------------------------------------------------------------------------------------------------#
-# CREATING ORE PROTOCOL WALLET                                                                       #
-#----------------------------------------------------------------------------------------------------#
-
-cleos wallet create -n walletpass --file walletpass
-echo " "
-echo " "
-
-#----------------------------------------------------------------------------------------------------#
 # CHANGING DEFAULT SSH PORT NUMBER                                                                   #
 #----------------------------------------------------------------------------------------------------#
 
@@ -188,6 +180,21 @@ sudo nodeos --config-dir /root/config/ --data-dir /root/data/ >> /root/nodeos.lo
 cpupower frequency-set --governor performance
 exit 0' > /etc/rc.local
 sudo chmod +x /etc/rc.local
+
+#----------------------------------------------------------------------------------------------------#
+# RESTORE FROM SNAPSHOT                                                                              #
+#----------------------------------------------------------------------------------------------------#
+
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
+sudo chmod u+x ore-restore-snapshot.sh
+sudo ./ore-restore-snapshot.sh
+
+#----------------------------------------------------------------------------------------------------#
+# CREATING ORE PROTOCOL WALLET                                                                       #
+#----------------------------------------------------------------------------------------------------#
+
+cleos wallet create -n walletpass --file walletpass
+echo " "
 
 #----------------------------------------------------------------------------------------------------#
 # ADDING SSH PUBLIC KEY TO SERVER                                                                    #
