@@ -9,24 +9,24 @@
 #----------------------------------------------------------------------------------------------------#
 
 portnumber=18990
-domain="ore.remblock.io"
-contact="contact@remblock.io"
+domain=ore.remblock.io
+contact=contact@remblock.io
 sshpublickey="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5govVMkNP5HyBQ+DBWSbUe97qyKVzoI5s1lR+x1HCSdetS8dacN6e86eWaWNUQBBr6O0AttbXULqxvOBNF1GzWFw0T1jFr9lCtuz2Y06KGjJBHRHXopeSp6VHJr+BG4Q4l9fzguYO/EmQf9Y48eCXCs4eFkKE6mFlfGkNvRInpz6bbRvwYOFEEKiTyLXE6y1910dVrgLTd2P1kyh88aCwuF4GnexM4AsipzKpSCR3/s/gqxK4YpW8KsMBCdcQMYHZ2dgxoscudcp2l88hgnQJOriYOfjAnXSKttaGNRsER/hEcKGKJsRPELJZLCn+Ahv322GTsnTRMvipfXUtDqoTdpteM5lSz+GlUe6get+O501kTz9xF9aMK7fJdj264mzj8JfvxKsZFKfsDJvTkoIV8GPdzSk5fYr8W+lFzrNXKqHBeR8+WXdVYKIq8l6Y3NOCUcf6I+kYeHPKOAqkl8mSue2Q9GPGTn8z3tAg1ASuNxFQCqhcDCyF4RcZzVMfTO6tTe56Udt/mOr2QRb6C8+wI4YK9l6Un+S6MLAt1EQZyHEm/uI0Cv4SIvh2X4ksZLEgNNAcw63MxEOLnUiGacrhKG1v4qixtjaZITkc0M518J43FK8157q0DJwbMDQCOLCWyqoytRYNhfdNvTc6sefJBJOMqKbUwGxvrZue9T6BnQ== root@REMBLOCK"
 
 #----------------------------------------------------------------------------------------------------#
 
-create_ssh_dir="/root/.ssh"
-create_data_dir="/root/data"
-state_dir="/root/data/state"
-blocks_dir="/root/data/blocks"
-create_config_dir="/root/config"
-create_certs_dir="/root/data/certs"
-nodeos_log_file="/root/nodeos.log"
-config_file="/root/config/config.ini"
-genesis_json_file="/root/genesis.json"
-create_rocksdb_dir="/root/data/rocksdb"
-create_shpdata_dir="/root/data/shpdata"
-create_snapshot_dir="/root/data/snapshots"
+create_ssh_dir=/root/.ssh
+create_data_dir=/root/data
+state_dir=/root/data/state
+blocks_dir=/root/data/blocks
+create_config_dir=/root/config
+create_certs_dir=/root/data/certs
+nodeos_log_file=/root/nodeos.log
+config_file=/root/config/config.ini
+genesis_json_file=/root/genesis.json
+create_rocksdb_dir=/root/data/rocksdb
+create_shpdata_dir=/root/data/shpdata
+create_snapshot_dir=/root/data/snapshots
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE DIRECTORY IF IT DOESN'T EXIST                                                               #
