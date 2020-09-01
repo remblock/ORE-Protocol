@@ -2,8 +2,6 @@
 
 #### This script is capable of automating your day-to-day reward claiming.
 
-<br>
-
 ***
 
 ## Step 1: Create Telegram Bot Using Botfather
