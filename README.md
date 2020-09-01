@@ -74,34 +74,22 @@ sudo https://github.com/remblock/ORE-Protocol/raw/master/ore-claim-rewards.sh &&
 
 #### Check if ORE-Claim-Rewards script has an upcoming "at" scheduled
 
-<br>
-
 ```
 atq
 ```
 
-<br>
-
 #### How to setup the "at" schedule if theres no upcoming schedule, take 2 minutes to complete
-
-<br>
 
 ```
 sudo ./ore-claim-rewards.sh --at
 ```
 
-<br>
-
 #### How to remove an upcoming "at" schedule
-
-<br>
 
 ```
 atrm <at schedule number>
 
 ```
-
-<br>
 
 #### Please Note: You will need to change the default key permissions:
 
