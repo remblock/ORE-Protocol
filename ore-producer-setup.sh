@@ -151,7 +151,7 @@ sudo snap install canonical-livepatch
 #----------------------------------------------------------------------------------------------------#
 
 echo '#!/bin/sh
-remnode_pid=$(pgrep nodeos)
+nodeos_pid=$(pgrep nodeos)
 if [ ! -z "$nodeos_pid" ]; then
 if ps -p $nodeos_pid > /dev/null; then
 kill -SIGINT $nodeos_pid
