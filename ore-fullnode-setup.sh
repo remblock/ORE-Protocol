@@ -363,9 +363,9 @@ sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 sudo -S apt update -y && sudo -S apt upgrade -y
 cpupower frequency-set --governor performance
 echo ""
-echo "====================================="
+echo "================================"
 echo "ORE-FULLNODE-SETUP HAS COMPLETED"
-echo "====================================="
+echo "================================"
 echo ""
 sudo -S service sshd restart
 reboot
