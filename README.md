@@ -2,6 +2,8 @@
 
 #### This script is capable of automating your day-to-day reward claiming.
 
+<br>
+
 ***
 
 <br>
