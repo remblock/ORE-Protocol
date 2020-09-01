@@ -87,7 +87,7 @@ sudo -S apt update -y && sudo -S apt upgrade -y
 
 while [ : ]
 do
-
+         echo ""
 	 read -p "PLEASE ENTER A RANDOM 5 DIGIT PORT NUMBER: " portnumber
 
          if [[ ${#portnumber} -ne 5 ]]
