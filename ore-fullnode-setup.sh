@@ -142,7 +142,7 @@ then
     sudo add-apt-repository ppa:certbot/certbot -y
     sudo apt-get update
     sudo apt-get install certbot -y
-    sudo certbot certonly --manual --agree-tos --preferred-challenges dns --email $contact --domains $domain
+    sudo certbot certonly --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
     ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
     ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
     echo "https-private-key-file = $ssl_private_key_path" >> /root/config/config.ini
