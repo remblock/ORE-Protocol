@@ -22,13 +22,13 @@ fi
 # CREATE CLAIM REWARDS DIRECTORY                                                                     #
 #----------------------------------------------------------------------------------------------------#
 
-create_dir="/root/remblock/claim-rewards"
+create_dir=/root/remblock/claim-rewards
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE CLAIM REWARDS CONFIG FILE                                                                   #
 #----------------------------------------------------------------------------------------------------#
 
-config_file="/root/remblock/claim-rewards/config"
+config_file=/root/remblock/claim-rewards/config
 
 #----------------------------------------------------------------------------------------------------#
 # MINUTES TO WAIT BETWEEN EACH EXECUTIONS OF THE SCRIPT                                              #
@@ -79,7 +79,7 @@ fi
 
 if [ ! -d "$create_dir" ]
 then
-  mkdir -p "$create_dir"
+  mkdir -p $create_dir
 fi
 
 #----------------------------------------------------------------------------------------------------#
