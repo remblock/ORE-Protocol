@@ -34,13 +34,13 @@ create_snapshot_dir=/root/data/snapshots
 
 if [ ! -d "$create_data_dir" -o -d "$create_config_dir" -o -d "$create_rocksdb_dir" -o -d "$create_shpdata_dir" -o -d "$create_snapshot_dir" ]
 then
-  mkdir -p "$create_ssh_dir"
-  mkdir -p "$create_data_dir"
-  mkdir -p "$create_certs_dir"
-  mkdir -p "$create_config_dir"
-  mkdir -p "$create_rocksdb_dir"
-  mkdir -p "$create_shpdata_dir"
-  mkdir -p "$create_snapshot_dir"
+  mkdir -p $create_ssh_dir
+  mkdir -p $create_data_dir
+  mkdir -p $create_certs_dir
+  mkdir -p $create_config_dir
+  mkdir -p $create_rocksdb_dir
+  mkdir -p $create_shpdata_dir
+  mkdir -p $create_snapshot_dir
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -250,10 +250,10 @@ nohup ~/history-tools/build/combo-rocksdb --rdb-database $create_rocksdb_dir &> 
 
 echo '#!/bin/bash
 
-create_ore_dir="/root/data"
-create_config_dir="/root/config"
-nodeos_log_file="/root/nodeos.log"
-create_shpdata_dir="/root/data/shpdata"
+create_ore_dir=/root/data
+create_config_dir=/root/config
+nodeos_log_file=/root/nodeos.log
+create_shpdata_dir=/root/data/shpdata
 
 nodeos --config-dir $create_config_dir --data-dir $create_ore_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
 
