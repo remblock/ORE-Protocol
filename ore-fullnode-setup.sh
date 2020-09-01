@@ -128,8 +128,8 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 cd ~
-ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
-ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}') 2> /dev/null
+ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}') 2> /dev/null
 if [ -z "$ssl_certificate_path" ] || [ -z "$ssl_private_key_path" ]
 then
   if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
