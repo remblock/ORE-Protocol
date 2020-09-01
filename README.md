@@ -6,8 +6,6 @@
 
 ***
 
-<br>
-
 ## Step 1: Create Telegram Bot Using Botfather
 
 #### The following steps describe how to create a new bot:
