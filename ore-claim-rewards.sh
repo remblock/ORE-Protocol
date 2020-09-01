@@ -342,7 +342,7 @@ $claimamount ORE"
  fi
 fi
 echo ""
-echo "============================================"
-echo "ORE CLAIM REWARDS INSTALLATION HAS COMPLETED"
-echo "============================================"
+echo "====================================="
+echo "ORE CLAIM REWARDS SETUP HAS COMPLETED"
+echo "====================================="
 echo ""
