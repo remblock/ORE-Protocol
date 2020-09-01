@@ -364,9 +364,10 @@ sudo apt install linux-cloud-tools-generic -y
 sudo apt install linux-tools-4.15.0-112-generic -y
 sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 sudo -S apt update -y && sudo -S apt upgrade -y
+nodeos --config-dir $create_config_dir --data-dir $create_ore_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
+sudo -S service sshd restart
 echo ""
 echo "================================"
 echo "ORE-FULLNODE-SETUP HAS COMPLETED"
 echo "================================"
 echo ""
-sudo -S service sshd restart
