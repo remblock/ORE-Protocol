@@ -38,6 +38,12 @@ sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-fullnode-setup
 sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.sh && sudo chmod u+x ore-take-snapshot.sh && nano ./ore-take-snapshot.sh
 ```
 
+#### Now add the following line to run it every hour (What runs exactly is determined inside the file. Snapshots every 3 hours, Blocks every 12 and State History every 24 hours.
+
+```
+0 * * * * /root/data/snapshots/ore-take-snapshot.sh
+```
+
 ***
 
 # ORE-Restore-Snapshot
