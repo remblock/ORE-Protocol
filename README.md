@@ -97,8 +97,6 @@ Once your bot is created, you can set a custom name, profile photo and descripti
 
 There are some other useful methods in BotFather which we won't cover in this tutorial like **`/setcommands`**.
 
-<br>
-
 ***
 
 ## Step 2: Obtain Your Chat Idenification Number
