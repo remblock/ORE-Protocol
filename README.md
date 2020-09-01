@@ -64,8 +64,6 @@ Your Chat ID will be shown in this format **`"id":7041782343`**, based on this e
 sudo https://github.com/remblock/ORE-Protocol/raw/master/ore-claim-rewards.sh && sudo chmod u+x ore-claim-rewards.sh && sudo ./ore-claim-rewards.sh
 ```
 
-<br>
-
 #### Check if ORE-Claim-Rewards script has an upcoming "at" scheduled
 
 ```
