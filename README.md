@@ -4,10 +4,10 @@
 
 ***
 
-#### Setup ore-take-snapshot using the code below:
+#### Adjust the ore-take-snapshot using the code below:
 
 ```
-sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.sh && sudo chmod u+x ore-take-snapshot.sh && sudo ./ore-take-snapshot.sh
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.sh && sudo chmod u+x ore-take-snapshot.sh && nano ./ore-take-snapshot.sh
 ```
 
 ***
