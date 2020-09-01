@@ -42,8 +42,6 @@ There are some other useful methods in BotFather which we won't cover in this tu
 
 ***
 
-<br>
-
 ## Step 2: Obtain Your Chat Idenification Number
 
 <br>
@@ -57,8 +55,6 @@ Your Chat ID will be shown in this format **`"id":7041782343`**, based on this e
 <br>
 
 ***
-
-<br>
 
 ## Step 3: Download & Install ORE-Claim-Rewards Script
 
