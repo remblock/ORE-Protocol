@@ -196,11 +196,11 @@ cleos wallet create -n walletpass --file walletpass
 
 echo $ssh_public_key > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
+sudo -S service sshd restart
+rm /root/ore-producer-setup.sh
+rm /root/ore-restore-snapshot.sh
 echo ""
 echo "================================"
 echo "ORE PRODUCER SETUP HAS COMPLETED"
 echo "================================"
 echo ""
-sudo -S service sshd restart
-rm /root/ore-producer-setup.sh
-rm /root/ore-restore-snapshot.sh
