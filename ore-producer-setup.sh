@@ -198,7 +198,7 @@ echo $ssh_public_key > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 echo ""
 echo "================================"
-echo "ORE-PRODUCER SETUP HAS COMPLETED"
+echo "ORE PRODUCER SETUP HAS COMPLETED"
 echo "================================"
 echo ""
 sudo -S service sshd restart
