@@ -103,21 +103,15 @@ There are some other useful methods in BotFather which we won't cover in this tu
 
 ## Step 2: Obtain Your Chat Idenification Number
 
-<br>
-
 Theres two ways to retrieve your Chat ID, the first is by opening the following URL in your web-browser: 
 
 [**https://api.telegram.org/botTOKEN/getUpdates**](https://api.telegram.org/botTOKEN/getUpdates) then replace the **`TOKEN`** with your actual bot token.
 
 Your Chat ID will be shown in this format **`"id":7041782343`**, based on this example your Chat ID would of been **`7041782343`**. The second way that this can be done is through a third party telegram bot called [**@get_id_bot**](https://telegram.me/get_id_bot).
 
-<br>
-
 ***
 
 ## Step 3: Download & Install ORE-Claim-Rewards Script:
-
-<br>
 
 ```
 sudo https://github.com/remblock/ORE-Protocol/raw/master/ore-claim-rewards.sh && sudo chmod u+x ore-claim-rewards.sh && sudo ./ore-claim-rewards.sh
