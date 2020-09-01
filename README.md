@@ -10,6 +10,8 @@
 sudo https://github.com/remblock/ORE-Protocol/raw/master/ore-claim-rewards.sh && sudo chmod u+x ore-claim-rewards.sh && nano ./ore-claim-rewards.sh
 ```
 
+<br>
+
 ## Step 1: Create Telegram Bot Using Botfather
 
 #### The following steps describe how to create a new bot:
