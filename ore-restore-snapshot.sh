@@ -46,7 +46,9 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 echo ""
-echo "<<< ORE-RESTORE-SNAPSHOT >>>"
+echo "================================="
+echo "ORE PROTOCOL SNAPSHOT HAS STARTED"
+echo "================================="
 latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
 echo ""
 echo "Downloading Snapshot now..."
