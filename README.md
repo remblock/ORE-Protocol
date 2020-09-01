@@ -1,10 +1,24 @@
+# ORE-Producer-Setup
+
+#### This script will automatically setup your producer node.
+
+***
+
+#### Adjust the ore-producer-setup script using the code below:
+
+```
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-producer-setup.sh && sudo chmod u+x ore-producer-setup.sh && nano ./ore-producer-setup.sh
+```
+
+***
+
 # ORE-Take-Snapshot
 
 #### This script will automatically take and transfer your snapshots, block logs and state history over to your web server.
 
 ***
 
-#### Adjust the ore-take-snapshot using the code below:
+#### Adjust the ore-take-snapshot script using the code below:
 
 ```
 sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.sh && sudo chmod u+x ore-take-snapshot.sh && nano ./ore-take-snapshot.sh
@@ -18,7 +32,7 @@ sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.
 
 ***
 
-#### Setup ore-restore-snapshot using the code below:
+#### Setup ore-restore-snapshot script using the code below:
 
 ```
 sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh && sudo chmod u+x ore-restore-snapshot.sh && sudo ./ore-restore-snapshot.sh
