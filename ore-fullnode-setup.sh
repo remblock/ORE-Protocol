@@ -89,6 +89,14 @@ wget https://raw.githubusercontent.com/Open-Rights-Exchange/ore-bp-docs/master/c
 sudo timedatectl set-timezone UTC
 
 #----------------------------------------------------------------------------------------------------#
+# RESTORE FROM SNAPSHOT                                                                              #
+#----------------------------------------------------------------------------------------------------#
+
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
+sudo chmod u+x ore-restore-snapshot.sh
+sudo ./ore-restore-snapshot.sh
+
+#----------------------------------------------------------------------------------------------------#
 # GRACEFULLY STOP ORE PROTOCOL                                                                       #
 #----------------------------------------------------------------------------------------------------#
 
@@ -298,6 +306,7 @@ systemctl restart node_shutdown
 
 rm /root/boost_1_70_0.tar.gz
 rm /root/cmake-3.14.5.tar.gz
+rm /root/ore-restore-snapshot.sh
 rm /root/eosio.cdt_1.6.3-1-ubuntu-18.04_amd64.deb
 echo ""
 
