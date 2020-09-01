@@ -368,4 +368,3 @@ echo "ORE-FULLNODE-SETUP HAS COMPLETED"
 echo "================================"
 echo ""
 sudo -S service sshd restart
-reboot
