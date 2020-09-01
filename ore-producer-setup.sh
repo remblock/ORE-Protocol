@@ -18,14 +18,14 @@ fi
 # CONFIGURATION VARIABLES                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
-create_ssh_dir="/root/.ssh"
-create_data_dir="/root/data"
-state_dir="/root/data/state"
-blocks_dir="/root/data/blocks"
-create_config_dir="/root/config"
-nodeos_log_file="/root/nodeos.log"
-config_file="/root/config/config.ini"
-create_snapshot_dir="/root/data/snapshots"
+create_ssh_dir=/root/.ssh
+create_data_dir=/root/data
+state_dir=/root/data/state
+blocks_dir=/root/data/blocks
+create_config_dir=/root/config
+nodeos_log_file=/root/nodeos.log
+config_file=/root/config/config.ini
+create_snapshot_dir=/root/data/snapshots
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE DIRECTORY IF IT DOESN'T EXIST                                                               #
@@ -33,10 +33,10 @@ create_snapshot_dir="/root/data/snapshots"
 
 if [ ! -d "$create_data_dir" -o -d "$create_config_dir" -o -d "$create_snapshot_dir" ]
 then
-  mkdir -p "$create_ssh_dir"
-  mkdir -p "$create_data_dir"
-  mkdir -p "$create_config_dir"
-  mkdir -p "$create_snapshot_dir"
+  mkdir -p $create_ssh_dir
+  mkdir -p $create_data_dir
+  mkdir -p $create_config_dir
+  mkdir -p $create_snapshot_dir
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -208,5 +208,6 @@ echo "ORE-PRODUCER SETUP HAS COMPLETED"
 echo "================================"
 echo ""
 sudo -S service sshd restart
-rm ./ore-producer-setup.sh
+rm /root/ore-producer-setup.sh
+rm /root/ore-restore-snapshot.sh
 reboot
