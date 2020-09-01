@@ -101,6 +101,8 @@ nano remblock/claim/config
 
 #### This script will automatically take and transfer your snapshots, block logs and state history over to your web server.
 
+<br>
+
 ***
 
 #### Adjust the ore-take-snapshot using the code below:
@@ -114,6 +116,8 @@ sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.
 # ORE-Restore-Snapshot
 
 #### This script will restore and resync your chain by using the latest snapshot provided on [ore.remblock.io/snapshots](https://ore.remblock.io/snapshots).
+
+<br>
 
 ***
 
