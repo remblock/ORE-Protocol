@@ -56,7 +56,7 @@ Your Chat ID will be shown in this format **`"id":7041782343`**, based on this e
 
 ***
 
-## Step 3: Download & Install ORE-Claim-Rewards Script
+## Step 3: Download & Install ORE-Claim-Rewards Script:
 
 <br>
 
@@ -64,19 +64,19 @@ Your Chat ID will be shown in this format **`"id":7041782343`**, based on this e
 sudo https://github.com/remblock/ORE-Protocol/raw/master/ore-claim-rewards.sh && sudo chmod u+x ore-claim-rewards.sh && sudo ./ore-claim-rewards.sh
 ```
 
-#### Check if ORE-Claim-Rewards script has an upcoming "at" scheduled
+#### Check if ore-claim-rewards script has an upcoming "at" scheduled:
 
 ```
 atq
 ```
 
-#### How to setup the "at" schedule if theres no upcoming schedule, take 2 minutes to complete
+#### How to setup the "at" schedule if theres no upcoming schedule, can take up to 2 minutes to complete:
 
 ```
 sudo ./ore-claim-rewards.sh --at
 ```
 
-#### How to remove an upcoming "at" schedule
+#### How to remove an upcoming "at" schedule:
 
 ```
 atrm <at schedule number>
