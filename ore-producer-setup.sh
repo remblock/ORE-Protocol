@@ -202,4 +202,3 @@ echo ""
 sudo -S service sshd restart
 rm /root/ore-producer-setup.sh
 rm /root/ore-restore-snapshot.sh
-reboot
