@@ -283,12 +283,12 @@ nohup ~/history-tools/build/combo-rocksdb --rdb-database $create_rocksdb_dir &> 
 
 echo '#!/bin/bash
 
-create_ore_dir=/root/data
+create_data_dir=/root/data
 create_config_dir=/root/config
 nodeos_log_file=/root/nodeos.log
 create_shpdata_dir=/root/data/shpdata
 
-nodeos --config-dir $create_config_dir --data-dir $create_ore_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
+nodeos --config-dir $create_config_dir --data-dir $create_data_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
 
 exit 0' > /etc/rc.local
 sudo chmod +x /etc/rc.local
@@ -332,6 +332,7 @@ systemctl restart node_shutdown
 rm /root/ore-peer-list.ini
 rm /root/boost_1_70_0.tar.gz
 rm /root/cmake-3.14.5.tar.gz
+rm /root/ore-fullnode-setup.sh
 rm /root/ore-restore-snapshot.sh
 rm /root/eosio.cdt_1.6.3-1-ubuntu-18.04_amd64.deb
 echo ""
@@ -377,7 +378,7 @@ sudo apt install linux-cloud-tools-generic -y
 sudo apt install linux-tools-4.15.0-112-generic -y
 sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 sudo -S apt update -y && sudo -S apt upgrade -y
-nodeos --config-dir $create_config_dir --data-dir $create_ore_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
+nodeos --config-dir $create_config_dir --data-dir $create_data_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
 sudo -S service sshd restart
 echo ""
 echo "================================"
