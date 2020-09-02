@@ -388,21 +388,6 @@ sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 sudo -S apt update -y && sudo -S apt upgrade -y
 
 #----------------------------------------------------------------------------------------------------#
-# GRACEFULLY STOP ORE-PROTOCOL                                                                       #
-#----------------------------------------------------------------------------------------------------#
-
-nodeos_pid=$(pgrep nodeos)
-if [ ! -z "$nodeos_pid" ]
-then
-  if ps -p $nodeos_pid > /dev/null; then
-     kill -SIGINT $nodeos_pid
-  fi
-  while ps -p $nodeos_pid > /dev/null; do
-  sleep 1
-  done
-fi
-
-#----------------------------------------------------------------------------------------------------#
 # START ORE-PROTOCOL                                                                       #
 #----------------------------------------------------------------------------------------------------#
 
