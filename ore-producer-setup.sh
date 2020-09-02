@@ -18,6 +18,7 @@ fi
 # CONFIGURATION VARIABLES                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
+producer=remblock21bp
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
 state_dir=/root/data/state
@@ -71,7 +72,7 @@ sudo timedatectl set-timezone UTC
 #----------------------------------------------------------------------------------------------------#
 
 echo -e "plugin = eosio::net_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::producer_plugin\nplugin = eosio::chain_api_plugin\n" > $config_file
-echo -e "max-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\npause-on-startup = false\nwasm-runtime = eos-vm-jit\nmax-transaction-time = 30\nverbose-http-errors = true\nkeosd-provider-timeout = 5\ntxn-reference-block-lag = 0\nproducer-name = remblock21bp\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nenable-stale-production = false\nmax-irreversible-block-age = -1\nreversible-blocks-db-size-mb = 10480\nhttp-server-address = 0.0.0.0:8888\n\nsignature-provider = EOS6yscG41Q39rkYKJ61DtYeYdCW7kaETsfnYgQCq2wcu5mzGLyi5=KEY:\n" >> $config_file
+echo -e "max-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\npause-on-startup = false\nwasm-runtime = eos-vm-jit\nmax-transaction-time = 30\nverbose-http-errors = true\nkeosd-provider-timeout = 5\ntxn-reference-block-lag = 0\nproducer-name = $producer\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nenable-stale-production = false\nmax-irreversible-block-age = -1\nreversible-blocks-db-size-mb = 10480\nhttp-server-address = 0.0.0.0:8888\n\nsignature-provider = EOS6yscG41Q39rkYKJ61DtYeYdCW7kaETsfnYgQCq2wcu5mzGLyi5=KEY:\n" >> $config_file
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-peer-list.ini
 cat /root/ore-peer-list.ini >> $config_file
 
