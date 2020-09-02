@@ -80,7 +80,7 @@ echo -e "\nmax-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc
 echo -e "#-------------------------------------------------------------------------------\n" >> $config_file
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-peer-list.ini
 cat /root/ore-peer-list.ini >> $config_file
-echo -e "#-------------------------------------------------------------------------------" >> $config_file
+echo -e "\n#-------------------------------------------------------------------------------" >> $config_file
 
 #----------------------------------------------------------------------------------------------------#
 # UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
