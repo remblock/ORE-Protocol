@@ -75,7 +75,7 @@ function get_user_answer_yn(){
 #----------------------------------------------------------------------------------------------------#
 
 echo -e "plugin = eosio::net_plugin\nplugin = eosio::chain_plugin\n\nhttp-server-address = 0.0.0.0:8888\n" > $config_file
-echo -e "chain-threads = 8\ntrace-history = true\neos-vm-oc-enable = true\nwasm-runtime = eos-vm-jit\nchain-state-history = true\nverbose-http-errors = true\nhttp-validate-host = false\neos-vm-oc-compile-threads = 8\nhttp-max-response-time-ms = 100\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:80\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nabi-serializer-max-time-ms = 15000\nstate-history-dir = "/data/shpdata"\nstate-history-endpoint = 0.0.0.0:8080\n" >> $config_file
+echo -e "chain-threads = 8\ntrace-history = true\neos-vm-oc-enable = true\nwasm-runtime = eos-vm-jit\nchain-state-history = true\nverbose-http-errors = true\nhttp-validate-host = false\neos-vm-oc-compile-threads = 8\nhttp-max-response-time-ms = 100\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:80\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nabi-serializer-max-time-ms = 15000\nstate-history-dir = "/root/data/shpdata"\nstate-history-endpoint = 0.0.0.0:8080\n" >> $config_file
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-peer-list.ini
 cat /root/ore-peer-list.ini >> $config_file
 sudo -S sed -i "/^#Port 22/s/#Port 22/Port $portnumber/" /etc/ssh/sshd_config && sed -i '/^PermitRootLogin/s/yes/without-password/' /etc/ssh/sshd_config && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
@@ -114,7 +114,7 @@ sudo ./ore-restore-snapshot.sh
 #----------------------------------------------------------------------------------------------------#
 
 echo -e "plugin = eosio::net_plugin\nplugin = eosio::http_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::net_api_plugin\nplugin = eosio::chain_api_plugin\nplugin = eosio::state_history_plugin\n" > $config_file
-echo -e "chain-threads = 8\ntrace-history = true\neos-vm-oc-enable = true\nwasm-runtime = eos-vm-jit\nchain-state-history = true\nverbose-http-errors = true\nhttp-validate-host = false\neos-vm-oc-compile-threads = 8\nhttp-max-response-time-ms = 100\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:80\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nabi-serializer-max-time-ms = 15000\nstate-history-dir = "/data/shpdata"\nstate-history-endpoint = 0.0.0.0:8080\n" >> $config_file
+echo -e "chain-threads = 8\ntrace-history = true\neos-vm-oc-enable = true\nwasm-runtime = eos-vm-jit\nchain-state-history = true\nverbose-http-errors = true\nhttp-validate-host = false\neos-vm-oc-compile-threads = 8\nhttp-max-response-time-ms = 100\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:80\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nabi-serializer-max-time-ms = 15000\nstate-history-dir = "/root/data/shpdata"\nstate-history-endpoint = 0.0.0.0:8080\n" >> $config_file
 cat /root/ore-peer-list.ini >> $config_file
 
 #----------------------------------------------------------------------------------------------------#
