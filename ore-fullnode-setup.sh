@@ -113,9 +113,9 @@ sudo ./ore-restore-snapshot.sh
 # CREATE API CONFIG.INI FILE                                                                         #
 #----------------------------------------------------------------------------------------------------#
 
-echo -e "plugin = eosio::net_plugin\nplugin = eosio::http_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::net_api_plugin\nplugin = eosio::chain_api_plugin\nplugin = eosio::state_history_plugin\n\nhttp-server-address = 0.0.0.0:8888\n" > /root/config/config.ini
+echo -e "plugin = eosio::net_plugin\nplugin = eosio::http_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::net_api_plugin\nplugin = eosio::chain_api_plugin\nplugin = eosio::state_history_plugin\n" > /root/config/config.ini
 cat /root/ore-peer-list.ini >> /root/config/config.ini
-echo -e "\n\nchain-threads = 8\ntrace-history = true\neos-vm-oc-enable = true\nwasm-runtime = eos-vm-jit\nchain-state-history = true\nverbose-http-errors = true\nhttp-validate-host = false\neos-vm-oc-compile-threads = 8\nhttp-max-response-time-ms = 100\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:80\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nabi-serializer-max-time-ms = 15000\nstate-history-dir = "/data/shpdata"\nstate-history-endpoint = 0.0.0.0:8080" >> /root/config/config.ini
+echo -e "\nchain-threads = 8\ntrace-history = true\neos-vm-oc-enable = true\nwasm-runtime = eos-vm-jit\nchain-state-history = true\nverbose-http-errors = true\nhttp-validate-host = false\neos-vm-oc-compile-threads = 8\nhttp-max-response-time-ms = 100\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:80\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nabi-serializer-max-time-ms = 15000\nstate-history-dir = "/data/shpdata"\nstate-history-endpoint = 0.0.0.0:8080" >> /root/config/config.ini
 
 #----------------------------------------------------------------------------------------------------#
 # GRACEFULLY STOP ORE PROTOCOL                                                                       #
