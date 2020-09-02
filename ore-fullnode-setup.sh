@@ -174,8 +174,8 @@ if [ ! -z "$ssl_certificate_path" ] || [ ! -z "$ssl_private_key_path" ]
 then
   ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
   ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-  echo "https-private-key-file = $ssl_private_key_path" >> /root/config/config.ini
-  echo "https-certificate-chain-file = $ssl_certificate_path" >> /root/config/config.ini
+  echo -e "\nhttps-private-key-file = $ssl_private_key_path" >> /root/config/config.ini
+  echo -e "https-certificate-chain-file = $ssl_certificate_path" >> /root/config/config.ini
   echo "" >> /root/config/config.ini
 fi
 
