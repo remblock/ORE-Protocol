@@ -133,7 +133,6 @@ sudo ./ore-claim-rewards.sh --at
 atrm <at schedule number>
 
 ```
-
 #### Please Note: You will need to change the default key permissions:
 
 ```
