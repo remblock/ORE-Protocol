@@ -164,6 +164,7 @@ then
     read -p "ENTER YOUR SSL CERTIFCATE PATH: " -e ssl_certificate_path
     echo ""
     read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
+    echo ""
     echo "https-private-key-file = $ssl_private_key_path" >> /root/config/config.ini
     echo "https-certificate-chain-file = $ssl_certificate_path" >> /root/config/config.ini
     echo "" >> /root/config/config.ini
