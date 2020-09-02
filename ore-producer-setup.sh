@@ -70,7 +70,10 @@ sudo timedatectl set-timezone UTC
 # CONFIGURATION FILE (CONFIG/CONFIG.INI)                                                             #
 #----------------------------------------------------------------------------------------------------#
 
-echo -e "plugin = eosio::net_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::producer_plugin\nplugin = eosio::chain_api_plugin\n\nhttp-server-address = 0.0.0.0:8888\np2p-peer-address = ore.csx.io:9876\np2p-peer-address = peer.ore.alohaeos.com:9876\np2p-peer-address = peer1-ore.eosphere.io:9876\np2p-peer-address = ore-seed1.openrights.exchange:9876\np2p-peer-address = ore-seed2.openrights.exchange:9876\np2p-peer-address = peer.ore-mainnet.eosblocksmith.io:5060\n\nmax-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\npause-on-startup = false\nwasm-runtime = eos-vm-jit\nmax-transaction-time = 30\nverbose-http-errors = true\nkeosd-provider-timeout = 5\ntxn-reference-block-lag = 0\nproducer-name = remblock21bp\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nenable-stale-production = false\nmax-irreversible-block-age = -1\nreversible-blocks-db-size-mb = 10480\n\nsignature-provider = EOS6yscG41Q39rkYKJ61DtYeYdCW7kaETsfnYgQCq2wcu5mzGLyi5=KEY:" > ./config/config.ini
+echo -e "plugin = eosio::net_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::producer_plugin\nplugin = eosio::chain_api_plugin\n\nhttp-server-address = 0.0.0.0:8888\n" > /root/config/config.ini
+wget https://github.com/remblock/ORE-Protocol/raw/master/ore-peer-list.ini
+cat /root/ore-peer-list.ini >> /root/config/config.ini
+echo -e "\n\nmax-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\npause-on-startup = false\nwasm-runtime = eos-vm-jit\nmax-transaction-time = 30\nverbose-http-errors = true\nkeosd-provider-timeout = 5\ntxn-reference-block-lag = 0\nproducer-name = remblock21bp\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nenable-stale-production = false\nmax-irreversible-block-age = -1\nreversible-blocks-db-size-mb = 10480\n\nsignature-provider = EOS6yscG41Q39rkYKJ61DtYeYdCW7kaETsfnYgQCq2wcu5mzGLyi5=KEY:" >> /root/config/config.ini
 
 #----------------------------------------------------------------------------------------------------#
 # UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
@@ -197,6 +200,7 @@ cleos wallet create -n walletpass --file walletpass
 echo $ssh_public_key > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 sudo -S service sshd restart
+rm /root/ore-peer-list.ini
 rm /root/ore-producer-setup.sh
 rm /root/ore-restore-snapshot.sh
 echo ""
