@@ -176,6 +176,7 @@ else
 fi
 if [ -z "$walletpass" ]
 then
+  echo ""
   read -p "ENTER YOUR WALLET NAME: " -e walletname
   echo "walletname=$walletname" >> "$config_file"
   echo ""
