@@ -199,6 +199,7 @@ else
   then
     exit 2
   fi
+  echo ""
   if get_user_answer_yn "DO YOU WANT TO AUTO CLAIM YOUR REWARDS?"
   then
     auto_reward=true
