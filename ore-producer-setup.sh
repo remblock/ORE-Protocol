@@ -19,7 +19,7 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 producer=remblock21bp
-domain=ore.remblock.io
+domain=ore.api.remblock.io
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
 state_dir=/root/data/state
