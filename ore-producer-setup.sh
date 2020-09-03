@@ -93,6 +93,51 @@ cat /root/ore-peer-list.ini >> $config_file
 echo -e "\n#-------------------------------------------------------------------------------" >> $config_file
 
 #----------------------------------------------------------------------------------------------------#
+# DOMAIN | INSTALL AND INIT SSL CERTIFCATE                                                           #
+#----------------------------------------------------------------------------------------------------#
+
+cd ~
+if [ "$ssl_certificate_path" ] || [ "$ssl_private_key_path" ]
+then
+  ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+  ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+fi
+if [ -z "$ssl_certificate_path" ] || [ -z "$ssl_private_key_path" ]
+then
+  if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
+  then
+    sudo apt-get install software-properties-common -y
+    sudo add-apt-repository universe
+    sudo add-apt-repository ppa:certbot/certbot -y
+    sudo apt-get update
+    sudo apt-get install certbot -y
+    sudo certbot certonly --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
+    ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+    ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+    echo "https-private-key-file = $ssl_private_key_path" >> $config_file
+    echo "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+    echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
+  else
+    echo ""
+    read -p "ENTER YOUR SSL CERTIFCATE PATH: " -e ssl_certificate_path
+    echo ""
+    read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
+    echo ""
+    echo "https-private-key-file = $ssl_private_key_path" >> $config_file
+    echo "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+    echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
+ fi
+fi
+if [ ! -z "$ssl_certificate_path" ] || [ ! -z "$ssl_private_key_path" ]
+then
+  ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+  ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+  echo -e "\nhttps-private-key-file = $ssl_private_key_path" >> $config_file
+  echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+  echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
+fi
+
+#----------------------------------------------------------------------------------------------------#
 # UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
 #----------------------------------------------------------------------------------------------------#
 
