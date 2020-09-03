@@ -289,7 +289,7 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 cd ~/eosio-wallet/
-cleos wallet open -n $walletname
+cleos wallet open -n $walletname /dev/null 2>&1
 cleos wallet unlock -n $walletname --password $walletpass > /dev/null 2>&1
 
 #----------------------------------------------------------------------------------------------------#
