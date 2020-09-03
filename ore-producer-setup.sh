@@ -19,9 +19,11 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 producer=remblock21bp
+domain=ore.remblock.io
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
 state_dir=/root/data/state
+contact=contact@remblock.io
 blocks_dir=/root/data/blocks
 create_config_dir=/root/config
 nodeos_log_file=/root/nodeos.log
