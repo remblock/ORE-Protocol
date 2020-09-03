@@ -88,9 +88,10 @@ sudo -S sed -i "/^#Port 22/s/#Port 22/Port $portnumber/" /etc/ssh/sshd_config &&
 # INSTALLING PROTOCOL BINARIES                                                                       #
 #----------------------------------------------------------------------------------------------------#
 
+cd ~
 sudo -S apt update -y && sudo -S apt upgrade -y
-wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
-sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
+wget https://github.com/EOSIO/eos/releases/download/v1.8.1/eosio_1.8.1-1-ubuntu-18.04_amd64.deb
+sudo apt install -y ./eosio_1.8.1-1-ubuntu-18.04_amd64.deb
 rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
