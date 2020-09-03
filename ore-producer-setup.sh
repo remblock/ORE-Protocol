@@ -118,6 +118,7 @@ echo -e "\n#--------------------------------------------------------------------
 cd ~
 ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
 ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+echo ""
 if [ "$ssl_certificate_path" ] && [ "$ssl_private_key_path" ]
 then
   echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
