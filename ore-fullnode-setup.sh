@@ -401,7 +401,7 @@ sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 sudo -S apt update -y && sudo -S apt upgrade -y
 
 #----------------------------------------------------------------------------------------------------#
-# START ORE-PROTOCOL                                                                       #
+# START ORE-PROTOCOL                                                                                 #
 #----------------------------------------------------------------------------------------------------#
 
 nodeos --config-dir $create_config_dir --data-dir $create_data_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
