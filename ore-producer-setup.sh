@@ -70,6 +70,23 @@ wget https://raw.githubusercontent.com/Open-Rights-Exchange/ore-bp-docs/master/c
 sudo timedatectl set-timezone UTC
 
 #----------------------------------------------------------------------------------------------------#
+# GET YES OR NO ANSWER FROM USER                                                                     #
+#----------------------------------------------------------------------------------------------------#
+
+function get_user_answer_yn(){
+  while :
+  do
+    read -p "$1 [y/n]: " answer
+    answer="$(echo $answer | tr '[:upper:]' '[:lower:]')"
+    case "$answer" in
+      yes|y) return 0 ;;
+      no|n) return 1 ;;
+      *) echo  "Invalid Answer [yes/y/no/n expected]";continue;;
+    esac
+  done
+}
+
+#----------------------------------------------------------------------------------------------------#
 # CONFIGURATION FILE (CONFIG/CONFIG.INI)                                                             #
 #----------------------------------------------------------------------------------------------------#
 
