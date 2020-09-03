@@ -119,7 +119,7 @@ cd ~
 ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
 ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
 echo ""
-if [ "$ssl_certificate_path" ] && [ "$ssl_private_key_path" ]
+if [ ! -z "$ssl_certificate_path" ] && [ ! -z "$ssl_private_key_path" ]
 then
   echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
   echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
@@ -146,18 +146,12 @@ then
     echo ""
     read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
     echo ""
+    ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+    ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
     echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
     echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
     echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
  fi
-fi
-if [ ! -z "$ssl_certificate_path" ] || [ ! -z "$ssl_private_key_path" ]
-then
-  ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
-  ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-  echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
-  echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
-  echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
 fi
 
 #----------------------------------------------------------------------------------------------------#
