@@ -283,12 +283,15 @@ fi
 # CLEOS COMMANDS FOR UNLOCKING YOUR WALLET                                                           #
 #----------------------------------------------------------------------------------------------------#
 
+cd ~/eosio-wallet/
+cleos wallet open -n walletpass
 cleos wallet unlock -n walletpass --password $walletpass > /dev/null 2>&1
 
 #----------------------------------------------------------------------------------------------------#
 # CLEOS COMMAND FOR CLAIMING YOUR REWARDS                                                            #
 #----------------------------------------------------------------------------------------------------#
 
+cd ~
 previous=$(cleos get currency balance eosio.token $accountname | awk '{print $1}')
 rewardoutput=$(cleos system claimrewards $accountname -x 120 -p $accountname@$claim_permission -f 2>&1)
 if [[ ! "$rewardoutput" =~ "executed transaction" ]]; then reward_failed=true; fi
