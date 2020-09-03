@@ -109,7 +109,7 @@ echo -e "# ORE PROTOCOL P2P PEER ADDRESSES                                      
 echo -e "#------------------------------------------------------------------------------#\n" >> $config_file
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-peer-list.ini
 cat /root/ore-peer-list.ini >> $config_file
-echo -e "\n#-------------------------------------------------------------------------------" >> $config_file
+echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
 
 #----------------------------------------------------------------------------------------------------#
 # DOMAIN | INSTALL AND INIT SSL CERTIFCATE                                                           #
@@ -133,8 +133,8 @@ then
     sudo certbot certonly --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
     ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
     ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-    echo "https-private-key-file = $ssl_private_key_path" >> $config_file
-    echo "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+    echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
+    echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
     echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
   else
     echo ""
@@ -142,8 +142,8 @@ then
     echo ""
     read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
     echo ""
-    echo "https-private-key-file = $ssl_private_key_path" >> $config_file
-    echo "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+    echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
+    echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
     echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
  fi
 fi
@@ -151,7 +151,7 @@ if [ ! -z "$ssl_certificate_path" ] || [ ! -z "$ssl_private_key_path" ]
 then
   ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
   ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-  echo -e "\nhttps-private-key-file = $ssl_private_key_path" >> $config_file
+  echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
   echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
   echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
 fi
