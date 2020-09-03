@@ -116,9 +116,9 @@ sudo timedatectl set-timezone UTC
 # RESTORE FROM SNAPSHOT                                                                              #
 #----------------------------------------------------------------------------------------------------#
 
-#sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
-#sudo chmod u+x ore-restore-snapshot.sh
-#sudo ./ore-restore-snapshot.sh
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
+sudo chmod u+x ore-restore-snapshot.sh
+sudo ./ore-restore-snapshot.sh
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE API CONFIG.INI FILE                                                                         #
@@ -204,36 +204,7 @@ fi
 # START NODEOS IN THE BACKGROUND                                                                     #
 #----------------------------------------------------------------------------------------------------#
 
-#nodeos --config-dir $create_config_dir --data-dir $create_data_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
-
-echo ""
-echo "================================="
-echo "ORE PROTOCOL SNAPSHOT HAS STARTED"
-echo "================================="
-latest_snapshot=$(curl -s https://ore.remblock.io/snapshots/latestsnapshot.txt)
-echo ""
-echo "Downloading Snapshot now..."
-echo ""
-curl -O https://ore.remblock.io/snapshots/$latest_snapshot
-echo ""
-echo "Downloaded $latest_snapshot"
-gunzip $latest_snapshot
-tar_file=$(ls *.tar | head -1)
-sudo tar -xvf $tar_file
-rm $tar_file
-mv /root/root/data/snapshots/*.bin $snapshots_folder/
-bin_file=$snapshots_folder/*.bin
-echo ""
-echo "Uncompressed $latest_snapshot"
-rm -rf $blocks_folder
-rm -rf $state_folder
-cd ~
-nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $nodeos_log_file 2>&1 &
-echo ""
-echo "==================================="
-echo "ORE PROTOCOL SNAPSHOT HAS COMPLETED"
-echo "==================================="
-echo ""
+nodeos --config-dir $create_config_dir --data-dir $create_data_dir --state-history-dir $create_shpdata_dir --disable-replay-opts >> $nodeos_log_file 2>&1 &
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALL CLANG 8 AND OTHER NEEDED TOOLS                                                             #
