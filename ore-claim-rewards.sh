@@ -159,20 +159,25 @@ fi
 
 if get_config_value walletpass
 then
+  walletname="$global_value"
   walletpass="$global_value"
 else
   if $at
   then
     exit 2
   fi
+  walletname=walletpass
   walletpass=$(cat walletpass)
   if [ ! -z "$walletpass" ]
   then
+    echo "walletname=$walletname" >> "$config_file"
     echo "walletpass=$walletpass" >> "$config_file"
   fi
 fi
 if [ -z "$walletpass" ]
 then
+  read -p "ENTER YOUR WALLET NAME: " -e walletname
+  echo "walletname=$walletname" >> "$config_file"
   echo ""
   read -p "ENTER YOUR WALLET PASSWORD: " -e walletpass
   echo "walletpass=$walletpass" >> "$config_file"
@@ -284,8 +289,8 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 cd ~/eosio-wallet/
-cleos wallet open -n walletpass
-cleos wallet unlock -n walletpass --password $walletpass > /dev/null 2>&1
+cleos wallet open -n $walletname
+cleos wallet unlock -n $walletname --password $walletpass > /dev/null 2>&1
 
 #----------------------------------------------------------------------------------------------------#
 # CLEOS COMMAND FOR CLAIMING YOUR REWARDS                                                            #
