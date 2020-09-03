@@ -95,7 +95,7 @@ function get_user_answer_yn(){
 echo -e "#------------------------------------------------------------------------------#" > $config_file
 echo -e "# EOSIO PLUGINS                                                                #" >> $config_file
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "\nplugin = eosio::net_plugin\nplugin = eosio::http_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::producer_plugin\nplugin = eosio::net_api_plugin\nplugin = eosio::chain_api_plugin\n" >> $config_file
+echo -e "\nplugin = eosio::net_plugin\nplugin = eosio::http_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::net_api_plugin\nplugin = eosio::producer_plugin\nplugin = eosio::chain_api_plugin\n" >> $config_file
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
 echo -e "# CONFIG SETTINGS                                                              #" >> $config_file
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
