@@ -19,6 +19,7 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 producer=remblock21bp
+wallet_name=walletpass
 domain=ore.api.remblock.io
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
@@ -281,7 +282,7 @@ sudo ./ore-restore-snapshot.sh
 # CREATING ORE PROTOCOL WALLET                                                                       #
 #----------------------------------------------------------------------------------------------------#
 
-cleos wallet create -n walletpass --file walletpass
+cleos wallet create -n $wallet_name --file $wallet_name
 
 #----------------------------------------------------------------------------------------------------#
 # ADDING SSH PUBLIC KEY TO SERVER                                                                    #
