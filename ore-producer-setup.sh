@@ -53,23 +53,6 @@ fi
 sudo hostnamectl set-hostname ore.bp1.remblock
 
 #----------------------------------------------------------------------------------------------------#
-# INSTALLING CERTBOT                                                                                 #
-#----------------------------------------------------------------------------------------------------#
-
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository universe
-sudo add-apt-repository ppa:certbot/certbot -y
-sudo apt-get install certbot -y
-
-#----------------------------------------------------------------------------------------------------#
-# INSTALLING EOSIO PROTOCOL BINARIES                                                                 #
-#----------------------------------------------------------------------------------------------------#
-
-wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
-sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
-rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
-
-#----------------------------------------------------------------------------------------------------#
 # UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
 #----------------------------------------------------------------------------------------------------#
 
@@ -78,6 +61,19 @@ sudo apt install linux-tools-common -y
 sudo apt install linux-cloud-tools-generic -y
 sudo apt install linux-tools-4.15.0-112-generic -y
 sudo apt install linux-cloud-tools-4.15.0-112-generic -y
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALLING CANONICAL LIVEPATCH SERVICE                                                             #
+#----------------------------------------------------------------------------------------------------#
+
+sudo apt install snapd -y
+sudo snap install canonical-livepatch
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALLING CERTBOT                                                                                 #
+#----------------------------------------------------------------------------------------------------#
+
+sudo snap install --classic certbot
 
 #----------------------------------------------------------------------------------------------------#
 # FETCHING ORE PROTOCOL GENESIS.JSON AND SNAPSHOT                                                    #
@@ -220,13 +216,6 @@ sudo -S systemctl enable fail2ban
 sudo -S systemctl start fail2ban
 
 #----------------------------------------------------------------------------------------------------#
-# INSTALLING CANONICAL LIVEPATCH SERVICE                                                             #
-#----------------------------------------------------------------------------------------------------#
-
-sudo apt install snapd -y
-sudo snap install canonical-livepatch
-
-#----------------------------------------------------------------------------------------------------#
 # SETUP GRACEFUL SHUTDOWN                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
@@ -274,6 +263,14 @@ sudo nodeos --config-dir $config_dir --data-dir $data_dir >> $nodeos_log_file 2>
 exit 0' > /etc/rc.local
 
 sudo chmod +x /etc/rc.local
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALLING EOSIO PROTOCOL BINARIES                                                                 #
+#----------------------------------------------------------------------------------------------------#
+
+wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
+sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
+rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
 # RESTORE FROM SNAPSHOT                                                                              #
