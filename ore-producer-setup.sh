@@ -60,10 +60,11 @@ sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
 rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
-# FETCHING ORE PROTOCOL GENESIS.JSON                                                                 #
+# FETCHING ORE PROTOCOL GENESIS.JSON AND SNAPSHOT                                                    #
 #----------------------------------------------------------------------------------------------------#
 
 wget https://raw.githubusercontent.com/Open-Rights-Exchange/ore-bp-docs/master/config-templates/genesis.json
+wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
 
 #----------------------------------------------------------------------------------------------------#
 # SET SERVER TIMEZONE TO UTC                                                                         #
