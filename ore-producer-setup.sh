@@ -270,7 +270,6 @@ sudo chmod +x /etc/rc.local
 
 wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
-rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
 # RESTORING FROM SNAPSHOT                                                                            #
@@ -286,15 +285,21 @@ sudo ./ore-restore-snapshot.sh
 cleos wallet create -n $wallet_name --file $wallet_name
 
 #----------------------------------------------------------------------------------------------------#
+# CLEANUP INSTALLATION FILES                                                                         #
+#----------------------------------------------------------------------------------------------------#
+
+rm /root/ore-peer-list.ini
+rm /root/ore-producer-setup.sh
+rm /root/ore-restore-snapshot.sh
+rm /root/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
+
+#----------------------------------------------------------------------------------------------------#
 # ADDING SSH PUBLIC KEY TO SERVER                                                                    #
 #----------------------------------------------------------------------------------------------------#
 
 echo $ssh_public_key > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 sudo -S service sshd restart
-rm /root/ore-peer-list.ini
-rm /root/ore-producer-setup.sh
-rm /root/ore-restore-snapshot.sh
 echo ""
 echo "================================"
 echo "ORE PRODUCER SETUP HAS COMPLETED"
