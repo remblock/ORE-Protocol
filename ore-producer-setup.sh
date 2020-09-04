@@ -47,7 +47,7 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# CHANGE HOSTNAME FROM DEFAULT                                                                       #
+# CHANGE HOSTNAME FROM DEFAULT NAME                                                                  #
 #----------------------------------------------------------------------------------------------------#
 
 sudo hostnamectl set-hostname ore.bp1.remblock
