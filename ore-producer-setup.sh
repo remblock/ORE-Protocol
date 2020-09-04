@@ -273,7 +273,7 @@ sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
 rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
-# RESTORE FROM SNAPSHOT                                                                              #
+# RESTORING FROM SNAPSHOT                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
 sudo chmod u+x ore-restore-snapshot.sh
