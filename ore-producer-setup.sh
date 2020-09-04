@@ -274,7 +274,6 @@ sudo chmod +x /etc/rc.local
 # RESTORE FROM SNAPSHOT                                                                              #
 #----------------------------------------------------------------------------------------------------#
 
-sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
 sudo chmod u+x ore-restore-snapshot.sh
 sudo ./ore-restore-snapshot.sh
 
