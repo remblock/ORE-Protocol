@@ -39,7 +39,7 @@ create_shpdata_dir=/root/data/shpdata
 create_snapshot_dir=/root/data/snapshots
 
 #----------------------------------------------------------------------------------------------------#
-# CREATE DIRECTORY IF IT DOESN'T EXIST                                                               #
+# CREATE DIRECTORIES IF THEY DON'T EXIST                                                             #
 #----------------------------------------------------------------------------------------------------#
 
 if [ ! -d "$create_data_dir" -o -d "$create_config_dir" -o -d "$create_rocksdb_dir" -o -d "$create_shpdata_dir" -o -d "$create_snapshot_dir" ]
@@ -132,7 +132,7 @@ wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
 sudo timedatectl set-timezone UTC
 
 #----------------------------------------------------------------------------------------------------#
-# RESTORE FROM SNAPSHOT                                                                              #
+# RESTORING FROM SNAPSHOT                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
 sudo chmod u+x ore-restore-snapshot.sh
