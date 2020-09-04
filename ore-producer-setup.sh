@@ -87,13 +87,13 @@ wget https://raw.githubusercontent.com/Open-Rights-Exchange/ore-bp-docs/master/c
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
 
 #----------------------------------------------------------------------------------------------------#
-# SET SERVER TIMEZONE TO UTC                                                                         #
+# ADJUSTING SERVER TIMEZONE TO UTC                                                                   #
 #----------------------------------------------------------------------------------------------------#
 
 sudo timedatectl set-timezone UTC
 
 #----------------------------------------------------------------------------------------------------#
-# GET YES OR NO ANSWER FROM USER                                                                     #
+# FETCHING YES OR NO ANSWER FROM USER                                                                #
 #----------------------------------------------------------------------------------------------------#
 
 function get_user_answer_yn(){
