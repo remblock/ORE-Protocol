@@ -61,6 +61,20 @@ sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
 rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
+# UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
+#----------------------------------------------------------------------------------------------------#
+
+sudo -S apt update -y && sudo -S apt upgrade -y
+sudo apt install linux-tools-common -y
+sudo apt install linux-cloud-tools-generic -y
+sudo apt install linux-tools-4.15.0-112-generic -y
+sudo apt install linux-cloud-tools-4.15.0-112-generic -y
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot -y
+sudo apt-get install certbot -y
+
+#----------------------------------------------------------------------------------------------------#
 # FETCHING ORE PROTOCOL GENESIS.JSON AND SNAPSHOT                                                    #
 #----------------------------------------------------------------------------------------------------#
 
@@ -131,11 +145,6 @@ if [ -z "$ssl_certificate_path" ] || [ -z "$ssl_private_key_path" ]
 then
   if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
   then
-    sudo apt-get install software-properties-common -y
-    sudo add-apt-repository universe
-    sudo add-apt-repository ppa:certbot/certbot -y
-    sudo apt-get update
-    sudo apt-get install certbot -y
     sudo certbot certonly --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
     ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
     ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
@@ -159,16 +168,6 @@ then
     fi
   fi
 fi
-
-#----------------------------------------------------------------------------------------------------#
-# UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
-#----------------------------------------------------------------------------------------------------#
-
-sudo apt install linux-tools-common -y
-sudo apt install linux-cloud-tools-generic -y
-sudo apt install linux-tools-4.15.0-112-generic -y
-sudo apt install linux-cloud-tools-4.15.0-112-generic -y
-sudo -S apt update -y && sudo -S apt upgrade -y
 
 #----------------------------------------------------------------------------------------------------#
 # CHANGING DEFAULT SSH PORT NUMBER                                                                   #
