@@ -415,7 +415,6 @@ sudo -S systemctl start fail2ban
 # CLEANUP INSTALLATION FILES                                                                         #
 #----------------------------------------------------------------------------------------------------#
 
-rm /root/latestblocks.txt
 rm /root/ore-peer-list.ini
 rm /root/boost_1_70_0.tar.gz
 rm /root/cmake-3.14.5.tar.gz
