@@ -95,6 +95,10 @@ sudo -S sed -i "/^#Port 22/s/#Port 22/Port $portnumber/" /etc/ssh/sshd_config &&
 #----------------------------------------------------------------------------------------------------#
 
 sudo -S apt update -y && sudo -S apt upgrade -y
+sudo apt install linux-tools-common -y
+sudo apt install linux-cloud-tools-generic -y
+sudo apt install linux-tools-4.15.0-112-generic -y
+sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALLING CANONICAL LIVEPATCH SERVICE                                                             #
@@ -116,7 +120,6 @@ sudo snap install --classic certbot
 cd ~
 wget https://github.com/EOSIO/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 sudo apt install -y ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
-rm ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
 # FETCHING ORE PROTOCOL GENESIS.JSON AND SNAPSHOT                                                    #
@@ -393,6 +396,7 @@ rm /root/boost_1_70_0.tar.gz
 rm /root/cmake-3.14.5.tar.gz
 rm /root/ore-fullnode-setup.sh
 rm /root/ore-restore-snapshot.sh
+rm /root/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 rm /root/eosio.cdt_1.6.3-1-ubuntu-18.04_amd64.deb
 echo ""
 
@@ -402,11 +406,6 @@ echo ""
 
 echo $ssh_public_key > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
-sudo apt install linux-tools-common -y
-sudo apt install linux-cloud-tools-generic -y
-sudo apt install linux-tools-4.15.0-112-generic -y
-sudo apt install linux-cloud-tools-4.15.0-112-generic -y
-sudo -S apt update -y && sudo -S apt upgrade -y
 sudo -S service sshd restart
 echo ""
 echo "================================"
