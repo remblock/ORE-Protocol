@@ -75,6 +75,7 @@ sudo snap install canonical-livepatch
 
 sudo apt-get install apache2 -y
 sudo service apache2 start
+mkdir -p /var/www/html/snapshots/
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALLING CERTBOT                                                                                 #
