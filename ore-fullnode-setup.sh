@@ -140,7 +140,6 @@ sudo timedatectl set-timezone UTC
 
 sudo chmod u+x ore-restore-snapshot.sh
 sudo ./ore-restore-snapshot.sh
-echo ""
 echo "================================="
 echo "ORE PROTOCOL BLOCKS HAS STARTED"
 echo "================================="
