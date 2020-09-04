@@ -53,7 +53,7 @@ fi
 sudo hostnamectl set-hostname ore.bp1.remblock
 
 #----------------------------------------------------------------------------------------------------#
-# INSTALLING EOS PROTOCOL BINARIES                                                                   #
+# INSTALLING EOSIO PROTOCOL BINARIES                                                                 #
 #----------------------------------------------------------------------------------------------------#
 
 wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
