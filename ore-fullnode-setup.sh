@@ -19,7 +19,7 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 portnumber=18990
-domain=ore.api.remblock.io
+domain=ore.abi.remblock.io
 contact=contact@remblock.io
 ssh_public_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5govVMkNP5HyBQ+DBWSbUe97qyKVzoI5s1lR+x1HCSdetS8dacN6e86eWaWNUQBBr6O0AttbXULqxvOBNF1GzWFw0T1jFr9lCtuz2Y06KGjJBHRHXopeSp6VHJr+BG4Q4l9fzguYO/EmQf9Y48eCXCs4eFkKE6mFlfGkNvRInpz6bbRvwYOFEEKiTyLXE6y1910dVrgLTd2P1kyh88aCwuF4GnexM4AsipzKpSCR3/s/gqxK4YpW8KsMBCdcQMYHZ2dgxoscudcp2l88hgnQJOriYOfjAnXSKttaGNRsER/hEcKGKJsRPELJZLCn+Ahv322GTsnTRMvipfXUtDqoTdpteM5lSz+GlUe6get+O501kTz9xF9aMK7fJdj264mzj8JfvxKsZFKfsDJvTkoIV8GPdzSk5fYr8W+lFzrNXKqHBeR8+WXdVYKIq8l6Y3NOCUcf6I+kYeHPKOAqkl8mSue2Q9GPGTn8z3tAg1ASuNxFQCqhcDCyF4RcZzVMfTO6tTe56Udt/mOr2QRb6C8+wI4YK9l6Un+S6MLAt1EQZyHEm/uI0Cv4SIvh2X4ksZLEgNNAcw63MxEOLnUiGacrhKG1v4qixtjaZITkc0M518J43FK8157q0DJwbMDQCOLCWyqoytRYNhfdNvTc6sefJBJOMqKbUwGxvrZue9T6BnQ== root@REMBLOCK"
 
@@ -81,7 +81,7 @@ echo -e "\nplugin = eosio::net_plugin\nplugin = eosio::chain_plugin\n\nhttp-serv
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
 echo -e "# CONFIG SETTINGS                                                              #" >> $config_file
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "\nmax-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\npause-on-startup = false\nwasm-runtime = eos-vm-jit\nmax-transaction-time = 30\nhttp-validate-host = false\nverbose-http-errors = true\nkeosd-provider-timeout = 5\ntxn-reference-block-lag = 0\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nenable-stale-production = false\nmax-irreversible-block-age = -1\nhttp-server-address = 0.0.0.0:8888\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nstate-history-endpoint = 0.0.0.0:8080\nstate-history-dir = /root/data/shpdata\nreversible-blocks-db-size-mb = 10480\n" >> $config_file
+echo -e "\nmax-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\nwasm-runtime = eos-vm-jit\nhttp-validate-host = false\nverbose-http-errors = true\ntxn-reference-block-lag = 0\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:8888\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nstate-history-endpoint = 0.0.0.0:8080\nstate-history-dir = /root/data/shpdata\nreversible-blocks-db-size-mb = 10480\n" >> $config_file
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
 echo -e "# ORE PROTOCOL P2P PEER ADDRESSES                                              #" >> $config_file
 echo -e "#------------------------------------------------------------------------------#\n" >> $config_file
@@ -152,7 +152,7 @@ echo -e "\nplugin = eosio::http_plugin\nplugin = eosio::chain_plugin\nplugin = e
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
 echo -e "# CONFIG SETTINGS                                                              #" >> $config_file
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "\nmax-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\npause-on-startup = false\nwasm-runtime = eos-vm-jit\nmax-transaction-time = 30\nhttp-validate-host = false\nverbose-http-errors = true\nkeosd-provider-timeout = 5\ntxn-reference-block-lag = 0\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nenable-stale-production = false\nmax-irreversible-block-age = -1\nhttp-server-address = 0.0.0.0:8888\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nstate-history-endpoint = 0.0.0.0:8080\nstate-history-dir = /root/data/shpdata\nreversible-blocks-db-size-mb = 10480\n" >> $config_file
+echo -e "\nmax-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\nwasm-runtime = eos-vm-jit\nhttp-validate-host = false\nverbose-http-errors = true\ntxn-reference-block-lag = 0\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nhttp-server-address = 0.0.0.0:8888\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nstate-history-endpoint = 0.0.0.0:8080\nstate-history-dir = /root/data/shpdata\nreversible-blocks-db-size-mb = 10480\n" >> $config_file
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
 echo -e "# ORE PROTOCOL P2P PEER ADDRESSES                                              #" >> $config_file
 echo -e "#------------------------------------------------------------------------------#\n" >> $config_file
