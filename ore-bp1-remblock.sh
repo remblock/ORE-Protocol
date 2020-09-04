@@ -26,6 +26,7 @@ create_data_dir=/root/data
 state_dir=/root/data/state
 contact=contact@remblock.io
 blocks_dir=/root/data/blocks
+new_hostname=ore-bp1-remblock
 create_config_dir=/root/config
 nodeos_log_file=/root/nodeos.log
 config_file=/root/config/config.ini
@@ -50,9 +51,9 @@ fi
 # ADJUSTING SERVER HOSTNAME                                                                          #
 #----------------------------------------------------------------------------------------------------#
 
-hostname=$(hostname)
-sudo hostnamectl set-hostname ore.bp1.remblock
-sed -i "s/$hostname/ore.bp1.remblock/g" /etc/hosts
+old_hostname=$(hostname)
+sudo hostnamectl set-hostname $new_hostname
+sed -i "s/$old_hostname/new_hostname/g" /etc/hosts
 
 #----------------------------------------------------------------------------------------------------#
 # UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
