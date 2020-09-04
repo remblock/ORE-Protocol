@@ -50,7 +50,9 @@ fi
 # ADJUSTING SERVER HOSTNAME                                                                          #
 #----------------------------------------------------------------------------------------------------#
 
+hostname=$(hostname)
 sudo hostnamectl set-hostname ore.bp1.remblock
+sed -i "s/$hostname/ore.bp1.remblock/g" /etc/hosts
 
 #----------------------------------------------------------------------------------------------------#
 # UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
