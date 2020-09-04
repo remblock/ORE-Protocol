@@ -140,6 +140,31 @@ sudo timedatectl set-timezone UTC
 
 sudo chmod u+x ore-restore-snapshot.sh
 sudo ./ore-restore-snapshot.sh
+echo ""
+echo "================================="
+echo "ORE PROTOCOL BLOCKS HAS STARTED"
+echo "================================="
+latest_blocks=$(curl -s https://ore.remblock.io/snapshots/latestblocks.txt)
+echo ""
+echo "Downloading Blocks now..."
+echo ""
+curl -O https://ore.remblock.io/snapshots/blocks/$latest_blocks
+echo ""
+echo "Downloaded $latest_blocks"
+gunzip $latest_blocks
+tar_file=$(ls *.tar | head -1)
+sudo tar -xvf $tar_file
+rm $tar_file
+rm -rf $blocks_folder
+rm -rf $state_folder
+mv /root/root/data/blocks/ $create_data_dir
+echo ""
+echo "Uncompressed $latest_blocks"
+echo ""
+echo "==================================="
+echo "ORE PROTOCOL BLOCKS HAS COMPLETED"
+echo "==================================="
+echo ""
 
 #----------------------------------------------------------------------------------------------------#
 # CREATE API CONFIG.INI FILE                                                                         #
@@ -391,6 +416,7 @@ sudo -S systemctl start fail2ban
 # CLEANUP INSTALLATION FILES                                                                         #
 #----------------------------------------------------------------------------------------------------#
 
+rm /root/latestblocks.txt
 rm /root/ore-peer-list.ini
 rm /root/boost_1_70_0.tar.gz
 rm /root/cmake-3.14.5.tar.gz
