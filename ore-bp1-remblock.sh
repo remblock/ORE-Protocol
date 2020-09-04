@@ -70,7 +70,7 @@ sudo apt install snapd -y
 sudo snap install canonical-livepatch
 
 #----------------------------------------------------------------------------------------------------#
-# INSTALLING APACHE                                                            #
+# INSTALLING APACHE                                                                                  #
 #----------------------------------------------------------------------------------------------------#
 
 sudo apt-get install apache2 -y
