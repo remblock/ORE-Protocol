@@ -53,7 +53,7 @@ fi
 
 old_hostname=$(hostname)
 sudo hostnamectl set-hostname $new_hostname
-sed -i "s/$old_hostname/new_hostname/g" /etc/hosts
+sed -i "s/$old_hostname/$new_hostname/g" /etc/hosts
 
 #----------------------------------------------------------------------------------------------------#
 # UPDATING AND UPGRADING PACKAGE DATABASE                                                            #
