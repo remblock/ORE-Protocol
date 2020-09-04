@@ -47,10 +47,19 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# CHANGE HOSTNAME FROM DEFAULT NAME                                                                  #
+# CHANGE HOSTNAME                                                                                    #
 #----------------------------------------------------------------------------------------------------#
 
 sudo hostnamectl set-hostname ore.bp1.remblock
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALLING CERTBOT                                                                                 #
+#----------------------------------------------------------------------------------------------------#
+
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot -y
+sudo apt-get install certbot -y
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALLING EOSIO PROTOCOL BINARIES                                                                 #
@@ -69,10 +78,6 @@ sudo apt install linux-tools-common -y
 sudo apt install linux-cloud-tools-generic -y
 sudo apt install linux-tools-4.15.0-112-generic -y
 sudo apt install linux-cloud-tools-4.15.0-112-generic -y
-sudo apt-get install software-properties-common -y
-sudo add-apt-repository universe
-sudo add-apt-repository ppa:certbot/certbot -y
-sudo apt-get install certbot -y
 
 #----------------------------------------------------------------------------------------------------#
 # FETCHING ORE PROTOCOL GENESIS.JSON AND SNAPSHOT                                                    #
