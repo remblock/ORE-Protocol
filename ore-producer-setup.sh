@@ -142,16 +142,20 @@ then
     echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
   else
     echo ""
-    read -p "ENTER YOUR SSL CERTIFCATE PATH: " -e ssl_certificate_path
-    echo ""
-    read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
-    echo ""
-    ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
-    ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-    echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
-    echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
-    echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
- fi
+    if get_user_answer_yn "USE EXISTING SSL CERTIFCATE?"
+    then
+      echo ""
+      read -p "ENTER YOUR SSL CERTIFCATE PATH: " -e ssl_certificate_path
+      echo ""
+      read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
+      echo ""
+      ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+      ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+      echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
+      echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+      echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
+    fi
+  fi
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -195,9 +199,9 @@ done
 sudo -S apt-get install ufw -y
 sudo -S ufw allow ssh/tcp
 sudo -S ufw limit ssh/tcp
-sudo -S ufw allow $portnumber/tcp
 sudo -S ufw allow 8888/tcp
 sudo -S ufw allow 9876/tcp
+sudo -S ufw allow $portnumber/tcp
 sudo -S ufw logging on
 sudo -S ufw enable
 
