@@ -299,7 +299,7 @@ cleos wallet create -n $wallet_name --file $wallet_name
 #----------------------------------------------------------------------------------------------------#
 
 rm /root/ore-peer-list.ini
-rm /root/ore-producer-setup.sh
+rm /root/ore-bp2-remblock.sh
 rm /root/ore-restore-snapshot.sh
 rm /root/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
