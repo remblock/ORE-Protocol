@@ -20,7 +20,7 @@ fi
 
 producer=remblock21bp
 wallet_name=walletpass
-domain=ore.api.remblock.io
+domain=ore.remblock.io
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
 state_dir=/root/data/state
