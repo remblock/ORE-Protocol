@@ -48,7 +48,7 @@ mkdir -p $compressed_folder
 chmod +x $compressed_folder
 
 #----------------------------------------------------------------------------------------------------#
-# INSTALL TAKE SNAPSHOT DEPENDENCIES                                                             #
+# INSTALLING TAKE SNAPSHOT DEPENDENCIES                                                              #
 #----------------------------------------------------------------------------------------------------#
 
 sudo apt install curl -y 
