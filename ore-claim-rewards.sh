@@ -282,7 +282,6 @@ then
     fi
     read -p "COPY AND PASTE YOUR TELEGRAM CHAT ID: " -e telegram_chatid
     echo "telegram_chatid=$telegram_chatid" >> "$config_file"
-    echo
   fi
 fi
 
