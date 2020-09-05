@@ -157,7 +157,7 @@ if [ -z "$ssl_certificate_path" ] || [ -z "$ssl_private_key_path" ]
 then
   if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
   then
-    sudo certbot certonly --apache --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
+    sudo certbot certonly --apache --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
     ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
     ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
     echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
