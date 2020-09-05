@@ -31,7 +31,7 @@ remote_user=root@ore.remblock.io
 #                                          MISC PARAMETERS                                           #
 #****************************************************************************************************#
 
-ssh_port=18990
+ssh_port=18202
 test_blocks=0
 chain_stopped=0
 test_snapshot=0
