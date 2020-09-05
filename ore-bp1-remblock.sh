@@ -20,7 +20,7 @@ fi
 
 producer=remblock21bp
 wallet_name=walletpass
-domain=ore.remblock.io
+domain=ore.bp1.remblock.io
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
 state_dir=/root/data/state
@@ -71,14 +71,6 @@ sudo apt install linux-cloud-tools-4.15.0-112-generic -y
 
 sudo apt install snapd -y
 sudo snap install canonical-livepatch
-
-#----------------------------------------------------------------------------------------------------#
-# INSTALLING APACHE                                                                                  #
-#----------------------------------------------------------------------------------------------------#
-
-sudo apt-get install apache2 -y
-sudo service apache2 start
-mkdir -p /var/www/html/snapshots/
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALLING CERTBOT                                                                                 #
@@ -157,7 +149,7 @@ if [ -z "$ssl_certificate_path" ] || [ -z "$ssl_private_key_path" ]
 then
   if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
   then
-    sudo certbot certonly --apache --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
+    sudo certbot certonly --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
     ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
     ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
     echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
@@ -214,7 +206,6 @@ sudo -S ufw allow ssh/tcp
 sudo -S ufw limit ssh/tcp
 sudo -S ufw allow 8888/tcp
 sudo -S ufw allow 9876/tcp
-sudo -S ufw allow "Apache Full"
 sudo -S ufw allow $portnumber/tcp
 sudo -S ufw logging on
 sudo -S ufw enable
