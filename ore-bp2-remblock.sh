@@ -20,7 +20,7 @@ fi
 
 producer=remblock21bp
 wallet_name=walletpass
-domain=ore.remblock.io
+domain=ore2.remblock.io
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
 state_dir=/root/data/state
@@ -84,6 +84,7 @@ sudo snap install --classic certbot
 
 wget https://raw.githubusercontent.com/Open-Rights-Exchange/ore-bp-docs/master/config-templates/genesis.json
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
+wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.sh
 
 #----------------------------------------------------------------------------------------------------#
 # ADJUSTING SERVER TIMEZONE TO UTC                                                                   #
@@ -278,6 +279,14 @@ sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
 
 sudo chmod u+x ore-restore-snapshot.sh
 sudo ./ore-restore-snapshot.sh
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALLING ORE TAKE SNAPSHOT                                                                       #
+#----------------------------------------------------------------------------------------------------#
+
+sudo chmod u+x ore-take-snapshot.sh 
+sudo ./ore-take-snapshot.sh
+echo "0 * * * * /root/data/snapshots/ore-take-snapshot.sh" | crontab -
 
 #----------------------------------------------------------------------------------------------------#
 # CREATING ORE PROTOCOL WALLET                                                                       #
