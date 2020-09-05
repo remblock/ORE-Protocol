@@ -55,11 +55,11 @@ echo ""
 echo "================================="
 echo "ORE PROTOCOL SNAPSHOT HAS STARTED"
 echo "================================="
-latest_snapshot=$(curl -s https://ore2.remblock.io/snapshots/latestsnapshot.txt)
+latest_snapshot=$(curl -s https://ore3.remblock.io/snapshots/latestsnapshot.txt)
 echo ""
 echo "Downloading Snapshot now..."
 echo ""
-curl -O https://ore2.remblock.io/snapshots/$latest_snapshot
+curl -O https://ore3.remblock.io/snapshots/$latest_snapshot
 echo ""
 echo "Downloaded $latest_snapshot"
 gunzip $latest_snapshot
