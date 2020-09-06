@@ -204,6 +204,7 @@ done
 sudo -S apt-get install ufw -y
 sudo -S ufw allow ssh/tcp
 sudo -S ufw limit ssh/tcp
+sudo -S ufw allow 443/tcp
 sudo -S ufw allow 8888/tcp
 sudo -S ufw allow 9876/tcp
 sudo -S ufw allow $portnumber/tcp
