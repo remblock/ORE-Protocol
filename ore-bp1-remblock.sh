@@ -62,8 +62,8 @@ sed -i "s/$old_hostname/$new_hostname/g" /etc/hosts
 sudo -S apt update -y && sudo -S apt upgrade -y
 sudo apt install linux-tools-common -y
 sudo apt install linux-cloud-tools-generic -y
-sudo apt install linux-tools-4.15.0-112-generic -y
-sudo apt install linux-cloud-tools-4.15.0-112-generic -y
+sudo apt install linux-tools-4.15.0-115-generic -y
+sudo apt install linux-cloud-tools-4.15.0-115-generic -y
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALLING CANONICAL LIVEPATCH SERVICE                                                             #
