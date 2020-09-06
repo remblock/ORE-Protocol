@@ -157,31 +157,32 @@ fi
 # ASK USER FOR THEIR WALLET PASSWORD OR TAKE IT FROM THE CONFIG FILE                                 #
 #----------------------------------------------------------------------------------------------------#
 
-if get_config_value walletpass
+if get_config_value walletlocation
 then
   walletname="$global_value"
-  walletpass="$global_value"
+  walletlocation="$global_value"
 else
   if $at
   then
     exit 2
   fi
+  updatedb
   walletname=walletpass
-  walletpass=$(cat walletpass)
-  if [ ! -z "$walletpass" ]
+  walletlocation=$(locate $walletname | head -n1)
+  if [ ! -z "$walletlocation" ]
   then
     echo "walletname=$walletname" >> "$config_file"
-    echo "walletpass=$walletpass" >> "$config_file"
+    echo "walletlocation=$walletlocation" >> "$config_file"
   fi
 fi
-if [ -z "$walletpass" ]
+if [ -z "$walletlocation" ]
 then
   echo ""
   read -p "ENTER YOUR WALLET NAME: " -e walletname
   echo "walletname=$walletname" >> "$config_file"
   echo ""
-  read -p "ENTER YOUR WALLET PASSWORD: " -e walletpass
-  echo "walletpass=$walletpass" >> "$config_file"
+  read -p "ENTER YOUR WALLET LOCATION: " -e walletlocation
+  echo "walletlocation=$walletlocation" >> "$config_file"
 fi
 
 #----------------------------------------------------------------------------------------------------#
@@ -291,7 +292,7 @@ fi
 
 cd ~/eosio-wallet/
 cleos wallet open -n $walletname > /dev/null 2>&1
-cleos wallet unlock -n $walletname --password $walletpass > /dev/null 2>&1
+cleos wallet unlock -n $walletname < $walletlocation > /dev/null 2>&1
 
 #----------------------------------------------------------------------------------------------------#
 # CLEOS COMMAND FOR CLAIMING YOUR REWARDS                                                            #
