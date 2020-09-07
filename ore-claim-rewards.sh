@@ -290,8 +290,6 @@ fi
 # CLEOS COMMANDS FOR UNLOCKING YOUR WALLET                                                           #
 #----------------------------------------------------------------------------------------------------#
 
-cd ~/eosio-wallet/
-cleos wallet open -n $walletname > /dev/null 2>&1
 cleos wallet unlock -n $walletname < $walletlocation > /dev/null 2>&1
 
 #----------------------------------------------------------------------------------------------------#
