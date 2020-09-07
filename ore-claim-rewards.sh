@@ -320,7 +320,7 @@ cd ~
 previous=$(cleos get currency balance eosio.token $accountname | awk '{print $1}')
 rewardoutput=$(cleos system claimrewards $accountname -x 120 -p $accountname@$claim_permission -f 2>&1)
 if [[ ! "$rewardoutput" =~ "executed transaction" ]]; then reward_failed=true; fi
-sleep 120
+sleep 20
 after=$(cleos get currency balance eosio.token $accountname | awk '{print $1}')
 total_reward=$(echo "scale=4; $after - $previous" | bc)
 claimamount=$(echo "$total_reward" | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
