@@ -154,13 +154,12 @@ then
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# ASK USER FOR THEIR WALLET PASSWORD OR TAKE IT FROM THE CONFIG FILE                                 #
+# ASK USER FOR THEIR WALLET NAME OR TAKE IT FROM THE CONFIG FILE                                     #
 #----------------------------------------------------------------------------------------------------#
 
-if get_config_value walletlocation
+if get_config_value walletname
 then
   walletname="$global_value"
-  walletlocation="$global_value"
 else
   if $at
   then
@@ -168,18 +167,39 @@ else
   fi
   updatedb
   walletname=walletpass
+  if [ ! -z "$walletname" ]
+  then
+    echo "walletname=$walletname" >> "$config_file"
+  fi
+fi
+if [ -z "$walletname" ]
+then
+  echo ""
+  read -p "ENTER YOUR WALLET NAME: " -e walletname
+  echo "walletname=$walletname" >> "$config_file"
+fi
+
+#----------------------------------------------------------------------------------------------------#
+# ASK USER FOR THEIR WALLET LOCATION OR TAKE IT FROM THE CONFIG FILE                                 #
+#----------------------------------------------------------------------------------------------------#
+
+if get_config_value walletlocation
+then
+  walletlocation="$global_value"
+else
+  if $at
+  then
+    exit 2
+  fi
+  updatedb
   walletlocation=$(locate $walletname | head -n1)
   if [ ! -z "$walletlocation" ]
   then
-    echo "walletname=$walletname" >> "$config_file"
     echo "walletlocation=$walletlocation" >> "$config_file"
   fi
 fi
 if [ -z "$walletlocation" ]
 then
-  echo ""
-  read -p "ENTER YOUR WALLET NAME: " -e walletname
-  echo "walletname=$walletname" >> "$config_file"
   echo ""
   read -p "ENTER YOUR WALLET LOCATION: " -e walletlocation
   echo "walletlocation=$walletlocation" >> "$config_file"
