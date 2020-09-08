@@ -1,3 +1,15 @@
+# ORE-Node-Monitor
+
+#### This script will monitor your producer node:
+
+***
+
+#### Adjust the ore-node-monitor script using the code below:
+
+```
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-node-monitor.sh && sudo chmod u+x ore-node-monitor.sh && nano ./ore-node-monitor.sh
+```
+
 # ORE-Producer-Setup
 
 #### This script will automatically setup your producer node.
