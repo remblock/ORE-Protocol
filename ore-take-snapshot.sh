@@ -156,8 +156,8 @@ then
   rm -f $sh_create_full
   touch $sh_create_full && chmod +x $sh_create_full
   echo "tar -Scvzf $file_name-blockslog.tar.gz $blocks_folder/blocks.log $blocks_folder/blocks.index" >> $sh_create_full
-  echo "Compression of the Blocks Log has completed"
-  echo ""
+  echo "Compression of the Blocks Log has completed" >> $sh_create_full
+  echo "" >> $sh_create_full
 
 #****************************************************************************************************#
 #                                     TRANSFERING BLOCK LOGS                                         #
@@ -191,8 +191,8 @@ then
   rm -f $sh_create_fullstate
   touch $sh_create_fullstate && chmod +x $sh_create_fullstate
   echo "tar -Scvzf $file_name-state_history.tar.gz $state_history_folder" >> $sh_create_fullstate
-  echo "Compression of the State History has completed"
-  echo ""
+  echo "Compression of the State History has completed" >> $sh_create_fullstate
+  echo "" >> $sh_create_fullstate
 
 #****************************************************************************************************#
 #                                    TRANSFERING FULL STATE HISTORY                                  #
