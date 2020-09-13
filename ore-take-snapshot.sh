@@ -24,8 +24,8 @@ sh_create_fullstate=$snapshots_folder/compress_and_send_lastsnapshot_fullstate.s
 #                                     REMOTE SERVER PARAMETERS                                       #
 #****************************************************************************************************#
 
-remote_server_folder=/var/www/html/snapshots
-remote_user=root@ore3.remblock.io
+remote_server_folder=/var/www/info.remblock.io/public_html/ore
+remote_user=root@info.remblock.io
 
 #****************************************************************************************************#
 #                                          MISC PARAMETERS                                           #
