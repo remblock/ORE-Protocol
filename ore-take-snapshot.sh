@@ -166,7 +166,7 @@ then
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestblocks.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/blocks -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/blocks/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_full
-  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder/blocks" >> $sh_create_full
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-blockslog.tar.gz > latestblocks.txt'" >> $sh_create_full
   $sh_create_full
   echo "Transfer of the Blocks Log has completed"
@@ -201,7 +201,7 @@ then
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name lateststatehistory.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder/state-history -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/state-history/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_fullstate
-  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder/state-history" >> $sh_create_fullstate
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder" >> $sh_create_fullstate
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-state_history.tar.gz > lateststatehistory.txt'" >> $sh_create_fullstate
   $sh_create_fullstate
   echo ""
