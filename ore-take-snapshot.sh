@@ -51,7 +51,7 @@ chmod +x $compressed_folder
 # INSTALLING TAKE SNAPSHOT DEPENDENCIES                                                              #
 #----------------------------------------------------------------------------------------------------#
 
-sudo apt install curl -y 
+sudo apt install curl -y
 sudo apt-get install jq -y
 
 #****************************************************************************************************#
