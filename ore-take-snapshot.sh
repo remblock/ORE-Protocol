@@ -71,9 +71,9 @@ then
   rm -f $sh_create
   touch $sh_create && chmod +x $sh_create
   echo "tar -Scvzf $file_name-snaponly.tar.gz $snapname" >> $sh_create
-  echo ""
-  echo "Compression of the Snapshot has completed"
-  echo ""
+  echo "" >> $sh_create
+  echo "Compression of the Snapshot has completed" >> $sh_create
+  echo "" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestsnapshot.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create
