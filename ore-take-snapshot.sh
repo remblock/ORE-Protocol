@@ -190,7 +190,8 @@ then
   echo ""
   rm -f $sh_create_fullstate
   touch $sh_create_fullstate && chmod +x $sh_create_fullstate
-  echo "tar -cvzf $file_name-state_history.tar.gz $state_history_folder/code_cache.bin $state_history_folder/shared_memory.bin" >> $sh_create_fullstate
+  echo "tar -cvf $file_name-state_history.tar $state_history_folder" >> $sh_create_fullstate
+  echo "gzip $file_name-state_history.tar" >> $sh_create_fullstate
   echo "echo "Compression of the State History has completed"" >> $sh_create_fullstate
   echo "echo """ >> $sh_create_fullstate
 
