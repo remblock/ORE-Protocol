@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #****************************************************************************************************#
-#                                     ORE-PROTOCOL-TAKE-SNAPSHOT                                     #
+#                                      ORE-MAINNET-TAKE-SNAPSHOT                                     #
 #****************************************************************************************************#
 
 data_folder=/root/data
@@ -71,9 +71,9 @@ then
   rm -f $sh_create
   touch $sh_create && chmod +x $sh_create
   echo "tar -Scvzf $file_name-snaponly.tar.gz $snapname" >> $sh_create
-  echo "" >> $sh_create
-  echo "Compression of the Snapshot has completed" >> $sh_create
-  echo "" >> $sh_create
+  echo "echo """ >> $sh_create
+  echo "echo "Compression of the Snapshot has completed"" >> $sh_create
+  echo "echo """ >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestsnapshot.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create
@@ -156,8 +156,8 @@ then
   rm -f $sh_create_full
   touch $sh_create_full && chmod +x $sh_create_full
   echo "tar -Scvzf $file_name-blockslog.tar.gz $blocks_folder/blocks.log $blocks_folder/blocks.index" >> $sh_create_full
-  echo "Compression of the Blocks Log has completed" >> $sh_create_full
-  echo "" >> $sh_create_full
+  echo "echo "Compression of the Blocks Log has completed"" >> $sh_create_full
+  echo "echo """ >> $sh_create_full
 
 #****************************************************************************************************#
 #                                     TRANSFERING BLOCK LOGS                                         #
@@ -191,8 +191,8 @@ then
   rm -f $sh_create_fullstate
   touch $sh_create_fullstate && chmod +x $sh_create_fullstate
   echo "tar -Scvzf $file_name-state_history.tar.gz $state_history_folder" >> $sh_create_fullstate
-  echo "Compression of the State History has completed" >> $sh_create_fullstate
-  echo "" >> $sh_create_fullstate
+  echo "echo "Compression of the State History has completed"" >> $sh_create_fullstate
+  echo "echo """ >> $sh_create_fullstate
 
 #****************************************************************************************************#
 #                                    TRANSFERING FULL STATE HISTORY                                  #
@@ -233,6 +233,6 @@ if [[ $chain_stopped -eq 1 ]]
 then
   cd ~
   nodeos  --config-dir $config_folder/ --disable-replay-opts --data-dir $data_folder/ >> $log_file 2>&1 &
-  echo "Started ORE-Protocol !!!"
+  echo "Started ORE Mainnet !!!"
   echo ""
 fi
