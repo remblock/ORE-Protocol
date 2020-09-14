@@ -18,7 +18,6 @@ compressed_folder=$snapshots_folder/compressed/
 
 sh_create=$snapshots_folder/compress_and_send_lastsnapshot.sh
 sh_create_full=$snapshots_folder/compress_and_send_lastsnapshot_full.sh
-sh_create_fullstate=$snapshots_folder/compress_and_send_lastsnapshot_fullstate.sh
 
 #****************************************************************************************************#
 #                                     REMOTE SERVER PARAMETERS                                       #
@@ -70,15 +69,15 @@ then
   snapname=$(curl http://127.0.0.1:8888/v1/producer/create_snapshot | jq '.snapshot_name')
   rm -f $sh_create
   touch $sh_create && chmod +x $sh_create
-  echo "tar -Scvzf $file_name-snaponly.tar.gz $snapname" >> $sh_create
+  echo "tar -Scvzf $file_name-snapshot.tar.gz $snapname" >> $sh_create
   echo "echo """ >> $sh_create
   echo "echo "Compression of the Snapshot has completed"" >> $sh_create
   echo "echo """ >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestsnapshot.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create
-  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-snaponly.tar.gz $remote_user:$remote_server_folder" >> $sh_create
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-snaponly.tar.gz > latestsnapshot.txt'" >> $sh_create
+  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-snapshot.tar.gz $remote_user:$remote_server_folder" >> $sh_create
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-snapshot.tar.gz > latestsnapshot.txt'" >> $sh_create
   $sh_create
   echo ""
   echo "Transfer of the Snapshot has completed"
@@ -108,7 +107,7 @@ fi
 # RUN TWICE A DAY BY MOD THE HOUR BY 12                                                              #
 #----------------------------------------------------------------------------------------------------#
 
-if [[ $(($the_hour%12)) -eq 0 ]] || [[ $test_blocks -eq 1 ]]
+if [[ $(($the_hour%6)) -eq 0 ]] || [[ $test_blocks -eq 1 ]]
 then
   echo "Blocks Logs is about to start the hour is $the_hour"
   echo ""
@@ -155,7 +154,7 @@ then
 
   rm -f $sh_create_full
   touch $sh_create_full && chmod +x $sh_create_full
-  echo "tar -Scvzf $file_name-blockslog.tar.gz $blocks_folder/blocks.log $blocks_folder/blocks.index" >> $sh_create_full
+  echo "tar -Scvzf $file_name-blockslog.tar.gz $blocks_folder/blocks.log $blocks_folder/blocks.index $state_history_folder" >> $sh_create_full
   echo "echo "Compression of the Blocks Log has completed"" >> $sh_create_full
   echo "echo """ >> $sh_create_full
 
@@ -177,50 +176,12 @@ else
 fi
 
 #****************************************************************************************************#
-#                                   COMPRESSING NODEOS FULL STATE                                    #
-#****************************************************************************************************#
-
-#----------------------------------------------------------------------------------------------------#
-# RUN ONCE A DAY BY MOD THE HOUR BY 24                                                               #
-#----------------------------------------------------------------------------------------------------#
-
-if [[ $(($the_hour%24)) -eq 0 ]] || [[ $test_state_history -eq 1 ]]
-then
-  echo "State History is about to start the hour is $the_hour"
-  echo ""
-  rm -f $sh_create_fullstate
-  touch $sh_create_fullstate && chmod +x $sh_create_fullstate
-  echo "tar -cvf $file_name-state_history.tar $state_history_folder" >> $sh_create_fullstate
-  echo "gzip $file_name-state_history.tar" >> $sh_create_fullstate
-  echo "echo "Compression of the State History has completed"" >> $sh_create_fullstate
-  echo "echo """ >> $sh_create_fullstate
-
-#****************************************************************************************************#
-#                                    TRANSFERING FULL STATE HISTORY                                  #
-#****************************************************************************************************#
-
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name lateststatehistory.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*state_history.tar.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_fullstate
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*state_history.tar.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_fullstate
-  echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-state_history.tar.gz $remote_user:$remote_server_folder" >> $sh_create_fullstate
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-state_history.tar.gz > lateststatehistory.txt'" >> $sh_create_fullstate
-  $sh_create_fullstate
-  echo ""
-  echo "Transfer of the State History has now completed"
-  echo ""
-else
-  echo "Warning: State History is not due yet skipping"
-  echo ""
-fi
-
-#****************************************************************************************************#
 #                                    SNAPSHOT CLEAN UP PROCESS                                       #
 #****************************************************************************************************#
 
 rm -f $sh_create 2> /dev/null
 rm -f $sh_create_full 2> /dev/null
 rm -R $blocks_folder/*.gz 2> /dev/null
-rm -f $sh_create_fullstate 2> /dev/null
 rm -R $snapshots_folder/*.gz 2> /dev/null
 rm -R $snapshots_folder/*.bin 2> /dev/null
 rm -R $compressed_folder/*.gz 2> /dev/null
