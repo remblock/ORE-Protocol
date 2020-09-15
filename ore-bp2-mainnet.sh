@@ -301,28 +301,25 @@ fi
 # RESTORING ORE MAINNET SNAPSHOT                                                                     #
 #----------------------------------------------------------------------------------------------------#
 
+latest_snapshot=$(curl -s https://info.remblock.io/ore/latestsnapshot.txt)
 echo ""
-echo "=================================="
-echo "ORE MAINNET SNAPSHOT HAS STARTED"
-echo "=================================="
+echo "Downloading Snapshot now..."
 echo ""
-echo "Downloading Snapshot"
+curl -O https://info.remblock.io/ore/$latest_snapshot
 echo ""
-curl -s https://info.remblock.io/ore/latestsnapshot.txt
-echo ""
-echo "Downloaded Snapshot"
-echo ""
-echo "Uncompressed Snapshot"
-gunzip latest.tar.gz
+echo "Downloaded $latest_snapshot"
+gunzip $latest_snapshot
 tar_file=$(ls *.tar | head -1)
 sudo tar -xvf $tar_file
 rm $tar_file
-mv ./opt/telos-testnet/data-dir/snapshots/*.bin $snapshots_folder/
+mv /root/root/data/snapshots/*.bin $snapshots_folder/
 bin_file=$snapshots_folder/*.bin
+echo ""
+echo "Uncompressed $latest_snapshot"
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
-nodeos --config-dir $create_config_dir/ --data-dir $create_data_dir/ --disable-replay-opts --snapshot $bin_file >> $nodeos_log_file 2>&1 &
+nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file 2>&1 &
 sleep 6
 echo ""
 while [ : ]
