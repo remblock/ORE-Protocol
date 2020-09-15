@@ -16,10 +16,16 @@ sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-node-monitor.s
 
 ***
 
-#### Adjust the ore-producer-setup script using the code below:
+#### Adjust the ore-bp1-mainnet script using the code below:
 
 ```
-sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-producer-setup.sh && sudo chmod u+x ore-producer-setup.sh && nano ./ore-producer-setup.sh
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-bp2-mainnet.sh && sudo chmod u+x ore-bp2-mainnet.sh && nano ./ore-bp2-mainnet.sh
+```
+
+#### Adjust the ore-bp2-mainnet script using the code below:
+
+```
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-bp2-mainnet.sh && sudo chmod u+x ore-bp2-mainnet.sh && nano ./ore-bp2-mainnet.sh
 ```
 
 ***
