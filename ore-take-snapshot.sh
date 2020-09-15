@@ -8,6 +8,7 @@ data_folder=/root/data
 log_file=/root/nodeos.log
 config_folder=/root/config
 blocks_folder=$data_folder/blocks
+config_file=$config_folder/config.ini
 snapshots_folder=$data_folder/snapshots
 state_history_folder=$data_folder/state
 compressed_folder=$snapshots_folder/compressed/
@@ -34,7 +35,6 @@ ssh_port=18202
 test_blocks=0
 chain_stopped=0
 test_snapshot=0
-test_state_history=0
 the_hour=$(date +"%-H")
 date_name=$(date +%Y-%m-%d_%H-%M)
 file_name="$compressed_folder$date_name"
@@ -66,6 +66,19 @@ then
   echo ""
   echo "Snapshot is about to start the hour is $the_hour"
   echo ""
+  nodeos_pid=$(pgrep nodeos)
+  if [ ! -z "$nodeos_pid" ]
+  then
+    if ps -p $nodeos_pid > /dev/null; then
+       kill -SIGINT $nodeos_pid
+    fi
+    while ps -p $nodeos_pid > /dev/null; do
+    sleep 1
+    done
+  fi
+  echo "plugin = eosio::producer_api_plugin" >> $config_file
+  nodeos --config-dir $config_folder/ --data-dir $data_folder/ --disable-replay-opts >> $log_file 2>&1 &
+  sleep 2
   snapname=$(curl http://127.0.0.1:8888/v1/producer/create_snapshot | jq '.snapshot_name')
   rm -f $sh_create
   touch $sh_create && chmod +x $sh_create
@@ -74,11 +87,23 @@ then
   echo "echo "Compression of the Snapshot has completed"" >> $sh_create
   echo "echo """ >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestsnapshot.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*snapshot.tar.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-snapshot.tar.gz $remote_user:$remote_server_folder" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-snapshot.tar.gz > latestsnapshot.txt'" >> $sh_create
   $sh_create
+  nodeos_pid=$(pgrep nodeos)
+  if [ ! -z "$nodeos_pid" ]
+  then
+    if ps -p $nodeos_pid > /dev/null; then
+       kill -SIGINT $nodeos_pid
+    fi
+    while ps -p $nodeos_pid > /dev/null; do
+    sleep 1
+    done
+  fi
+  sed -i "s/plugin = eosio::producer_api_plugin/ /" $config_file
+  nodeos --config-dir $config_folder/ --data-dir $data_folder/ --disable-replay-opts >> $log_file 2>&1 &
+  sleep 2
   echo ""
   echo "Transfer of the Snapshot has completed"
   echo ""
@@ -89,14 +114,14 @@ else
 fi
 
 #----------------------------------------------------------------------------------------------------#
-# RESTART NODEOS IF IT HAS BEEN STOPPED                                                              #
+# RESTART NODEOS IF IT STILL STOPPED                                                                 #
 #----------------------------------------------------------------------------------------------------#
 
 nodeos_pid=$(pgrep nodeos)
 if [ ! -z "$nodeos_pid" ]
 then
   cd ~
-  nodeos --config-dir $config_folder/ --data-dir $data_folder/ >> $log_file 2>&1 &
+  nodeos --config-dir $config_folder/ --data-dir $data_folder/ --disable-replay-opts >> $log_file 2>&1 &
 fi
 
 #****************************************************************************************************#
@@ -104,7 +129,7 @@ fi
 #****************************************************************************************************#
 
 #----------------------------------------------------------------------------------------------------#
-# RUN TWICE A DAY BY MOD THE HOUR BY 12                                                              #
+# RUN TWICE A DAY BY MOD THE HOUR BY 6                                                               #
 #----------------------------------------------------------------------------------------------------#
 
 if [[ $(($the_hour%6)) -eq 0 ]] || [[ $test_blocks -eq 1 ]]
@@ -164,7 +189,6 @@ then
 
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestblocks.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*blockslog.tar.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*blockslog.tar.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_full
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-blockslog.tar.gz > latestblocks.txt'" >> $sh_create_full
   $sh_create_full
@@ -194,7 +218,7 @@ rm -R $state_history_folder/*.gz 2> /dev/null
 if [[ $chain_stopped -eq 1 ]]
 then
   cd ~
-  nodeos  --config-dir $config_folder/ --disable-replay-opts --data-dir $data_folder/ >> $log_file 2>&1 &
+  nodeos  --config-dir $config_folder/ --disable-replay-opts --data-dir $data_folder/ --disable-replay-opts >> $log_file 2>&1 &
   echo "Started ORE Mainnet !!!"
   echo ""
 fi
