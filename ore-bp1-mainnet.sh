@@ -75,7 +75,7 @@ sudo snap install canonical-livepatch
 #----------------------------------------------------------------------------------------------------#
 
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-claim-rewards.sh
-wget https://github.com/remblock/ORE-Protocol/raw/master/ore-mainnet-snapshot.sh
+wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
 wget https://raw.githubusercontent.com/Open-Rights-Exchange/ore-bp-docs/master/config-templates/genesis.json
 
 #----------------------------------------------------------------------------------------------------#
@@ -273,8 +273,8 @@ echo -e "\n#--------------------------------------------------------------------
 # RESTORING ORE MAINNET SNAPSHOT                                                                     #
 #----------------------------------------------------------------------------------------------------#
 
-sudo chmod u+x ore-mainnet-snapshot.sh
-sudo ./ore-mainnet-snapshot.sh
+sudo chmod u+x ore-restore-snapshot.sh
+sudo ./ore-restore-snapshot.sh
 
 #----------------------------------------------------------------------------------------------------#
 # CREATING ORE KEY PERMISSIONS                                                                       #
@@ -339,7 +339,7 @@ rm /root/producer_key
 rm /root/producer_key1
 rm /root/signature_key
 rm /root/signature_key1
-rm /root/ore-bp1-testnet.sh
+rm /root/ore-bp1-mainnet.sh
 rm /root/ore-mainnet-peer-list.ini
 rm /root/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
