@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #****************************************************************************************************#
-#                                       ORE-BP2-REMBLOCK-SETUP                                       #
+#                                        ORE-BP2-TESTNET-SETUP                                       #
 #****************************************************************************************************#
 
 #----------------------------------------------------------------------------------------------------#
@@ -18,21 +18,25 @@ fi
 # CONFIGURATION VARIABLES                                                                            #
 #----------------------------------------------------------------------------------------------------#
 
+country_code=554
 producer=remblock21bp
 wallet_name=walletpass
-domain=ore2.remblock.io
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
 state_dir=/root/data/state
 contact=contact@remblock.io
 blocks_dir=/root/data/blocks
-new_hostname=ore-bp2-remblock
+new_hostname=ore-bp2-mainnet
 create_config_dir=/root/config
+domain=ore.remblock.io
 nodeos_log_file=/root/nodeos.log
+bp_json=https://bp.remblock.io/ore
 config_file=/root/config/config.ini
 create_snapshot_dir=/root/data/snapshots
-bp_public_key=EOS882BQyQfRXqXC4Q4ozkbLixkUg53NoTCiSMixZNgQeDbn9iAdt
-bp_private_key=
+active_private_key=
+producer_private_key=
+active_public_key=EOS5xQbAaaz2XeiUzTi1hrn4staKVp8ipMFzYpQxm4zwjAu3ikDn7
+bp1_signature_public_key=
 ssh_public_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5govVMkNP5HyBQ+DBWSbUe97qyKVzoI5s1lR+x1HCSdetS8dacN6e86eWaWNUQBBr6O0AttbXULqxvOBNF1GzWFw0T1jFr9lCtuz2Y06KGjJBHRHXopeSp6VHJr+BG4Q4l9fzguYO/EmQf9Y48eCXCs4eFkKE6mFlfGkNvRInpz6bbRvwYOFEEKiTyLXE6y1910dVrgLTd2P1kyh88aCwuF4GnexM4AsipzKpSCR3/s/gqxK4YpW8KsMBCdcQMYHZ2dgxoscudcp2l88hgnQJOriYOfjAnXSKttaGNRsER/hEcKGKJsRPELJZLCn+Ahv322GTsnTRMvipfXUtDqoTdpteM5lSz+GlUe6get+O501kTz9xF9aMK7fJdj264mzj8JfvxKsZFKfsDJvTkoIV8GPdzSk5fYr8W+lFzrNXKqHBeR8+WXdVYKIq8l6Y3NOCUcf6I+kYeHPKOAqkl8mSue2Q9GPGTn8z3tAg1ASuNxFQCqhcDCyF4RcZzVMfTO6tTe56Udt/mOr2QRb6C8+wI4YK9l6Un+S6MLAt1EQZyHEm/uI0Cv4SIvh2X4ksZLEgNNAcw63MxEOLnUiGacrhKG1v4qixtjaZITkc0M518J43FK8157q0DJwbMDQCOLCWyqoytRYNhfdNvTc6sefJBJOMqKbUwGxvrZue9T6BnQ== root@REMBLOCK"
 
 #----------------------------------------------------------------------------------------------------#
@@ -79,11 +83,10 @@ sudo snap install canonical-livepatch
 sudo snap install --classic certbot
 
 #----------------------------------------------------------------------------------------------------#
-# FETCHING ORE PROTOCOL GENESIS.JSON AND SNAPSHOT                                                    #
+# FETCHING THE TELOS TESTNET GENESIS.JSON AND SNAPSHOT                                               #
 #----------------------------------------------------------------------------------------------------#
 
-wget https://raw.githubusercontent.com/Open-Rights-Exchange/ore-bp-docs/master/config-templates/genesis.json
-wget https://github.com/remblock/ORE-Protocol/raw/master/ore-restore-snapshot.sh
+wget https://github.com/telosnetwork/node-template/raw/master/testnet/genesis.json
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.sh
 
 #----------------------------------------------------------------------------------------------------#
@@ -110,115 +113,27 @@ function get_user_answer_yn(){
 }
 
 #----------------------------------------------------------------------------------------------------#
-# CONFIGURATION FILE (CONFIG/CONFIG.INI)                                                             #
-#----------------------------------------------------------------------------------------------------#
-
-echo -e "#------------------------------------------------------------------------------#" > $config_file
-echo -e "# EOSIO PLUGINS                                                                #" >> $config_file
-echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "\nplugin = eosio::net_plugin\nplugin = eosio::http_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::producer_plugin\nplugin = eosio::chain_api_plugin\nplugin = eosio::producer_api_plugin\nplugin = eosio::state_history_plugin\n" >> $config_file
-echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "# CONFIG SETTINGS                                                              #" >> $config_file
-echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "\nmax-clients = 50\nchain-threads = 8\nsync-fetch-span = 200\neos-vm-oc-enable = false\npause-on-startup = false\nwasm-runtime = eos-vm-jit\nmax-transaction-time = 30\nhttp-validate-host = false\nverbose-http-errors = true\nkeosd-provider-timeout = 5\ntxn-reference-block-lag = 0\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nenable-stale-production = false\nmax-irreversible-block-age = -1\naccess-control-allow-origin = *\nhttp-server-address = 0.0.0.0:8888\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nchain-state-db-guard-size-mb = 128\nreversible-blocks-db-size-mb = 10480\nstate-history-endpoint = 0.0.0.0:8080\nreversible-blocks-db-guard-size-mb = 2\nstate-history-dir = /root/config/data/state\naccess-control-allow-headers = Origin, X-Requested-With, Content-Type, Accept\n" >> $config_file
-echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "# PRODUCER SETTINGS                                                            #" >> $config_file
-echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "\nproducer-name = $producer\nsignature-provider = $bp_public_key=KEY:$bp_private_key\n" >> $config_file
-echo -e "#------------------------------------------------------------------------------#" >> $config_file
-echo -e "# ORE PROTOCOL P2P PEER ADDRESSES                                              #" >> $config_file
-echo -e "#------------------------------------------------------------------------------#\n" >> $config_file
-wget https://github.com/remblock/ORE-Protocol/raw/master/ore-peer-list.ini
-cat /root/ore-peer-list.ini >> $config_file
-echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
-
-#----------------------------------------------------------------------------------------------------#
-# INSTALL AND INITIALIZE SSL CERTIFCATE                                                              #
-#----------------------------------------------------------------------------------------------------#
-
-cd ~
-ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
-ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-echo ""
-if [ ! -z "$ssl_certificate_path" ] && [ ! -z "$ssl_private_key_path" ]
-then
-  echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
-  echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
-  echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
-fi
-if [ -z "$ssl_certificate_path" ] || [ -z "$ssl_private_key_path" ]
-then
-  if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
-  then
-    sudo certbot certonly --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
-    ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
-    ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-    echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
-    echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
-    echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
-  else
-    echo ""
-    if get_user_answer_yn "USE EXISTING SSL CERTIFCATE?"
-    then
-      echo ""
-      read -p "ENTER YOUR SSL CERTIFCATE PATH: " -e ssl_certificate_path
-      echo ""
-      read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
-      echo ""
-      ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
-      ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
-      echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
-      echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
-      echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
-    fi
-  fi
-fi
-
-#----------------------------------------------------------------------------------------------------#
 # CHANGING DEFAULT SSH PORT NUMBER                                                                   #
 #----------------------------------------------------------------------------------------------------#
 
 while [ : ]
 do
-         echo ""
-	 read -p "PLEASE ENTER A RANDOM 5 DIGIT PORT NUMBER: " portnumber
+	 read -p "PLEASE ENTER A RANDOM 5 DIGIT PORT NUMBER: " port
 
-         if [[ ${#portnumber} -ne 5 ]]
+         if [[ ${#port} -ne 5 ]]
          then
                  printf "\nERROR: PORT NUMBER SHOULD BE EXACTLY 5 DIGITS.\n\n"
                  continue
-         elif [[ ! -z "${portnumber//[0-9]}" ]]
+         elif [[ ! -z "${port//[0-9]}" ]]
          then
                  printf "\nERROR: PORT NUMBER SHOULD CONTAIN NUMBERS ONLY.\n\n"
                  continue
          else
-                 sudo -S sed -i "/^#Port 22/s/#Port 22/Port $portnumber/" /etc/ssh/sshd_config && sed -i '/^PermitRootLogin/s/yes/without-password/' /etc/ssh/sshd_config && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+                 sudo -S sed -i "/^#Port 22/s/#Port 22/Port $port/" /etc/ssh/sshd_config && sed -i '/^PermitRootLogin/s/yes/without-password/' /etc/ssh/sshd_config && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 		 echo ""
 		 break
          fi
 done
-
-#----------------------------------------------------------------------------------------------------#
-# INSTALLING UNCOMPLICATED FIREWALL                                                                  #
-#----------------------------------------------------------------------------------------------------#
-
-sudo -S apt-get install ufw -y
-sudo -S ufw allow ssh/tcp
-sudo -S ufw limit ssh/tcp
-sudo -S ufw allow 443/tcp
-sudo -S ufw allow 8888/tcp
-sudo -S ufw allow 9876/tcp
-sudo -S ufw allow $portnumber/tcp
-sudo -S ufw logging on
-sudo -S ufw enable
-
-#----------------------------------------------------------------------------------------------------#
-# INSTALLING FAIL2BAN                                                                                #
-#----------------------------------------------------------------------------------------------------#
-
-sudo -S apt install fail2ban -y
-sudo -S systemctl enable fail2ban
-sudo -S systemctl start fail2ban
 
 #----------------------------------------------------------------------------------------------------#
 # SETUP GRACEFUL SHUTDOWN                                                                            #
@@ -227,6 +142,9 @@ sudo -S systemctl start fail2ban
 echo '#!/bin/sh
 nodeos_pid=$(pgrep nodeos)
 if [ ! -z "$nodeos_pid" ]; then
+cleos wallet unlock -n walletpass < walletpass > /dev/null 2>&1
+cleos system unregprod remblock21bp
+sleep 10
 if ps -p $nodeos_pid > /dev/null; then
 kill -SIGINT $nodeos_pid
 fi
@@ -275,33 +193,236 @@ wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-
 sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
 
 #----------------------------------------------------------------------------------------------------#
-# RESTORING FROM SNAPSHOT                                                                            #
-#----------------------------------------------------------------------------------------------------#
-
-sudo chmod u+x ore-restore-snapshot.sh
-sudo ./ore-restore-snapshot.sh
-
-#----------------------------------------------------------------------------------------------------#
-# INSTALLING ORE TAKE SNAPSHOT                                                                       #
-#----------------------------------------------------------------------------------------------------#
-
-sudo chmod u+x ore-take-snapshot.sh 
-sudo ./ore-take-snapshot.sh
-echo "0 * * * * /root/data/snapshots/ore-take-snapshot.sh" | crontab -
-
-#----------------------------------------------------------------------------------------------------#
-# CREATING ORE PROTOCOL WALLET                                                                       #
+# CREATING ORE TESTNET WALLET                                                                        #
 #----------------------------------------------------------------------------------------------------#
 
 cleos wallet create -n $wallet_name --file $wallet_name
+walletpass=$(cat $wallet_name)
+
+#----------------------------------------------------------------------------------------------------#
+# IMPORTING YOUR ORE ACTIVE KEY                                                                      #
+#----------------------------------------------------------------------------------------------------#
+
+cleos wallet lock -n $wallet_name > /dev/null 2>&1
+cleos wallet unlock -n $wallet_name --password=$walletpass > /dev/null 2>&1
+cleos wallet import -n $wallet_name --private-key=$active_private_key
+
+#----------------------------------------------------------------------------------------------------#
+# IMPORTING YOUR ORE PRODUCER KEY                                                                    #
+#----------------------------------------------------------------------------------------------------#
+
+cleos wallet lock -n $wallet_name > /dev/null 2>&1
+cleos wallet unlock -n $wallet_name --password=$walletpass > /dev/null 2>&1
+cleos wallet import -n $wallet_name --private-key=$producer_private_key
+
+#----------------------------------------------------------------------------------------------------#
+# CREATING YOUR ORE SIGNATURE KEY                                                                    #
+#----------------------------------------------------------------------------------------------------#
+
+cleos create key --file signature_key
+cp signature_key signature_key1
+echo "" >> telos_keys.txt
+echo "Signature Keys:" >> telos_keys.txt
+echo "" >> telos_keys.txt
+cat signature_key >> telos_keys.txt
+sudo -S sed -i "/^Private key: /s/Private key: //" signature_key1 && sudo -S sed -i "/^Public key: /s/Public key: //" signature_key1
+signature_public_key=$(head -n 2 signature_key1 | tail -1)
+signature_private_key=$(head -n 1 signature_key1 | tail -1)
+cleos wallet lock -n $wallet_name > /dev/null 2>&1
+cleos wallet unlock -n $wallet_name --password=$walletpass > /dev/null 2>&1
+cleos wallet import -n $wallet_name --private-key=$signature_private_key
+
+#----------------------------------------------------------------------------------------------------#
+# CONFIGURATION FILE (CONFIG/CONFIG.INI)                                                             #
+#----------------------------------------------------------------------------------------------------#
+
+echo -e "#------------------------------------------------------------------------------#" > $config_file
+echo -e "# EOSIO PLUGINS                                                                #" >> $config_file
+echo -e "#------------------------------------------------------------------------------#" >> $config_file
+echo -e "\nplugin = eosio::net_plugin\nplugin = eosio::http_plugin\nplugin = eosio::chain_plugin\nplugin = eosio::producer_plugin\nplugin = eosio::chain_api_plugin\nplugin = eosio::state_history_plugin\n" >> $config_file
+echo -e "#------------------------------------------------------------------------------#" >> $config_file
+echo -e "# CONFIG SETTINGS                                                              #" >> $config_file
+echo -e "#------------------------------------------------------------------------------#" >> $config_file
+echo -e "\nmax-clients = 50\nchain-threads = 8\ntrace-history = true\nsync-fetch-span = 200\neos-vm-oc-enable = true\npause-on-startup = false\nwasm-runtime = eos-vm-jit\nmax-transaction-time = 30\nchain-state-history = true\nhttp-validate-host = false\nverbose-http-errors = true\nkeosd-provider-timeout = 5\ntxn-reference-block-lag = 0\neos-vm-oc-compile-threads = 8\nconnection-cleanup-period = 30\nchain-state-db-size-mb = 100480\nenable-stale-production = false\nmax-irreversible-block-age = -1\naccess-control-allow-origin = *\nhttp-server-address = 0.0.0.0:8888\nhttps-server-address = 0.0.0.0:443\np2p-listen-endpoint = 0.0.0.0:9876\nchain-state-db-guard-size-mb = 128\nreversible-blocks-db-size-mb = 10480\nstate-history-endpoint = 0.0.0.0:8080\nreversible-blocks-db-guard-size-mb = 2\nstate-history-dir = /root/config/data/state\naccess-control-allow-headers = Origin, X-Requested-With, Content-Type, Accept\n" >> $config_file
+echo -e "#------------------------------------------------------------------------------#" >> $config_file
+echo -e "# PRODUCER SETTINGS                                                            #" >> $config_file
+echo -e "#------------------------------------------------------------------------------#" >> $config_file
+echo -e "\nagent-name = $producer\nproducer-name = $producer\nsignature-provider = $signature_public_key=KEY:$signature_private_key\n" >> $config_file
+echo -e "#------------------------------------------------------------------------------#" >> $config_file
+echo -e "# ORE MAINNET P2P PEER ADDRESSES                                               #" >> $config_file
+echo -e "#------------------------------------------------------------------------------#\n" >> $config_file
+wget https://github.com/remblock/TELOS-Protocol/raw/master/Testnet/telos-testnet-peer-list.ini
+cat /root/telos-testnet-peer-list.ini >> $config_file
+echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALL AND INITIALIZE SSL CERTIFCATE                                                              #
+#----------------------------------------------------------------------------------------------------#
+
+cd ~
+ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+echo ""
+if [ ! -z "$ssl_certificate_path" ] && [ ! -z "$ssl_private_key_path" ]
+then
+  echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
+  echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+  echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
+fi
+if [ -z "$ssl_certificate_path" ] || [ -z "$ssl_private_key_path" ]
+then
+  if get_user_answer_yn "CREATE A NEW SSL CERTIFCATE?"
+  then
+    sudo certbot certonly --standalone --agree-tos --noninteractive --preferred-challenges http --email $contact --domains $domain
+    ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+    ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+    echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
+    echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+    echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
+  else
+    echo ""
+    if get_user_answer_yn "USE EXISTING SSL CERTIFCATE?"
+    then
+      echo ""
+      read -p "ENTER YOUR SSL CERTIFCATE PATH: " -e ssl_certificate_path
+      echo ""
+      read -p "ENTER YOUR SSL PRIVATE KEY PATH: " -e ssl_private_key_path
+      echo ""
+      ssl_certificate_path=$(certbot certificates | grep 'Certificate Path:' | awk '{print $3}')
+      ssl_private_key_path=$(certbot certificates | grep 'Private Key Path:' | awk '{print $4}')
+      echo -e "https-private-key-file = $ssl_private_key_path" >> $config_file
+      echo -e "https-certificate-chain-file = $ssl_certificate_path" >> $config_file
+      echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
+    fi
+  fi
+fi
+
+#----------------------------------------------------------------------------------------------------#
+# RESTORING ORE MAINNET SNAPSHOT                                                                     #
+#----------------------------------------------------------------------------------------------------#
+
+echo ""
+echo "=================================="
+echo "ORE MAINNET SNAPSHOT HAS STARTED"
+echo "=================================="
+echo ""
+echo "Downloading Snapshot"
+echo ""
+curl -O https://eosmetal.io/snapshots/telos-testnet/latest.tar.gz
+echo ""
+echo "Downloaded Snapshot"
+echo ""
+echo "Uncompressed Snapshot"
+gunzip latest.tar.gz
+tar_file=$(ls *.tar | head -1)
+sudo tar -xvf $tar_file
+rm $tar_file
+mv ./opt/telos-testnet/data-dir/snapshots/*.bin $snapshots_folder/
+bin_file=$snapshots_folder/*.bin
+rm -rf $blocks_folder
+rm -rf $state_folder
+cd ~
+nodeos --config-dir $create_config_dir/ --data-dir $create_data_dir/ --disable-replay-opts --snapshot $bin_file >> $nodeos_log_file 2>&1 &
+sleep 6
+echo ""
+while [ : ]
+do
+	systemdt=$(date '+%Y-%m-%dT%H:%M')
+
+	if [ "$dt1" == "$systemdt" ]; then
+		break
+	else
+		dt1=$(cleos get info | grep head_block_time | cut -c 23-38)
+		dt1date=$(echo $dt1 | awk -F'T' '{print $1}' | awk -F'-' 'BEGIN {OFS="-"}{ print $3, $2, $1}')
+		dt1time=$(echo $dt1 | awk -F'T' '{print $2}' | awk -F':' 'BEGIN {OFS=":"}{ print $1, $2}')
+
+		dt2=$(tail -n 1 $log_file | awk '{print $2}'| awk -F'.' '{print $1}')
+		dt2date=$(echo $dt2 | awk -F'T' '{print $1}' | awk -F'-' 'BEGIN {OFS="-"}{ print $3, $2, $1}')
+		dt2time=$(echo $dt2 | awk -F'T' '{print $2}' | awk -F':' 'BEGIN {OFS=":"}{ print $1, $2}')
+
+		echo "Fetching blocks for [${dt1date} | ${dt1time}] | Current block date [${dt2date} | ${dt2time}]"
+	fi
+	echo ""
+	sleep 2
+done
+echo "===================================="
+echo "ORE MAINNET SNAPSHOT HAS COMPLETED"
+echo "===================================="
+echo ""
+
+#----------------------------------------------------------------------------------------------------#
+# REGISTER ORE MAINNET PRODUCER                                                                      #
+#----------------------------------------------------------------------------------------------------#
+
+cleos wallet lock -n $wallet_name > /dev/null 2>&1
+cleos wallet unlock -n $wallet_name --password=$walletpass > /dev/null 2>&1
+cleos system regproducer $producer $signature_public_key $bp_json $country_code -x 120 -p $producer@active
+cleos system regproducer $producer $bp1_signature_public_key $bp_json $country_code -x 120 -p $producer@active
+
+#----------------------------------------------------------------------------------------------------#
+# REMOVING ACTIVE KEY                                                                                #
+#----------------------------------------------------------------------------------------------------#
+
+cleos wallet lock -n $wallet_name > /dev/null 2>&1
+cleos wallet unlock -n $wallet_name --password=$walletpass > /dev/null 2>&1
+cleos wallet remove_key -n $wallet_name $active_public_key --password=$walletpass
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALLING APACHE WEB SERVER                                                                       #
+#----------------------------------------------------------------------------------------------------#
+
+sudo apt install apache2 -y
+sudo mkdir -p /var/www/$domain
+sudo chown -R $USER:$USER /var/www/$domain
+sudo chmod -R 755 /var/www/$domain
+echo -e "<VirtualHost *:80>
+    ProxyPreserveHost On
+    ProxyRequests Off
+    ServerName http://$domain
+    ServerAlias http://$domain
+    DocumentRoot /var/www/$domain
+    ProxyPass / http://localhost:8888/
+    ProxyPassReverse / http://localhost:8888/
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+</VirtualHost>" > /etc/apache2/sites-available/$domain.conf
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+sudo a2ensite $domain.conf
+sudo a2dissite 000-default.conf
+sudo service apache2 restart
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALLING UNCOMPLICATED FIREWALL                                                                  #
+#----------------------------------------------------------------------------------------------------#
+
+sudo -S apt-get install ufw -y
+sudo -S ufw allow ssh/tcp
+sudo -S ufw limit ssh/tcp
+sudo -S ufw allow 8888/tcp
+sudo -S ufw allow 9876/tcp
+sudo -S ufw allow http/tcp
+sudo -S ufw allow https/tcp
+sudo -S ufw allow 'Apache Full'
+sudo -S ufw allow $port/tcp
+sudo -S ufw logging on
+sudo -S ufw enable
+
+#----------------------------------------------------------------------------------------------------#
+# INSTALLING FAIL2BAN                                                                                #
+#----------------------------------------------------------------------------------------------------#
+
+sudo -S apt install fail2ban -y
+sudo -S systemctl enable fail2ban
+sudo -S systemctl start fail2ban
 
 #----------------------------------------------------------------------------------------------------#
 # CLEANUP INSTALLATION FILES                                                                         #
 #----------------------------------------------------------------------------------------------------#
 
-rm /root/ore-peer-list.ini
-rm /root/ore-bp2-remblock.sh
-rm /root/ore-restore-snapshot.sh
+rm /root/signature_key
+rm /root/signature_key1
+rm /root/telos-bp2-testnet.sh
+rm /root/telos-testnet-peer-list.ini
 rm /root/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
@@ -312,7 +433,7 @@ echo $ssh_public_key > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 sudo -S service sshd restart
 echo ""
-echo "===================================="
-echo "ORE-BP2-REMBLOCK SETUP HAS COMPLETED"
-echo "===================================="
+echo "====================================="
+echo "ORE-BP2-MAINNET SETUP HAS COMPLETED"
+echo "====================================="
 echo ""
