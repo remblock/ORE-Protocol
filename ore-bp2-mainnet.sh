@@ -221,10 +221,10 @@ cleos wallet import -n $wallet_name --private-key=$producer_private_key
 
 cleos create key --file signature_key
 cp signature_key signature_key1
-echo "" >> telos_keys.txt
-echo "Signature Keys:" >> telos_keys.txt
-echo "" >> telos_keys.txt
-cat signature_key >> telos_keys.txt
+echo "" >> ore_keys.txt
+echo "Signature Keys:" >> ore_keys.txt
+echo "" >> ore_keys.txt
+cat signature_key >> ore_keys.txt
 sudo -S sed -i "/^Private key: /s/Private key: //" signature_key1 && sudo -S sed -i "/^Public key: /s/Public key: //" signature_key1
 signature_public_key=$(head -n 2 signature_key1 | tail -1)
 signature_private_key=$(head -n 1 signature_key1 | tail -1)
