@@ -251,8 +251,8 @@ echo -e "\nagent-name = $producer\nproducer-name = $producer\nsignature-provider
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
 echo -e "# ORE MAINNET P2P PEER ADDRESSES                                               #" >> $config_file
 echo -e "#------------------------------------------------------------------------------#\n" >> $config_file
-wget https://github.com/remblock/TELOS-Protocol/raw/master/Testnet/telos-testnet-peer-list.ini
-cat /root/telos-testnet-peer-list.ini >> $config_file
+wget https://github.com/remblock/ORE-Protocol/raw/master/ore-peer-list.ini
+cat /root/ore-peer-list.ini >> $config_file
 echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
 
 #----------------------------------------------------------------------------------------------------#
@@ -421,8 +421,8 @@ sudo -S systemctl start fail2ban
 
 rm /root/signature_key
 rm /root/signature_key1
-rm /root/telos-bp2-testnet.sh
-rm /root/telos-testnet-peer-list.ini
+rm /root/ore-peer-list.ini
+rm /root/ore-bp2-mainnet.sh
 rm /root/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
