@@ -83,11 +83,11 @@ sudo snap install canonical-livepatch
 sudo snap install --classic certbot
 
 #----------------------------------------------------------------------------------------------------#
-# FETCHING THE ORE TESTNET GENESIS.JSON AND SNAPSHOT                                               #
+# FETCHING THE ORE MAINNET GENESIS.JSON AND SNAPSHOT                                               #
 #----------------------------------------------------------------------------------------------------#
 
-wget https://github.com/telosnetwork/node-template/raw/master/testnet/genesis.json
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.sh
+wget https://raw.githubusercontent.com/Open-Rights-Exchange/ore-bp-docs/master/config-templates/genesis.json
 
 #----------------------------------------------------------------------------------------------------#
 # ADJUSTING SERVER TIMEZONE TO UTC                                                                   #
@@ -193,7 +193,7 @@ wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio_2.0.7-1-ubuntu-
 sudo apt install ./eosio_2.0.7-1-ubuntu-18.04_amd64.deb -y
 
 #----------------------------------------------------------------------------------------------------#
-# CREATING ORE TESTNET WALLET                                                                        #
+# CREATING ORE MAINNET WALLET                                                                        #
 #----------------------------------------------------------------------------------------------------#
 
 cleos wallet create -n $wallet_name --file $wallet_name
