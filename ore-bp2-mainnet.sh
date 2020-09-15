@@ -83,7 +83,7 @@ sudo snap install canonical-livepatch
 sudo snap install --classic certbot
 
 #----------------------------------------------------------------------------------------------------#
-# FETCHING THE TELOS TESTNET GENESIS.JSON AND SNAPSHOT                                               #
+# FETCHING THE ORE TESTNET GENESIS.JSON AND SNAPSHOT                                               #
 #----------------------------------------------------------------------------------------------------#
 
 wget https://github.com/telosnetwork/node-template/raw/master/testnet/genesis.json
@@ -319,7 +319,7 @@ echo "Uncompressed $latest_snapshot"
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
-nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file 2>&1 &
+nodeos --config-dir $config_folder/ --data-dir $data_folder/ --disable-replay-opts --snapshot $bin_file >> $log_file 2>&1 &
 sleep 6
 echo ""
 while [ : ]
