@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #****************************************************************************************************#
-#                                        ORE-BP2-TESTNET-SETUP                                       #
+#                                        ORE-BP2-MAINNET-SETUP                                       #
 #****************************************************************************************************#
 
 #----------------------------------------------------------------------------------------------------#
@@ -83,7 +83,7 @@ sudo snap install canonical-livepatch
 sudo snap install --classic certbot
 
 #----------------------------------------------------------------------------------------------------#
-# FETCHING THE ORE MAINNET GENESIS.JSON AND SNAPSHOT                                               #
+# FETCHING THE ORE MAINNET GENESIS.JSON AND SNAPSHOT                                                 #
 #----------------------------------------------------------------------------------------------------#
 
 wget https://github.com/remblock/ORE-Protocol/raw/master/ore-take-snapshot.sh
