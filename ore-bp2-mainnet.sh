@@ -21,6 +21,7 @@ fi
 country_code=554
 producer=remblock21bp
 wallet_name=walletpass
+domain=ore.remblock.io
 create_ssh_dir=/root/.ssh
 create_data_dir=/root/data
 state_dir=/root/data/state
@@ -28,7 +29,6 @@ contact=contact@remblock.io
 blocks_dir=/root/data/blocks
 new_hostname=ore-bp2-mainnet
 create_config_dir=/root/config
-domain=ore.remblock.io
 nodeos_log_file=/root/nodeos.log
 bp_json=https://bp.remblock.io/ore
 config_file=/root/config/config.ini
