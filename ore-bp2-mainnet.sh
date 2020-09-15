@@ -308,7 +308,7 @@ echo "=================================="
 echo ""
 echo "Downloading Snapshot"
 echo ""
-curl -O https://eosmetal.io/snapshots/telos-testnet/latest.tar.gz
+curl -s https://info.remblock.io/ore/latestsnapshot.txt
 echo ""
 echo "Downloaded Snapshot"
 echo ""
