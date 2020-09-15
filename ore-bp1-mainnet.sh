@@ -202,9 +202,9 @@ cleos wallet import -n $wallet_name --private-key=$owner_private_key
 
 cleos create key --file active_key
 cp active_key active_key1
-echo "Active Keys:" > ore_keys.txt
-echo "" >> ore_keys.txt
-cat active_key >> ore_keys.txt
+echo "Active Keys:" > ore_bp1_keys.txt
+echo "" >> ore_bp1_keys.txt
+cat active_key >> ore_bp1_keys.txt
 sudo -S sed -i "/^Private key: /s/Private key: //" active_key1 && sudo -S sed -i "/^Public key: /s/Public key: //" active_key1
 active_public_key=$(head -n 2 active_key1 | tail -1)
 active_private_key=$(head -n 1 active_key1 | tail -1)
@@ -218,10 +218,10 @@ cleos wallet import -n $wallet_name --private-key=$active_private_key
 
 cleos create key --file signature_key
 cp signature_key signature_key1
-echo "" >> ore_keys.txt
-echo "Signature Keys:" >> ore_keys.txt
-echo "" >> ore_keys.txt
-cat signature_key >> ore_keys.txt
+echo "" >> ore_bp1_keys.txt
+echo "Signature Keys:" >> ore_bp1_keys.txt
+echo "" >> ore_bp1_keys.txt
+cat signature_key >> ore_bp1_keys.txt
 sudo -S sed -i "/^Private key: /s/Private key: //" signature_key1 && sudo -S sed -i "/^Public key: /s/Public key: //" signature_key1
 signature_public_key=$(head -n 2 signature_key1 | tail -1)
 signature_private_key=$(head -n 1 signature_key1 | tail -1)
@@ -235,10 +235,10 @@ cleos wallet import -n $wallet_name --private-key=$signature_private_key
 
 cleos create key --file producer_key
 cp producer_key producer_key1
-echo "" >> ore_keys.txt
-echo "Producer Keys:" >> ore_keys.txt
-echo "" >> ore_keys.txt
-cat producer_key >> ore_keys.txt
+echo "" >> ore_bp1_keys.txt
+echo "Producer Keys:" >> ore_bp1_keys.txt
+echo "" >> ore_bp1_keys.txt
+cat producer_key >> ore_bp1_keys.txt
 sudo -S sed -i "/^Private key: /s/Private key: //" producer_key1 && sudo -S sed -i "/^Public key: /s/Public key: //" producer_key1
 producer_public_key=$(head -n 2 producer_key1 | tail -1)
 producer_private_key=$(head -n 1 producer_key1 | tail -1)
@@ -351,7 +351,7 @@ echo $ssh_public_key > ~/.ssh/id_rsa.pub
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 sudo -S service sshd restart
 echo ""
-echo "====================================="
+echo "==================================="
 echo "ORE-BP1-MAINNET SETUP HAS COMPLETED"
-echo "====================================="
+echo "==================================="
 echo ""
