@@ -87,7 +87,7 @@ then
   echo "echo "Compression of the Snapshot has completed"" >> $sh_create
   echo "echo """ >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestsnapshot.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*snapshot.tar.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*snapshot.tar.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-snapshot.tar.gz $remote_user:$remote_server_folder" >> $sh_create
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-snapshot.tar.gz > latestsnapshot.txt'" >> $sh_create
   $sh_create
@@ -188,7 +188,7 @@ then
 #****************************************************************************************************#
 
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name latestblocks.txt -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
-  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'find $remote_server_folder -name \"*blockslog.tar.gz\" -type f -size -1000k -delete 2> /dev/null'" >> $sh_create_full
+  echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'ls -F $remote_server_folder/*blockslog.tar.gz | head -n -1 | xargs -r rm 2> /dev/null'" >> $sh_create_full
   echo "rsync -rv -e 'ssh -i ~/.ssh/id_rsa -p $ssh_port' --progress $file_name-blockslog.tar.gz $remote_user:$remote_server_folder" >> $sh_create_full
   echo "ssh -i ~/.ssh/id_rsa -p $ssh_port $remote_user 'cd $remote_server_folder; echo $date_name-blockslog.tar.gz > latestblocks.txt'" >> $sh_create_full
   $sh_create_full
