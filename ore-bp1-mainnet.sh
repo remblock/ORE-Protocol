@@ -265,8 +265,8 @@ echo -e "\nagent-name = $producer\nproducer-name = $producer\nsignature-provider
 echo -e "#------------------------------------------------------------------------------#" >> $config_file
 echo -e "# ORE MAINNET P2P PEER ADDRESSES                                               #" >> $config_file
 echo -e "#------------------------------------------------------------------------------#\n" >> $config_file
-wget https://github.com/remblock/ORE-Protocol/raw/master/ore-testnet-peer-list.ini
-cat /root/ore-testnet-peer-list.ini >> $config_file
+wget https://github.com/remblock/ORE-Protocol/raw/master/ore-peer-list.ini
+cat /root/ore-peer-list.ini >> $config_file
 echo -e "\n#-------------------------------------------------------------------------------\n" >> $config_file
 
 #----------------------------------------------------------------------------------------------------#
@@ -339,8 +339,8 @@ rm /root/producer_key
 rm /root/producer_key1
 rm /root/signature_key
 rm /root/signature_key1
+rm /root/ore-peer-list.ini
 rm /root/ore-bp1-mainnet.sh
-rm /root/ore-mainnet-peer-list.ini
 rm /root/eosio_2.0.7-1-ubuntu-18.04_amd64.deb
 
 #----------------------------------------------------------------------------------------------------#
