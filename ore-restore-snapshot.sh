@@ -52,12 +52,12 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 echo ""
-echo "================================="
-echo "ORE PROTOCOL SNAPSHOT HAS STARTED"
-echo "================================="
+echo "======================================="
+echo "DOWNLOADING OF ORE SNAPSHOT HAS STARTED"
+echo "======================================="
 latest_snapshot=$(curl -s https://info.remblock.io/ore/latestsnapshot.txt)
 echo ""
-echo "Downloading Snapshot now..."
+echo "Downloading snapshot now..."
 echo ""
 curl -O https://info.remblock.io/ore/$latest_snapshot
 echo ""
@@ -70,12 +70,12 @@ mv /root/root/data/snapshots/*.bin $snapshots_folder/
 bin_file=$snapshots_folder/*.bin
 echo ""
 echo "Uncompressed $latest_snapshot"
+echo ""
 rm -rf $blocks_folder
 rm -rf $state_folder
 cd ~
 nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file 2>&1 &
-sleep 6
-echo ""
+sleep 4
 while [ : ]
 do
 	systemdt=$(date '+%Y-%m-%dT%H:%M')
@@ -93,10 +93,12 @@ do
 
 		echo "Fetching blocks for [${dt1date} | ${dt1time}] | Current block date [${dt2date} | ${dt2time}]"
 	fi
+
 	echo ""
 	sleep 2
 done
-echo "=================================="
-echo "ORE MAINNET SNAPSHOT HAS COMPLETED"
-echo "=================================="
+rm ./ore-restore-snapshot.sh
+echo "========================================="
+echo "DOWNLOADING OF ORE SNAPSHOT HAS COMPLETED"
+echo "========================================="
 echo ""
