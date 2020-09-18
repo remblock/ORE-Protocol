@@ -13,7 +13,6 @@ log_file=/root/nodeos.log
 config_folder=/root/config
 state_folder=$data_folder/state
 blocks_folder=$data_folder/blocks
-snapshots_folder=$data_folder/snapshots
 
 #----------------------------------------------------------------------------------------------------#
 # INSTALLING CURL                                                                                    #
@@ -22,15 +21,17 @@ snapshots_folder=$data_folder/snapshots
 sudo apt install curl -y
 
 #----------------------------------------------------------------------------------------------------#
-# CREATE SNAPSHOT FOLDER IN DATA                                                                     #
+# CREATE BLOCKS AND STATE FOLDER IN DATA                                                             #
 #----------------------------------------------------------------------------------------------------#
 
-if [ ! -d $snapshots_folder ]
+if [ ! -d $blocks_folder ]
 then
-  mkdir $snapshots_folder
+  mkdir -p $blocks_folder
 fi
-
-rm $snapshots_folder/*.bin 2> /dev/null
+if [ ! -d $state_folder ]
+then
+  mkdir -p $state_folder
+fi
 
 #----------------------------------------------------------------------------------------------------#
 # GRACEFULLY STOP ORE-PROTOCOL                                                                       #
@@ -52,51 +53,30 @@ fi
 #----------------------------------------------------------------------------------------------------#
 
 echo ""
-echo "================================="
-echo "ORE PROTOCOL SNAPSHOT HAS STARTED"
-echo "================================="
-latest_snapshot=$(curl -s https://info.remblock.io/ore/latestsnapshot.txt)
+echo "====================================="
+echo "DOWNLOADING OF ORE BLOCKS HAS STARTED"
+echo "====================================="
+latest_blocks=$(curl -s https://info.remblock.io/ore/latestblocks.txt)
 echo ""
-echo "Downloading Snapshot now..."
+echo "Downloading blocks now..."
 echo ""
-curl -O https://info.remblock.io/ore/$latest_snapshot
+curl -O https://info.remblock.io/ore/$latest_blocks
 echo ""
-echo "Downloaded $latest_snapshot"
-gunzip $latest_snapshot
+echo "Downloaded $latest_blocks"
+gunzip $latest_blocks
 tar_file=$(ls *.tar | head -1)
 sudo tar -xvf $tar_file
 rm $tar_file
-mv /root/root/data/snapshots/*.bin $snapshots_folder/
-bin_file=$snapshots_folder/*.bin
-echo ""
-echo "Uncompressed $latest_snapshot"
 rm -rf $blocks_folder
 rm -rf $state_folder
-cd ~
-nodeos --config-dir $config_folder/ --data-dir $data_folder/ --snapshot $bin_file >> $log_file 2>&1 &
-sleep 6
+mv /root/root/data/blocks/* $blocks_folder/
+mv /root/root/data/blocks/* $blocks_folder/
+rm /root/root/
 echo ""
-while [ : ]
-do
-	systemdt=$(date '+%Y-%m-%dT%H:%M')
-
-	if [ "$dt1" == "$systemdt" ]; then
-		break
-	else
-		dt1=$(cleos get info | grep head_block_time | cut -c 23-38)
-		dt1date=$(echo $dt1 | awk -F'T' '{print $1}' | awk -F'-' 'BEGIN {OFS="-"}{ print $3, $2, $1}')
-		dt1time=$(echo $dt1 | awk -F'T' '{print $2}' | awk -F':' 'BEGIN {OFS=":"}{ print $1, $2}')
-
-		dt2=$(tail -n 1 $log_file | awk '{print $2}'| awk -F'.' '{print $1}')
-		dt2date=$(echo $dt2 | awk -F'T' '{print $1}' | awk -F'-' 'BEGIN {OFS="-"}{ print $3, $2, $1}')
-		dt2time=$(echo $dt2 | awk -F'T' '{print $2}' | awk -F':' 'BEGIN {OFS=":"}{ print $1, $2}')
-
-		echo "Fetching blocks for [${dt1date} | ${dt1time}] | Current block date [${dt2date} | ${dt2time}]"
-	fi
-	echo ""
-	sleep 2
-done
-echo "================================"
-echo "ORE MAINNET BLOCKS HAS COMPLETED"
-echo "================================"
+echo "Uncompressed $latest_blocks"
+rm ./ore-restore-blocks.sh
+echo ""
+echo "======================================="
+echo "DOWNLOADING OF ORE BLOCKS HAS COMPLETED"
+echo "======================================="
 echo ""
