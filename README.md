@@ -19,7 +19,7 @@ sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-node-monitor.s
 #### Adjust the ore-bp1-mainnet script using the code below:
 
 ```
-sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-bp2-mainnet.sh && sudo chmod u+x ore-bp2-mainnet.sh && nano ./ore-bp2-mainnet.sh
+sudo wget https://github.com/remblock/ORE-Protocol/raw/master/ore-bp1-mainnet.sh && sudo chmod u+x ore-bp1-mainnet.sh && nano ./ore-bp1-mainnet.sh
 ```
 
 #### Adjust the ore-bp2-mainnet script using the code below:
